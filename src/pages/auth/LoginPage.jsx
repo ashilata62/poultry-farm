@@ -64,6 +64,7 @@ export const LoginPage = () => {
       extraBadge: pendingOrdersCount > 0 ? `${pendingOrdersCount} Pending` : null,
       action: () => {
         setCurrentRole('admin');
+        setCustomerView('home');
         setAdminModule('dashboard');
         if (showToast) showToast('Logged in as Farm Administrator');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -81,6 +82,7 @@ export const LoginPage = () => {
       extraBadge: inTransitCount > 0 ? `${inTransitCount} In Transit` : null,
       action: () => {
         setCurrentRole('delivery');
+        setCustomerView('home');
         if (showToast) showToast('Accessing Delivery Dispatch Hub');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
@@ -96,6 +98,7 @@ export const LoginPage = () => {
       email: 'rajesh.driver@thevillagefarm.in',
       action: () => {
         setCurrentRole('driver');
+        setCustomerView('home');
         if (showToast) showToast('Logged in to Driver Mobile Portal');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }

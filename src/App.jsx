@@ -43,7 +43,7 @@ const AppContent = () => {
   const [isAdminMobileSidebarOpen, setIsAdminMobileSidebarOpen] = useState(false);
 
   // Dedicated Multi-Role Login Gateway Screen
-  if (currentRole === 'login' || customerView === 'login') {
+  if (currentRole === 'login') {
     return (
       <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--soft-cream)' }}>
         <LoginPage />
