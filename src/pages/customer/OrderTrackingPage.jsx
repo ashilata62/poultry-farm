@@ -16,8 +16,10 @@ import {
 } from 'lucide-react';
 
 export const OrderTrackingPage = () => {
-  const { orders, trackingOrderId, setTrackingOrderId, settings } = useFarm();
+  const { orders, trackingOrderId, setTrackingOrderId, settings, showToast, updateOrderStatus } = useFarm();
   const [searchInput, setSearchInput] = useState(trackingOrderId || '');
+  const [isSearching, setIsSearching] = useState(false);
+  const [justRefreshed, setJustRefreshed] = useState(false);
 
   const activeOrder = orders.find(
     (o) => o.id.toLowerCase() === (trackingOrderId || '').toLowerCase()
@@ -25,15 +27,37 @@ export const OrderTrackingPage = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (!searchInput.trim()) return;
-    const found = orders.find(
-      (o) =>
-        o.id.toLowerCase() === searchInput.trim().toLowerCase() ||
-        o.customerPhone.includes(searchInput.trim())
-    );
-    if (found) {
-      setTrackingOrderId(found.id);
+    const query = searchInput.trim().replace(/^#/, '').toLowerCase();
+    if (!query) {
+      if (showToast) showToast('Please enter an Order ID or Phone number', 'warning');
+      return;
     }
+
+    setIsSearching(true);
+    setTimeout(() => {
+      setIsSearching(false);
+      const found = orders.find(
+        (o) =>
+          o.id.toLowerCase() === query ||
+          o.id.toLowerCase().replace(/[^a-z0-9]/g, '') === query.replace(/[^a-z0-9]/g, '') ||
+          (o.customerPhone && o.customerPhone.replace(/[^0-9]/g, '').includes(query))
+      );
+
+      if (found) {
+        setTrackingOrderId(found.id);
+        setJustRefreshed(true);
+        setTimeout(() => setJustRefreshed(false), 1500);
+        if (showToast) {
+          showToast(`Live status refreshed for Order #${found.id}!`, 'success');
+        }
+        const el = document.getElementById('tracking-card');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } else {
+        if (showToast) {
+          showToast(`Order "${searchInput}" not found. Try TVF-74939 or check your phone number.`, 'error');
+        }
+      }
+    }, 300);
   };
 
   const steps = [
@@ -101,8 +125,21 @@ export const OrderTrackingPage = () => {
                 style={{ border: 'none', paddingLeft: '2.5rem', boxShadow: 'none' }}
               />
             </div>
-            <button type="submit" className="btn btn-primary" style={{ padding: '0.5rem 1.25rem' }}>
-              Track
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={isSearching}
+              style={{
+                padding: '0.5rem 1.25rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                minWidth: '85px',
+                justifyContent: 'center',
+                cursor: 'pointer'
+              }}
+            >
+              {isSearching ? 'Tracking...' : 'Track'}
             </button>
           </form>
         </div>
@@ -128,8 +165,17 @@ export const OrderTrackingPage = () => {
             {/* Left Column: Status Timeline & Driver Card */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
               {/* Order Status Card */}
-              <div className="card" style={{ backgroundColor: 'var(--white)' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid var(--border-beige)', paddingBottom: '1rem', marginBottom: '1.5rem' }}>
+              <div
+                id="tracking-card"
+                className="card"
+                style={{
+                  backgroundColor: 'var(--white)',
+                  transition: 'box-shadow 0.3s ease, border-color 0.3s ease',
+                  border: justRefreshed ? '1.5px solid var(--amber-primary)' : '1px solid var(--border-beige)',
+                  boxShadow: justRefreshed ? '0 0 16px rgba(242, 140, 40, 0.28)' : 'var(--shadow-sm)'
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid var(--border-beige)', paddingBottom: '1rem', marginBottom: '1.25rem' }}>
                   <div>
                     <div style={{ fontSize: '0.75rem', color: 'var(--muted-text)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                       Order Tracking
@@ -139,6 +185,55 @@ export const OrderTrackingPage = () => {
                     </div>
                   </div>
                   <StatusBadge status={activeOrder.orderStatus} type="order" />
+                </div>
+
+                {/* Interactive Stage Simulation Banner (Demo Flow) */}
+                <div
+                  style={{
+                    backgroundColor: '#FFF7ED',
+                    border: '1px solid #FFEDD5',
+                    borderRadius: '8px',
+                    padding: '8px 12px',
+                    marginBottom: '1.25rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    flexWrap: 'wrap',
+                    gap: '8px'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8125rem', color: '#9A3412', fontWeight: 600 }}>
+                    <Clock size={14} color="#EA580C" />
+                    <span>Status: <strong>{steps[currentStepIdx]?.label || activeOrder.orderStatus}</strong></span>
+                  </div>
+                  {currentStepIdx < steps.length - 1 ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const nextStep = steps[currentStepIdx + 1];
+                        if (nextStep) {
+                          updateOrderStatus(activeOrder.id, nextStep.key);
+                        }
+                      }}
+                      style={{
+                        backgroundColor: '#EA580C',
+                        color: '#FFFFFF',
+                        border: 'none',
+                        borderRadius: '6px',
+                        padding: '4px 10px',
+                        fontSize: '0.75rem',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        boxShadow: '0 2px 5px rgba(234, 88, 12, 0.25)'
+                      }}
+                    >
+                      Advance to "{steps[currentStepIdx + 1]?.label}" →
+                    </button>
+                  ) : (
+                    <span style={{ fontSize: '0.75rem', color: '#16A34A', fontWeight: 700 }}>
+                      ✓ Order Delivered Fresh
+                    </span>
+                  )}
                 </div>
 
                 {/* Horizontal / Stepper Progress Bar */}
