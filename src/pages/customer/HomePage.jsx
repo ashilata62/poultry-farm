@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useFarm } from '../../context/FarmContext';
 import {
+  ChevronLeft,
+  ChevronRight,
+  Scale,
+  Bell,
   ShoppingBag,
-  ArrowRight,
+  Sparkles,
   ShieldCheck,
   Truck,
-  Sparkles,
-  Clock,
   CheckCircle2,
-  PhoneCall,
-  QrCode,
   MapPin,
-  ChevronRight,
-  Star
+  Star,
+  QrCode,
+  ArrowRight
 } from 'lucide-react';
 
 export const HomePage = () => {
@@ -22,807 +23,622 @@ export const HomePage = () => {
     setSelectedProductModal,
     setCustomerView,
     setIsQrModalOpen,
-    settings
+    showToast
   } = useFarm();
 
+  const [selectedCategory, setSelectedCategory] = useState('Chicken');
   const [pincodeInput, setPincodeInput] = useState('');
   const [pincodeResult, setPincodeResult] = useState(null);
+  const carouselRef = useRef(null);
 
-  const featuredProducts = products.slice(0, 4);
+  const CATEGORIES = [
+    { id: 'Chicken', name: 'Chicken', image: '/images/categories/cat_chicken.jpg' },
+    { id: 'Mutton', name: 'Mutton', image: '/images/categories/cat_mutton.jpg' },
+    { id: 'Sea Food', name: 'Sea Food', image: '/images/categories/cat_seafood.jpg' },
+    { id: 'Ready To Cook', name: 'Ready To Cook', image: '/images/categories/cat_readycook.jpg' },
+    { id: 'Biryani', name: 'Biryani', image: '/images/categories/cat_biryani.jpg' },
+    { id: 'Snacks', name: 'Snacks', image: '/images/categories/cat_snacks.jpg' }
+  ];
+
+  const scrollCarousel = (direction) => {
+    if (carouselRef.current) {
+      const scrollAmount = direction === 'left' ? -220 : 220;
+      carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  const filteredProducts = products.filter(
+    (p) => p.category.toLowerCase() === selectedCategory.toLowerCase()
+  );
+
+  const handleNotifyMe = (e, product) => {
+    e.stopPropagation();
+    if (showToast) {
+      showToast(`Priority Alert Set: We will notify you when ${product.name} is harvested!`);
+    }
+  };
+
+  const handleAddToCart = (e, product) => {
+    e.stopPropagation();
+    addToCart(product, 1);
+  };
 
   const checkPincode = (e) => {
     e.preventDefault();
     const cleanPin = pincodeInput.trim();
     if (!cleanPin) return;
 
-    // Supported delivery pin codes in Bengaluru east/south corridor
     const validCodes = ['560087', '560103', '560034', '560102', '560037', '560066', '560035', '560068'];
     if (validCodes.includes(cleanPin) || cleanPin.startsWith('560')) {
       setPincodeResult({
         serviceable: true,
-        message: `Pincode ${cleanPin} is within our fresh morning delivery radius! Dispatch available daily.`
+        message: `Pincode ${cleanPin} is eligible for 90-Min Chilled Van Dispatch!`
       });
     } else {
       setPincodeResult({
         serviceable: false,
-        message: `Pincode ${cleanPin} is outside our direct 25km refrigerated van radius. Contact us on WhatsApp for bulk courier.`
+        message: `Pincode ${cleanPin} is outside our direct radius. WhatsApp us for special delivery.`
       });
     }
   };
 
   return (
-    <div>
-      {/* Hero Section */}
-      <section
+    <div style={{ backgroundColor: '#FAF8F5', minHeight: '100vh', paddingBottom: '3.5rem' }}>
+      {/* 1. TOP HORIZONTAL CATEGORY CAROUSEL (Exact Client Reference Design) */}
+      <div
         style={{
-          position: 'relative',
-          backgroundColor: 'var(--charcoal-deep)',
-          color: 'var(--warm-ivory)',
-          overflow: 'hidden',
-          padding: 'clamp(2.5rem, 5vw, 4.5rem) 0 clamp(3rem, 6vw, 5rem)'
+          backgroundColor: '#FFF5F5',
+          borderBottom: '1px solid rgba(229, 218, 218, 0.7)',
+          padding: '0.75rem 0',
+          position: 'sticky',
+          top: 'var(--header-height, 65px)',
+          zIndex: 40,
+          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.03)'
         }}
       >
-        {/* Subtle Ambient Background */}
         <div
+          className="container"
           style={{
-            position: 'absolute',
-            inset: 0,
-            backgroundImage: 'radial-gradient(circle at 80% 20%, rgba(242, 140, 40, 0.12) 0%, transparent 60%)',
-            pointerEvents: 'none'
+            display: 'flex',
+            alignItems: 'center',
+            position: 'relative'
           }}
-        />
-
-        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-          <div
+        >
+          {/* Left Scroll Chevron */}
+          <button
+            onClick={() => scrollCarousel('left')}
+            aria-label="Scroll categories left"
             style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
-              gap: '3.5rem',
-              alignItems: 'center'
-            }}
-          >
-            {/* Left Hero Content */}
-            <div>
-              <div
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  backgroundColor: 'rgba(242, 140, 40, 0.15)',
-                  border: '1px solid rgba(242, 140, 40, 0.3)',
-                  padding: '0.375rem 0.875rem',
-                  borderRadius: 'var(--radius-full)',
-                  fontSize: '0.8125rem',
-                  color: 'var(--amber-primary)',
-                  fontWeight: 600,
-                  marginBottom: '1.5rem'
-                }}
-              >
-                <Sparkles size={15} />
-                <span>Harvested Fresh Daily at 5:00 AM • Never Frozen</span>
-              </div>
-
-              <h1
-                style={{
-                  color: 'var(--white)',
-                  marginBottom: '1.25rem',
-                  lineHeight: 1.15
-                }}
-              >
-                Pure, Pasture-Raised Poultry. <br />
-                <span style={{ color: 'var(--amber-primary)', fontStyle: 'italic' }}>
-                  Direct From Our Farm
-                </span>{' '}
-                to Your Door.
-              </h1>
-
-              <p
-                style={{
-                  fontSize: '1.125rem',
-                  color: '#DDD6CC',
-                  lineHeight: '1.7',
-                  marginBottom: '2rem',
-                  maxWidth: '540px'
-                }}
-              >
-                Experience genuine country and free-range chicken raised on open pastures with natural grains, sunlight, and zero antibiotics. Chilled and delivered within 90 minutes of dispatch.
-              </p>
-
-              {/* CTAs */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '2.5rem' }}>
-                <button
-                  onClick={() => {
-                    setCustomerView('shop');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                  }}
-                  className="btn btn-primary btn-lg"
-                  style={{ gap: '0.625rem' }}
-                >
-                  <ShoppingBag size={19} />
-                  <span>Order Fresh Chicken</span>
-                </button>
-
-                <button
-                  onClick={() => {
-                    setCustomerView('tracking');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                  }}
-                  className="btn btn-outline"
-                  style={{ borderColor: 'var(--border-beige)', color: 'var(--warm-ivory)' }}
-                >
-                  <Truck size={19} />
-                  <span>Track Live Delivery</span>
-                </button>
-              </div>
-
-              {/* Trust Badges */}
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
-                  gap: '1rem',
-                  borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-                  paddingTop: '1.75rem'
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <ShieldCheck size={20} color="var(--success-green)" />
-                  <span style={{ fontSize: '0.8125rem', color: '#DDD6CC', fontWeight: 500 }}>
-                    100% Antibiotic-Free
-                  </span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <Truck size={20} color="var(--amber-primary)" />
-                  <span style={{ fontSize: '0.8125rem', color: '#DDD6CC', fontWeight: 500 }}>
-                    0-4°C Cold Chain Van
-                  </span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <CheckCircle2 size={20} color="var(--success-green)" />
-                  <span style={{ fontSize: '0.8125rem', color: '#DDD6CC', fontWeight: 500 }}>
-                    Same-Day Farm Harvest
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Hero Image Card */}
-            <div style={{ position: 'relative' }}>
-              <div
-                style={{
-                  borderRadius: 'var(--radius-xl)',
-                  overflow: 'hidden',
-                  border: '2px solid rgba(242, 140, 40, 0.3)',
-                  boxShadow: 'var(--shadow-xl)',
-                  position: 'relative'
-                }}
-              >
-                <img
-                  src="/images/farm_hero.jpg"
-                  alt="The Village Farm - Free Range Poultry Pastures"
-                  style={{
-                    width: '100%',
-                    height: 'clamp(260px, 45vw, 420px)',
-                    objectFit: 'cover',
-                    display: 'block'
-                  }}
-                />
-                <div
-                  style={{
-                    position: 'absolute',
-                    bottom: 0,
-                    insetInline: 0,
-                    padding: '1.5rem',
-                    background: 'linear-gradient(to top, rgba(32, 35, 33, 0.92) 0%, rgba(32, 35, 33, 0) 100%)'
-                  }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                    <div>
-                      <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--amber-primary)', fontWeight: 700, letterSpacing: '0.05em' }}>
-                        Ethical Pasture Flock
-                      </div>
-                      <div style={{ fontFamily: 'var(--font-heading)', fontSize: '1.25rem', color: 'var(--white)', fontWeight: 600 }}>
-                        The Village Farm, Varthur Hub
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => setIsQrModalOpen(true)}
-                      className="btn btn-sm btn-primary"
-                      style={{ padding: '0.35rem 0.75rem' }}
-                    >
-                      <QrCode size={14} />
-                      <span>Scan QR</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Farm Performance Stats Banner */}
-      <section
-        style={{
-          backgroundColor: 'var(--warm-ivory)',
-          borderBottom: '1px solid var(--border-beige)',
-          padding: '2rem 0'
-        }}
-      >
-        <div className="container">
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 140px), 1fr))',
-              gap: '1.5rem',
-              textAlign: 'center'
-            }}
-          >
-            <div>
-              <div style={{ fontFamily: 'var(--font-heading)', fontSize: '2.25rem', fontWeight: 700, color: 'var(--charcoal)' }}>
-                450+
-              </div>
-              <div style={{ fontSize: '0.875rem', color: 'var(--muted-text)', fontWeight: 500 }}>
-                Daily Pasture Birds
-              </div>
-            </div>
-
-            <div>
-              <div style={{ fontFamily: 'var(--font-heading)', fontSize: '2.25rem', fontWeight: 700, color: 'var(--amber-primary)' }}>
-                &lt; 90 min
-              </div>
-              <div style={{ fontSize: '0.875rem', color: 'var(--muted-text)', fontWeight: 500 }}>
-                Harvest to Chilled Dispatch
-              </div>
-            </div>
-
-            <div>
-              <div style={{ fontFamily: 'var(--font-heading)', fontSize: '2.25rem', fontWeight: 700, color: 'var(--charcoal)' }}>
-                0°C – 4°C
-              </div>
-              <div style={{ fontSize: '0.875rem', color: 'var(--muted-text)', fontWeight: 500 }}>
-                Unbroken Cold Chain
-              </div>
-            </div>
-
-            <div>
-              <div style={{ fontFamily: 'var(--font-heading)', fontSize: '2.25rem', fontWeight: 700, color: 'var(--success-green)' }}>
-                4.9 ★
-              </div>
-              <div style={{ fontSize: '0.875rem', color: 'var(--muted-text)', fontWeight: 500 }}>
-                Customer Taste Rating
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Chicken Cuts */}
-      <section style={{ padding: '4.5rem 0', backgroundColor: 'var(--soft-cream)' }}>
-        <div className="container">
-          <div
-            style={{
+              width: '32px',
+              height: '32px',
+              borderRadius: '50%',
+              backgroundColor: '#FFFFFF',
+              border: '1px solid #E5DADA',
+              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
               display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-end',
-              flexWrap: 'wrap',
-              gap: '1rem',
-              marginBottom: '2.5rem'
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              color: '#374151',
+              flexShrink: 0,
+              zIndex: 2,
+              marginRight: '8px'
             }}
           >
-            <div>
-              <div className="badge badge-amber" style={{ marginBottom: '0.5rem' }}>
-                Handpicked Farm Cuts
-              </div>
-              <h2 style={{ color: 'var(--charcoal)' }}>Today’s Fresh Farm Harvest</h2>
-              <p style={{ maxWidth: '600px', fontSize: '0.9375rem', marginTop: '0.25rem' }}>
-                Carefully dressed, hand-trimmed, and chilled within hours of harvest for supreme juiciness and rich poultry flavor.
-              </p>
-            </div>
+            <ChevronLeft size={18} />
+          </button>
 
-            <button
-              onClick={() => {
-                setCustomerView('shop');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="btn btn-outline"
-              style={{ gap: '0.5rem' }}
-            >
-              <span>View All Cuts</span>
-              <ChevronRight size={17} />
-            </button>
-          </div>
-
-          {/* Product Grid */}
+          {/* Scrollable Categories List */}
           <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-              gap: '1.75rem'
-            }}
-          >
-            {featuredProducts.map((product) => (
-              <div
-                key={product.id}
-                className="card"
-                style={{
-                  padding: 0,
-                  overflow: 'hidden',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  transition: 'transform var(--transition-normal), box-shadow var(--transition-normal)'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-4px)';
-                  e.currentTarget.style.boxShadow = 'var(--shadow-md)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'var(--shadow-xs)';
-                }}
-              >
-                {/* Product Image */}
-                <div
-                  style={{ position: 'relative', cursor: 'pointer' }}
-                  onClick={() => setSelectedProductModal(product)}
-                >
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    style={{ width: '100%', height: '200px', objectFit: 'cover' }}
-                  />
-                  {product.isPopular && (
-                    <span
-                      style={{
-                        position: 'absolute',
-                        top: '12px',
-                        left: '12px',
-                        backgroundColor: 'var(--amber-primary)',
-                        color: 'var(--charcoal-deep)',
-                        fontSize: '0.6875rem',
-                        fontWeight: 700,
-                        padding: '3px 8px',
-                        borderRadius: 'var(--radius-full)'
-                      }}
-                    >
-                      BESTSELLER
-                    </span>
-                  )}
-                  <div
-                    style={{
-                      position: 'absolute',
-                      bottom: '8px',
-                      right: '8px',
-                      backgroundColor: 'rgba(32, 35, 33, 0.85)',
-                      color: 'var(--white)',
-                      fontSize: '0.75rem',
-                      padding: '2px 8px',
-                      borderRadius: 'var(--radius-xs)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '4px'
-                    }}
-                  >
-                    <Star size={12} fill="#E7A12B" stroke="#E7A12B" />
-                    <span>{product.rating}</span>
-                  </div>
-                </div>
-
-                {/* Details */}
-                <div style={{ padding: '1.25rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                  <div>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--amber-dark)', fontWeight: 600, marginBottom: '0.25rem' }}>
-                      {product.category}
-                    </div>
-                    <h3
-                      onClick={() => setSelectedProductModal(product)}
-                      style={{
-                        fontSize: '1.0625rem',
-                        color: 'var(--charcoal)',
-                        marginBottom: '0.35rem',
-                        cursor: 'pointer',
-                        lineHeight: 1.3
-                      }}
-                    >
-                      {product.name}
-                    </h3>
-                    <p
-                      style={{
-                        fontSize: '0.8125rem',
-                        color: 'var(--muted-text)',
-                        marginBottom: '1rem',
-                        display: '-webkit-box',
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: 'vertical',
-                        overflow: 'hidden'
-                      }}
-                    >
-                      {product.description}
-                    </p>
-                  </div>
-
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: '0.875rem' }}>
-                      <div>
-                        <span style={{ fontSize: '1.35rem', fontWeight: 700, color: 'var(--charcoal)' }}>
-                          ₹{product.price}
-                        </span>
-                        <span style={{ fontSize: '0.75rem', color: 'var(--muted-text)', marginLeft: '4px' }}>
-                          {product.unit}
-                        </span>
-                      </div>
-                      <span className="badge badge-green" style={{ fontSize: '0.6875rem' }}>
-                        {product.stock} in stock
-                      </span>
-                    </div>
-
-                    <div style={{ display: 'flex', gap: '0.5rem' }}>
-                      <button
-                        onClick={() => setSelectedProductModal(product)}
-                        className="btn btn-secondary btn-sm"
-                        style={{ flex: 1 }}
-                      >
-                        Details
-                      </button>
-                      <button
-                        onClick={() => addToCart(product, 1)}
-                        className="btn btn-primary btn-sm"
-                        style={{ flex: 1.3, gap: '0.35rem' }}
-                      >
-                        <ShoppingBag size={14} />
-                        <span>Add to Cart</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Special Offers Section */}
-      <section style={{ backgroundColor: 'var(--warm-ivory)', padding: '4rem 0', borderTop: '1px solid var(--border-beige)', borderBottom: '1px solid var(--border-beige)' }}>
-        <div className="container">
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
-              gap: '2rem'
-            }}
-          >
-            {/* Promo 1 */}
-            <div
-              className="card"
-              style={{
-                backgroundColor: 'var(--white)',
-                border: '1.5px solid var(--amber-light)',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between'
-              }}
-            >
-              <div>
-                <span className="badge badge-amber" style={{ marginBottom: '0.75rem' }}>
-                  WEEKEND SPECIAL COMBO
-                </span>
-                <h3 style={{ fontSize: '1.35rem', marginBottom: '0.5rem' }}>
-                  Sunday Family Feast Bundle
-                </h3>
-                <p style={{ fontSize: '0.875rem', marginBottom: '1.25rem' }}>
-                  Includes 1x Whole Country Chicken (1.2kg) + 1kg Farm Broiler Curry Cut. Perfect for the hearty weekend family curry with authentic countryside flavor.
-                </p>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '1rem' }}>
-                  <span style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--amber-dark)' }}>
-                    ₹540
-                  </span>
-                  <span style={{ textDecoration: 'line-through', color: 'var(--muted-text)', fontSize: '0.9375rem' }}>
-                    ₹580
-                  </span>
-                  <span className="badge badge-green">Save ₹40</span>
-                </div>
-              </div>
-
-              <button
-                onClick={() => {
-                  addToCart(products[0], 1);
-                  addToCart(products[1], 1);
-                }}
-                className="btn btn-primary"
-              >
-                Add Weekend Combo to Cart
-              </button>
-            </div>
-
-            {/* Promo 2 */}
-            <div
-              className="card"
-              style={{
-                backgroundColor: 'var(--charcoal-deep)',
-                color: 'var(--white)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between'
-              }}
-            >
-              <div>
-                <span className="badge badge-amber" style={{ marginBottom: '0.75rem', backgroundColor: 'rgba(242, 140, 40, 0.2)' }}>
-                  HIGH-PROTEIN PLAN
-                </span>
-                <h3 style={{ fontSize: '1.35rem', color: 'var(--white)', marginBottom: '0.5rem' }}>
-                  Athlete & Fitness Meal Prep Pack
-                </h3>
-                <p style={{ fontSize: '0.875rem', color: '#B5AFA6', marginBottom: '1.25rem' }}>
-                  2kg Lean Boneless Chicken Breast Fillets hand-trimmed of visible fat. Packed in two sealed 1kg portions with zero added preservatives.
-                </p>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '1rem' }}>
-                  <span style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--amber-primary)' }}>
-                    ₹680
-                  </span>
-                  <span style={{ textDecoration: 'line-through', color: '#888', fontSize: '0.9375rem' }}>
-                    ₹720
-                  </span>
-                  <span className="badge badge-green">Save ₹40</span>
-                </div>
-              </div>
-
-              <button
-                onClick={() => {
-                  addToCart(products[2], 2);
-                }}
-                className="btn btn-primary"
-              >
-                Add Fitness Pack to Cart
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4-Step Farm-to-Fork Process */}
-      <section style={{ padding: '4.5rem 0', backgroundColor: 'var(--soft-cream)' }}>
-        <div className="container">
-          <div style={{ textAlign: 'center', maxWidth: '640px', margin: '0 auto 3.5rem' }}>
-            <span className="badge badge-amber" style={{ marginBottom: '0.5rem' }}>
-              TRANSPARENT FARMING
-            </span>
-            <h2 style={{ color: 'var(--charcoal)', marginBottom: '0.75rem' }}>
-              How The Village Farm Delivers Purity
-            </h2>
-            <p style={{ fontSize: '0.9375rem' }}>
-              From open pasture rearing to temperature-monitored refrigerated dispatch, every bird is handled with biosecurity and utmost respect.
-            </p>
-          </div>
-
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-              gap: '2rem'
-            }}
-          >
-            <div className="card" style={{ textAlign: 'center', padding: '2rem 1.5rem' }}>
-              <div
-                style={{
-                  width: '54px',
-                  height: '54px',
-                  borderRadius: '50%',
-                  backgroundColor: 'var(--amber-soft)',
-                  color: 'var(--amber-dark)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: '0 auto 1.25rem',
-                  fontWeight: 700,
-                  fontSize: '1.25rem'
-                }}
-              >
-                1
-              </div>
-              <h4 style={{ marginBottom: '0.5rem', fontSize: '1.125rem' }}>Open Pasture Flocks</h4>
-              <p style={{ fontSize: '0.875rem' }}>
-                Our birds enjoy direct sunlight, grassy paddocks, and a certified natural vegetarian grain feed without chemical growth hormones.
-              </p>
-            </div>
-
-            <div className="card" style={{ textAlign: 'center', padding: '2rem 1.5rem' }}>
-              <div
-                style={{
-                  width: '54px',
-                  height: '54px',
-                  borderRadius: '50%',
-                  backgroundColor: 'var(--amber-soft)',
-                  color: 'var(--amber-dark)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: '0 auto 1.25rem',
-                  fontWeight: 700,
-                  fontSize: '1.25rem'
-                }}
-              >
-                2
-              </div>
-              <h4 style={{ marginBottom: '0.5rem', fontSize: '1.125rem' }}>5:00 AM Morning Harvest</h4>
-              <p style={{ fontSize: '0.875rem' }}>
-                Harvesting happens fresh every dawn in our audited farm facility under strict avian veterinary supervision.
-              </p>
-            </div>
-
-            <div className="card" style={{ textAlign: 'center', padding: '2rem 1.5rem' }}>
-              <div
-                style={{
-                  width: '54px',
-                  height: '54px',
-                  borderRadius: '50%',
-                  backgroundColor: 'var(--amber-soft)',
-                  color: 'var(--amber-dark)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: '0 auto 1.25rem',
-                  fontWeight: 700,
-                  fontSize: '1.25rem'
-                }}
-              >
-                3
-              </div>
-              <h4 style={{ marginBottom: '0.5rem', fontSize: '1.125rem' }}>Hygienic Cold Packaging</h4>
-              <p style={{ fontSize: '0.875rem' }}>
-                Dressed cuts are immediately packed in biodegradable food-grade kraft trays sealed with dry ice and ice gel packs.
-              </p>
-            </div>
-
-            <div className="card" style={{ textAlign: 'center', padding: '2rem 1.5rem' }}>
-              <div
-                style={{
-                  width: '54px',
-                  height: '54px',
-                  borderRadius: '50%',
-                  backgroundColor: 'var(--amber-soft)',
-                  color: 'var(--amber-dark)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: '0 auto 1.25rem',
-                  fontWeight: 700,
-                  fontSize: '1.25rem'
-                }}
-              >
-                4
-              </div>
-              <h4 style={{ marginBottom: '0.5rem', fontSize: '1.125rem' }}>Chilled Direct Dispatch</h4>
-              <p style={{ fontSize: '0.875rem' }}>
-                Our temperature-controlled electric vans deliver orders straight to your doorstep within 90 minutes of dispatch.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Pincode & Service Area Checker */}
-      <section style={{ backgroundColor: 'var(--warm-ivory)', padding: '4rem 0', borderTop: '1px solid var(--border-beige)' }}>
-        <div className="container">
-          <div
-            style={{
-              maxWidth: '680px',
-              margin: '0 auto',
-              backgroundColor: 'var(--white)',
-              padding: '2.5rem',
-              borderRadius: 'var(--radius-lg)',
-              border: '1px solid var(--border-beige)',
-              boxShadow: 'var(--shadow-sm)',
-              textAlign: 'center'
-            }}
-          >
-            <div
-              style={{
-                width: '48px',
-                height: '48px',
-                borderRadius: '50%',
-                backgroundColor: 'var(--amber-soft)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                margin: '0 auto 1rem'
-              }}
-            >
-              <MapPin size={24} color="var(--amber-dark)" />
-            </div>
-
-            <h3 style={{ marginBottom: '0.5rem' }}>Check Delivery in Your Area</h3>
-            <p style={{ fontSize: '0.875rem', marginBottom: '1.5rem' }}>
-              We deliver within a 25km radius from our Varthur/Gunjur farm hub across South and East Bengaluru.
-            </p>
-
-            <form onSubmit={checkPincode} style={{ display: 'flex', gap: '0.75rem', maxWidth: '440px', margin: '0 auto' }}>
-              <input
-                type="text"
-                placeholder="Enter 6-digit Pincode (e.g. 560087)"
-                value={pincodeInput}
-                onChange={(e) => setPincodeInput(e.target.value)}
-                maxLength={6}
-                className="form-input"
-                style={{ textAlign: 'center', fontSize: '1rem', fontWeight: 600 }}
-              />
-              <button type="submit" className="btn btn-primary" style={{ whiteSpace: 'nowrap' }}>
-                Verify Coverage
-              </button>
-            </form>
-
-            {pincodeResult && (
-              <div
-                style={{
-                  marginTop: '1.25rem',
-                  padding: '0.875rem',
-                  borderRadius: 'var(--radius-sm)',
-                  backgroundColor: pincodeResult.serviceable ? 'var(--success-bg)' : 'var(--error-bg)',
-                  color: pincodeResult.serviceable ? 'var(--success-green)' : 'var(--error-red)',
-                  fontSize: '0.875rem',
-                  fontWeight: 500,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '0.5rem'
-                }}
-              >
-                {pincodeResult.serviceable ? <CheckCircle2 size={18} /> : <ShieldCheck size={18} />}
-                <span>{pincodeResult.message}</span>
-              </div>
-            )}
-
-            <div style={{ marginTop: '1.25rem', fontSize: '0.75rem', color: 'var(--muted-text)' }}>
-              Popular hubs: Bellandur • Sarjapur • Koramangala • HSR Layout • Whitefield • Marathahalli
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* WhatsApp Quick Inquire Strip */}
-      <section style={{ backgroundColor: 'var(--charcoal-deep)', color: 'var(--white)', padding: '2.5rem 0' }}>
-        <div className="container">
-          <div
+            ref={carouselRef}
             style={{
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              gap: '1.5rem'
+              gap: '1.75rem',
+              overflowX: 'auto',
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+              padding: '0.25rem 0.5rem',
+              flex: 1
             }}
           >
-            <div>
-              <h3 style={{ color: 'var(--white)', marginBottom: '0.25rem', fontSize: '1.35rem' }}>
-                Have Custom Cuts or Bulk Farm Orders?
-              </h3>
-              <p style={{ color: '#B5AFA6', fontSize: '0.9375rem' }}>
-                Chat directly with our farm manager on WhatsApp for special cuts, heritage birds, or recurring weekly subscriptions.
-              </p>
-            </div>
+            {CATEGORIES.map((cat) => {
+              const isSelected = selectedCategory.toLowerCase() === cat.id.toLowerCase();
 
-            <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-              <a
-                href={`https://wa.me/${settings.whatsapp.replace(/\+/g, '')}?text=Hi%20The%20Village%20Farm,%20I%20have%20an%20inquiry%20regarding%20fresh%20poultry`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-primary"
-                style={{ gap: '0.5rem' }}
-              >
-                <PhoneCall size={17} />
-                <span>Chat on WhatsApp</span>
-              </a>
-              <button
-                onClick={() => setIsQrModalOpen(true)}
-                className="btn btn-outline"
-                style={{ borderColor: 'var(--border-beige)', color: 'var(--warm-ivory)', gap: '0.5rem' }}
-              >
-                <QrCode size={17} />
-                <span>Show Mobile QR</span>
-              </button>
-            </div>
+              return (
+                <div
+                  key={cat.id}
+                  onClick={() => setSelectedCategory(cat.id)}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    cursor: 'pointer',
+                    flexShrink: 0,
+                    position: 'relative',
+                    paddingBottom: '6px',
+                    transition: 'transform 0.15s ease'
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-2px)')}
+                  onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
+                >
+                  {/* Round Category Avatar */}
+                  <div
+                    style={{
+                      width: '54px',
+                      height: '54px',
+                      borderRadius: '50%',
+                      overflow: 'hidden',
+                      border: isSelected ? '2.5px solid #D32F2F' : '1.5px solid #E8DFDF',
+                      boxShadow: isSelected
+                        ? '0 3px 10px rgba(211, 47, 47, 0.3)'
+                        : '0 2px 5px rgba(0, 0, 0, 0.05)',
+                      backgroundColor: '#FFFFFF',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      transition: 'border-color 0.2s ease, box-shadow 0.2s ease'
+                    }}
+                  >
+                    <img
+                      src={cat.image}
+                      alt={cat.name}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover'
+                      }}
+                    />
+                  </div>
+
+                  {/* Category Title */}
+                  <span
+                    style={{
+                      marginTop: '6px',
+                      fontSize: '0.8125rem',
+                      fontWeight: isSelected ? 700 : 500,
+                      color: isSelected ? '#D32F2F' : '#374151',
+                      whiteSpace: 'nowrap',
+                      letterSpacing: '-0.01em'
+                    }}
+                  >
+                    {cat.name}
+                  </span>
+
+                  {/* Red Bottom Indicator Underline */}
+                  {isSelected && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        bottom: 0,
+                        left: '10%',
+                        right: '10%',
+                        height: '2.5px',
+                        backgroundColor: '#D32F2F',
+                        borderRadius: '2px'
+                      }}
+                    />
+                  )}
+                </div>
+              );
+            })}
           </div>
+
+          {/* Right Scroll Chevron */}
+          <button
+            onClick={() => scrollCarousel('right')}
+            aria-label="Scroll categories right"
+            style={{
+              width: '32px',
+              height: '32px',
+              borderRadius: '50%',
+              backgroundColor: '#FFFFFF',
+              border: '1px solid #E5DADA',
+              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              color: '#374151',
+              flexShrink: 0,
+              zIndex: 2,
+              marginLeft: '8px'
+            }}
+          >
+            <ChevronRight size={18} />
+          </button>
         </div>
-      </section>
+      </div>
+
+      {/* 2. BREADCRUMB BAR (Exact Client Reference Design) */}
+      <div className="container" style={{ paddingTop: '0.85rem', paddingBottom: '0.65rem' }}>
+        <div style={{ fontSize: '0.8125rem', color: '#6B7280', display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <span style={{ cursor: 'pointer', color: '#4B5563' }} onClick={() => setSelectedCategory('Chicken')}>
+            Home
+          </span>
+          <span>/</span>
+          <span style={{ color: '#D32F2F', fontWeight: 700 }}>{selectedCategory}</span>
+        </div>
+      </div>
+
+      {/* 3. PRODUCT CARDS GRID (Exact 3-Column Client Reference Design) */}
+      <div className="container" style={{ paddingBottom: '2.5rem' }}>
+        {filteredProducts.length === 0 ? (
+          <div
+            style={{
+              backgroundColor: '#FFFFFF',
+              borderRadius: '16px',
+              padding: '3.5rem 1.5rem',
+              textAlign: 'center',
+              border: '1px solid #E8DFDF',
+              marginTop: '1rem'
+            }}
+          >
+            <h3 style={{ color: '#1F2937', marginBottom: '0.5rem' }}>Fresh batch coming soon for {selectedCategory}</h3>
+            <p style={{ color: '#6B7280', fontSize: '0.875rem', marginBottom: '1.5rem' }}>
+              Our morning pasture harvest is currently active. Switch to Chicken to view today's available fresh cuts!
+            </p>
+            <button
+              onClick={() => setSelectedCategory('Chicken')}
+              style={{
+                backgroundColor: '#D32F2F',
+                color: '#FFFFFF',
+                border: 'none',
+                padding: '0.65rem 1.5rem',
+                borderRadius: '8px',
+                fontWeight: 700,
+                cursor: 'pointer'
+              }}
+            >
+              View Fresh Chicken Cuts
+            </button>
+          </div>
+        ) : (
+          <div
+            className="store-product-grid"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              gap: '1.15rem'
+            }}
+          >
+            {filteredProducts.map((product) => {
+              const isAvailable = product.isAvailable && product.stock > 0;
+
+              return (
+                <div
+                  key={product.id}
+                  className="product-cut-card"
+                  onClick={() => setSelectedProductModal(product)}
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    borderRadius: '12px',
+                    border: '1px solid #EBE7DF',
+                    overflow: 'hidden',
+                    boxShadow: '0 3px 12px rgba(0, 0, 0, 0.04)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    cursor: 'pointer',
+                    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                    position: 'relative'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-3px)';
+                    e.currentTarget.style.boxShadow = '0 8px 22px rgba(0, 0, 0, 0.08)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 3px 12px rgba(0, 0, 0, 0.04)';
+                  }}
+                >
+                  {/* Photo Container */}
+                  <div style={{ position: 'relative', width: '100%', height: '190px', backgroundColor: '#F3EFEA' }}>
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        display: 'block'
+                      }}
+                    />
+
+                    {/* Green Discount Tag (Top Left) */}
+                    {product.discountTag && (
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: '8px',
+                          left: '8px',
+                          backgroundColor: '#16A34A',
+                          color: '#FFFFFF',
+                          fontSize: '0.6875rem',
+                          fontWeight: 800,
+                          padding: '2.5px 7px',
+                          borderRadius: '5px',
+                          letterSpacing: '0.02em',
+                          boxShadow: '0 2px 6px rgba(0, 0, 0, 0.2)'
+                        }}
+                      >
+                        {product.discountTag}
+                      </div>
+                    )}
+
+                    {/* Red Trending Tag (Top Right) */}
+                    {product.trending && (
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: '8px',
+                          right: '8px',
+                          backgroundColor: '#DC2626',
+                          color: '#FFFFFF',
+                          fontSize: '0.6875rem',
+                          fontWeight: 800,
+                          padding: '2.5px 7px',
+                          borderRadius: '5px',
+                          letterSpacing: '0.02em',
+                          boxShadow: '0 2px 6px rgba(0, 0, 0, 0.2)'
+                        }}
+                      >
+                        Trending
+                      </div>
+                    )}
+
+                    {/* Red Bottom Ribbon: "Antibiotic Free" */}
+                    <div
+                      style={{
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        backgroundColor: '#D32F2F',
+                        color: '#FFFFFF',
+                        fontSize: '0.70rem',
+                        fontWeight: 800,
+                        fontStyle: 'italic',
+                        padding: '3px 10px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        letterSpacing: '0.03em',
+                        textTransform: 'uppercase'
+                      }}
+                    >
+                      <span>{product.tagText || 'Antibiotic Free'}</span>
+                    </div>
+                  </div>
+
+                  {/* Card Content */}
+                  <div
+                    style={{
+                      padding: '11px 13px 13px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      flex: 1
+                    }}
+                  >
+                    <div>
+                      {/* Product Title */}
+                      <h3
+                        style={{
+                          fontSize: '0.9375rem',
+                          fontWeight: 800,
+                          color: '#111827',
+                          margin: '0 0 2px 0',
+                          lineHeight: 1.25
+                        }}
+                      >
+                        {product.name}
+                      </h3>
+
+                      {/* Subtitle / Pieces Info */}
+                      <div
+                        style={{
+                          fontSize: '0.75rem',
+                          color: '#6B7280',
+                          marginBottom: '5px',
+                          whiteSpace: 'nowrap',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis'
+                        }}
+                      >
+                        {product.subtitle || product.category}
+                      </div>
+
+                      {/* Net Weight Line */}
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '4px',
+                          fontSize: '0.71875rem',
+                          color: '#4B5563',
+                          fontWeight: 600,
+                          marginBottom: '8px'
+                        }}
+                      >
+                        <Scale size={12} color="#6B7280" />
+                        <span>{product.weight}</span>
+                      </div>
+                    </div>
+
+                    {/* Bottom Price & Action Button Row */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'flex-end',
+                        justifyContent: 'space-between',
+                        paddingTop: '6px',
+                        borderTop: '1px solid #F3EFEA'
+                      }}
+                    >
+                      {/* Price Section */}
+                      <div>
+                        {product.mrp && (
+                          <div
+                            style={{
+                              fontSize: '0.6875rem',
+                              color: '#9CA3AF',
+                              textDecoration: 'line-through',
+                              lineHeight: 1.1,
+                              marginBottom: '2px'
+                            }}
+                          >
+                            MRP ₹{product.mrp}
+                          </div>
+                        )}
+                        <div
+                          style={{
+                            fontSize: '1rem',
+                            fontWeight: 800,
+                            color: '#111827',
+                            lineHeight: 1.1
+                          }}
+                        >
+                          {product.priceText || `₹${product.price}`}
+                        </div>
+                      </div>
+
+                      {/* Button Section */}
+                      <div>
+                        {isAvailable ? (
+                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <button
+                              type="button"
+                              onClick={(e) => handleAddToCart(e, product)}
+                              style={{
+                                backgroundColor: '#D32F2F',
+                                color: '#FFFFFF',
+                                border: 'none',
+                                borderRadius: '7px',
+                                padding: '6px 20px',
+                                fontWeight: 800,
+                                fontSize: '0.84375rem',
+                                cursor: 'pointer',
+                                boxShadow: '0 2px 6px rgba(211, 47, 47, 0.25)',
+                                transition: 'background-color 0.15s ease'
+                              }}
+                              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#B71C1C')}
+                              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#D32F2F')}
+                            >
+                              Add
+                            </button>
+                            {product.customisable && (
+                              <span
+                                style={{
+                                  fontSize: '0.59375rem',
+                                  color: '#6B7280',
+                                  marginTop: '2px'
+                                }}
+                              >
+                                customisable
+                              </span>
+                            )}
+                          </div>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={(e) => handleNotifyMe(e, product)}
+                            style={{
+                              backgroundColor: '#FFFFFF',
+                              color: '#D32F2F',
+                              border: '1.5px solid #D32F2F',
+                              borderRadius: '7px',
+                              padding: '5px 12px',
+                              fontWeight: 700,
+                              fontSize: '0.78125rem',
+                              cursor: 'pointer',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '4px',
+                              transition: 'background-color 0.15s ease'
+                            }}
+                            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(211, 47, 47, 0.05)')}
+                            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#FFFFFF')}
+                          >
+                            <Bell size={12} color="#D32F2F" />
+                            <span>Notify me</span>
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* 4. FSSAI & QUALITY ASSURANCE FOOTER STRIP (As in client screenshot bottom) */}
+      <div
+        className="container"
+        style={{
+          borderTop: '1px solid #E5DADA',
+          paddingTop: '1.75rem',
+          textAlign: 'center'
+        }}
+      >
+        <div
+          style={{
+            display: 'inline-flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '0.35rem'
+          }}
+        >
+          {/* FSSAI Logo / Seal */}
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              backgroundColor: '#FFFFFF',
+              border: '1px solid #D1D5DB',
+              padding: '0.35rem 1rem',
+              borderRadius: '8px',
+              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.04)'
+            }}
+          >
+            <span
+              style={{
+                fontFamily: 'serif',
+                fontWeight: 900,
+                fontSize: '1.15rem',
+                letterSpacing: '0.04em',
+                color: '#1E3A8A',
+                borderRight: '1px solid #E5E7EB',
+                paddingRight: '0.5rem'
+              }}
+            >
+              fssai
+            </span>
+            <span style={{ fontSize: '0.71875rem', color: '#4B5563', fontWeight: 600 }}>
+              Lic. No. 11224334000188
+            </span>
+          </div>
+          <p style={{ fontSize: '0.75rem', color: '#6B7280', margin: '4px 0 0' }}>
+            100% Antibiotic & Hormone-Free • Temperature-Controlled 0-4°C Cold Chain Express Delivery
+          </p>
+        </div>
+      </div>
+
+      {/* Responsive Grid Styling */}
+      <style>{`
+        @media (max-width: 960px) {
+          .store-product-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+        }
+        @media (max-width: 600px) {
+          .store-product-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </div>
   );
 };

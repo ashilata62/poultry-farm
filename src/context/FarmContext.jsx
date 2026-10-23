@@ -224,7 +224,14 @@ export const FarmProvider = ({ children }) => {
 
   // Business State (with persistence)
   const [orders, setOrders] = useState(() => getStorageItem(STORAGE_KEYS.ORDERS, INITIAL_ORDERS));
-  const [products, setProducts] = useState(() => getStorageItem(STORAGE_KEYS.PRODUCTS, INITIAL_PRODUCTS));
+  const [products, setProducts] = useState(() => {
+    const stored = getStorageItem(STORAGE_KEYS.PRODUCTS, null);
+    if (!stored || stored.length < INITIAL_PRODUCTS.length) {
+      setStorageItem(STORAGE_KEYS.PRODUCTS, INITIAL_PRODUCTS);
+      return INITIAL_PRODUCTS;
+    }
+    return stored;
+  });
   const [batches, setBatches] = useState(() => getStorageItem(STORAGE_KEYS.BATCHES, INITIAL_BATCHES));
   const [inventory, setInventory] = useState(() => getStorageItem(STORAGE_KEYS.INVENTORY, INITIAL_INVENTORY));
   const [purchases, setPurchases] = useState(() => getStorageItem(STORAGE_KEYS.PURCHASES, INITIAL_PURCHASES));
