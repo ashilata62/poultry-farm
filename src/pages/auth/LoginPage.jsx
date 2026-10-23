@@ -918,8 +918,8 @@ export const LoginPage = () => {
               <button
                 type="submit"
                 style={{
-                  height: '40px',
-                  fontSize: '0.875rem',
+                  height: '42px',
+                  fontSize: '0.90625rem',
                   fontWeight: 700,
                   display: 'flex',
                   alignItems: 'center',
@@ -931,7 +931,7 @@ export const LoginPage = () => {
                   borderRadius: '10px',
                   boxShadow: '0 6px 20px rgba(242, 140, 40, 0.40)',
                   cursor: 'pointer',
-                  marginTop: '0.25rem',
+                  marginTop: '0.35rem',
                   transition: 'box-shadow 0.2s ease, filter 0.2s ease',
                   letterSpacing: '0.01em'
                 }}
@@ -944,69 +944,10 @@ export const LoginPage = () => {
                   e.currentTarget.style.filter = 'none';
                 }}
               >
-                <ShieldCheck size={17} />
+                <ShieldCheck size={18} />
                 <span>Sign In as {currentPortal.title}</span>
-                <ArrowRight size={15} />
+                <ArrowRight size={16} />
               </button>
-
-              {/* 1-Click Direct Launch Shortcuts */}
-              <div
-                style={{
-                  paddingTop: '0.55rem',
-                  borderTop: '1px solid rgba(255, 255, 255, 0.10)',
-                  textAlign: 'center'
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: '0.6875rem',
-                    color: '#9CA3AF',
-                    marginBottom: '0.35rem',
-                    fontWeight: 500
-                  }}
-                >
-                  1-Click Instant Demo Launch:
-                </div>
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(4, 1fr)',
-                    gap: '0.35rem'
-                  }}
-                >
-                  {rolePortals.map((p) => (
-                    <button
-                      key={p.id}
-                      type="button"
-                      onClick={p.action}
-                      style={{
-                        padding: '0.35rem 0.25rem',
-                        fontSize: '0.6875rem',
-                        fontWeight: 600,
-                        borderRadius: '7px',
-                        backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                        border: '1px solid rgba(255, 255, 255, 0.14)',
-                        color: '#FFFFFF',
-                        cursor: 'pointer',
-                        transition: 'background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = 'rgba(242, 140, 40, 0.25)';
-                        e.currentTarget.style.borderColor = 'var(--amber-primary)';
-                        e.currentTarget.style.color = 'var(--amber-primary)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
-                        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.14)';
-                        e.currentTarget.style.color = '#FFFFFF';
-                      }}
-                      title={`Instant login to ${p.title}`}
-                    >
-                      {p.shortTitle} ↗
-                    </button>
-                  ))}
-                </div>
-              </div>
             </form>
           </div>
         </div>
