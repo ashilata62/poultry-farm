@@ -26,8 +26,6 @@ export const DeliveryDashboard = () => {
     settings,
     currentRole,
     setCurrentRole,
-    setCustomerView,
-    setAdminModule,
     showToast
   } = useFarm();
 
@@ -79,19 +77,30 @@ export const DeliveryDashboard = () => {
   };
 
   return (
-    <div style={{ backgroundColor: 'var(--soft-cream)', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <div
+      className="dispatch-dashboard-root"
+      style={{
+        backgroundColor: 'var(--soft-cream)',
+        height: '100%',
+        maxHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden'
+      }}
+    >
       {/* 1. TOP DISPATCH HEADER (Dedicated Clean Console Header - Only Dispatch Specific) */}
       {currentRole === 'delivery' && (
         <header
           style={{
             backgroundColor: 'var(--white)',
             borderBottom: '1px solid var(--border-beige)',
-            padding: '0.75rem 1.25rem',
+            padding: '0.65rem 1.25rem',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             flexWrap: 'wrap',
             gap: '0.75rem',
+            flexShrink: 0,
             position: 'sticky',
             top: 0,
             zIndex: 30,
@@ -214,21 +223,23 @@ export const DeliveryDashboard = () => {
         </header>
       )}
 
-      {/* 2. LOGISTICS KPI METRICS SUMMARY BAR */}
+      {/* 2. LOGISTICS KPI METRICS SUMMARY BAR (PINNED & STABLE) */}
       <div
+        className="dispatch-pinned-top"
         style={{
-          padding: '0.875rem 1.25rem 0',
+          padding: '0.5rem 1.25rem 0',
           maxWidth: '1600px',
           width: '100%',
-          margin: '0 auto'
+          margin: '0 auto',
+          flexShrink: 0
         }}
       >
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: '0.75rem',
-            marginBottom: '0.875rem'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: '0.5rem',
+            marginBottom: '0.5rem'
           }}
         >
           {/* Metric 1: Scheduled Queue */}
@@ -237,17 +248,17 @@ export const DeliveryDashboard = () => {
               backgroundColor: 'var(--white)',
               border: '1px solid var(--border-beige)',
               borderRadius: 'var(--radius-sm)',
-              padding: '0.75rem 1rem',
+              padding: '0.45rem 0.75rem',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.75rem',
+              gap: '0.65rem',
               boxShadow: 'var(--shadow-xs)'
             }}
           >
             <div
               style={{
-                width: '38px',
-                height: '38px',
+                width: '32px',
+                height: '32px',
                 borderRadius: '8px',
                 backgroundColor: 'rgba(242, 140, 40, 0.15)',
                 color: 'var(--amber-primary)',
@@ -257,16 +268,16 @@ export const DeliveryDashboard = () => {
                 flexShrink: 0
               }}
             >
-              <Package size={19} />
+              <Package size={17} />
             </div>
             <div>
-              <div style={{ fontSize: '0.6875rem', color: 'var(--muted-text)', fontWeight: 600, textTransform: 'uppercase' }}>
+              <div style={{ fontSize: '0.65625rem', color: 'var(--muted-text)', fontWeight: 600, textTransform: 'uppercase' }}>
                 Delivery Queue
               </div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--charcoal)', lineHeight: 1.15 }}>
+              <div style={{ fontSize: '1.125rem', fontWeight: 700, color: 'var(--charcoal)', lineHeight: 1.15 }}>
                 {orders.length} Orders
               </div>
-              <div style={{ fontSize: '0.6875rem', color: 'var(--amber-dark)', marginTop: '2px' }}>
+              <div style={{ fontSize: '0.65625rem', color: 'var(--amber-dark)', marginTop: '1px' }}>
                 {inTransitCount} In-Transit • {pendingCount} Pending
               </div>
             </div>
@@ -278,17 +289,17 @@ export const DeliveryDashboard = () => {
               backgroundColor: 'var(--white)',
               border: '1px solid var(--border-beige)',
               borderRadius: 'var(--radius-sm)',
-              padding: '0.75rem 1rem',
+              padding: '0.45rem 0.75rem',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.75rem',
+              gap: '0.65rem',
               boxShadow: 'var(--shadow-xs)'
             }}
           >
             <div
               style={{
-                width: '38px',
-                height: '38px',
+                width: '32px',
+                height: '32px',
                 borderRadius: '8px',
                 backgroundColor: 'rgba(34, 197, 94, 0.15)',
                 color: 'var(--success-green)',
@@ -298,16 +309,16 @@ export const DeliveryDashboard = () => {
                 flexShrink: 0
               }}
             >
-              <Truck size={19} />
+              <Truck size={17} />
             </div>
             <div>
-              <div style={{ fontSize: '0.6875rem', color: 'var(--muted-text)', fontWeight: 600, textTransform: 'uppercase' }}>
+              <div style={{ fontSize: '0.65625rem', color: 'var(--muted-text)', fontWeight: 600, textTransform: 'uppercase' }}>
                 Refrigerated Vans
               </div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--charcoal)', lineHeight: 1.15 }}>
+              <div style={{ fontSize: '1.125rem', fontWeight: 700, color: 'var(--charcoal)', lineHeight: 1.15 }}>
                 {activeVansCount} on Road
               </div>
-              <div style={{ fontSize: '0.6875rem', color: 'var(--success-green)', marginTop: '2px' }}>
+              <div style={{ fontSize: '0.65625rem', color: 'var(--success-green)', marginTop: '1px' }}>
                 {drivers.length} Drivers in Bengaluru Fleet
               </div>
             </div>
@@ -319,17 +330,17 @@ export const DeliveryDashboard = () => {
               backgroundColor: 'var(--white)',
               border: '1px solid var(--border-beige)',
               borderRadius: 'var(--radius-sm)',
-              padding: '0.75rem 1rem',
+              padding: '0.45rem 0.75rem',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.75rem',
+              gap: '0.65rem',
               boxShadow: 'var(--shadow-xs)'
             }}
           >
             <div
               style={{
-                width: '38px',
-                height: '38px',
+                width: '32px',
+                height: '32px',
                 borderRadius: '8px',
                 backgroundColor: 'rgba(242, 140, 40, 0.15)',
                 color: 'var(--amber-primary)',
@@ -339,16 +350,16 @@ export const DeliveryDashboard = () => {
                 flexShrink: 0
               }}
             >
-              <Thermometer size={19} />
+              <Thermometer size={17} />
             </div>
             <div>
-              <div style={{ fontSize: '0.6875rem', color: 'var(--muted-text)', fontWeight: 600, textTransform: 'uppercase' }}>
+              <div style={{ fontSize: '0.65625rem', color: 'var(--muted-text)', fontWeight: 600, textTransform: 'uppercase' }}>
                 Cold-Chain Health
               </div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--charcoal)', lineHeight: 1.15 }}>
+              <div style={{ fontSize: '1.125rem', fontWeight: 700, color: 'var(--charcoal)', lineHeight: 1.15 }}>
                 2.4°C Chilled
               </div>
-              <div style={{ fontSize: '0.6875rem', color: 'var(--success-green)', marginTop: '2px' }}>
+              <div style={{ fontSize: '0.65625rem', color: 'var(--success-green)', marginTop: '1px' }}>
                 0-4°C Preserved • Zero Freezing
               </div>
             </div>
@@ -360,17 +371,17 @@ export const DeliveryDashboard = () => {
               backgroundColor: 'var(--white)',
               border: '1px solid var(--border-beige)',
               borderRadius: 'var(--radius-sm)',
-              padding: '0.75rem 1rem',
+              padding: '0.45rem 0.75rem',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.75rem',
+              gap: '0.65rem',
               boxShadow: 'var(--shadow-xs)'
             }}
           >
             <div
               style={{
-                width: '38px',
-                height: '38px',
+                width: '32px',
+                height: '32px',
                 borderRadius: '8px',
                 backgroundColor: 'rgba(34, 197, 94, 0.15)',
                 color: 'var(--success-green)',
@@ -380,46 +391,46 @@ export const DeliveryDashboard = () => {
                 flexShrink: 0
               }}
             >
-              <CheckCircle2 size={19} />
+              <CheckCircle2 size={17} />
             </div>
             <div>
-              <div style={{ fontSize: '0.6875rem', color: 'var(--muted-text)', fontWeight: 600, textTransform: 'uppercase' }}>
+              <div style={{ fontSize: '0.65625rem', color: 'var(--muted-text)', fontWeight: 600, textTransform: 'uppercase' }}>
                 Fulfillment Status
               </div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--charcoal)', lineHeight: 1.15 }}>
+              <div style={{ fontSize: '1.125rem', fontWeight: 700, color: 'var(--charcoal)', lineHeight: 1.15 }}>
                 {deliveredCount} Delivered
               </div>
-              <div style={{ fontSize: '0.6875rem', color: 'var(--muted-text)', marginTop: '2px' }}>
+              <div style={{ fontSize: '0.65625rem', color: 'var(--muted-text)', marginTop: '1px' }}>
                 ₹{deliveredRevenue.toLocaleString('en-IN')} revenue dispatched
               </div>
             </div>
           </div>
         </div>
 
-        {/* 3. PRIMARY VIEW SWITCHER TABS: [ Live Map & Dispatch Queue ] vs [ Drivers & Fleet Roster ] */}
+        {/* 3. PRIMARY VIEW SWITCHER TABS (PINNED & STABLE) */}
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             borderBottom: '2px solid var(--border-beige)',
-            paddingBottom: '0.5rem',
-            marginBottom: '0.75rem',
+            paddingBottom: '0.35rem',
+            marginBottom: '0',
             flexWrap: 'wrap',
-            gap: '0.5rem'
+            gap: '0.4rem'
           }}
         >
-          <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <div style={{ display: 'flex', gap: '0.4rem' }}>
             <button
               onClick={() => setViewMode('map')}
               style={{
-                padding: '0.45rem 1rem',
+                padding: '0.35rem 0.85rem',
                 borderRadius: 'var(--radius-sm)',
                 fontWeight: 600,
-                fontSize: '0.84375rem',
+                fontSize: '0.8125rem',
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '0.45rem',
+                gap: '0.4rem',
                 border: viewMode === 'map' ? '1px solid var(--charcoal-deep)' : '1px solid var(--border-beige)',
                 backgroundColor: viewMode === 'map' ? 'var(--charcoal-deep)' : 'var(--white)',
                 color: viewMode === 'map' ? 'var(--amber-primary)' : 'var(--charcoal)',
@@ -427,20 +438,20 @@ export const DeliveryDashboard = () => {
                 transition: 'all 0.15s ease'
               }}
             >
-              <Navigation size={15} />
+              <Navigation size={14} />
               <span>Live Map & Route Dispatch</span>
             </button>
 
             <button
               onClick={() => setViewMode('fleet')}
               style={{
-                padding: '0.45rem 1rem',
+                padding: '0.35rem 0.85rem',
                 borderRadius: 'var(--radius-sm)',
                 fontWeight: 600,
-                fontSize: '0.84375rem',
+                fontSize: '0.8125rem',
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '0.45rem',
+                gap: '0.4rem',
                 border: viewMode === 'fleet' ? '1px solid var(--charcoal-deep)' : '1px solid var(--border-beige)',
                 backgroundColor: viewMode === 'fleet' ? 'var(--charcoal-deep)' : 'var(--white)',
                 color: viewMode === 'fleet' ? 'var(--amber-primary)' : 'var(--charcoal)',
@@ -448,20 +459,20 @@ export const DeliveryDashboard = () => {
                 transition: 'all 0.15s ease'
               }}
             >
-              <Truck size={15} />
+              <Truck size={14} />
               <span>Drivers & Fleet Roster ({drivers.length})</span>
             </button>
           </div>
 
-          <div style={{ fontSize: '0.75rem', color: 'var(--muted-text)' }}>
+          <div style={{ fontSize: '0.71875rem', color: 'var(--muted-text)' }}>
             Serving: Indiranagar • Koramangala • Bellandur • Sarjapur • Whitefield
           </div>
         </div>
       </div>
 
-      {/* VIEW A: DRIVERS & FLEET ROSTER (Who the dispatcher monitors and manages) */}
+      {/* VIEW A: DRIVERS & FLEET ROSTER */}
       {viewMode === 'fleet' && (
-        <div style={{ padding: '0 1.25rem 2rem', maxWidth: '1600px', width: '100%', margin: '0 auto' }}>
+        <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', padding: '0.85rem 1.25rem 2rem', maxWidth: '1600px', width: '100%', margin: '0 auto' }}>
           <div
             style={{
               display: 'grid',
@@ -653,7 +664,7 @@ export const DeliveryDashboard = () => {
 
       {/* VIEW B: LIVE MAP & ROUTE DISPATCH QUEUE (Preserved completely) */}
       {viewMode === 'map' && (
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
           {/* Mobile Tab Switcher */}
           <div
             className="hide-on-desktop"
@@ -662,7 +673,8 @@ export const DeliveryDashboard = () => {
               backgroundColor: 'var(--white)',
               borderBottom: '1px solid var(--border-beige)',
               padding: '0.5rem 1rem',
-              gap: '0.5rem'
+              gap: '0.5rem',
+              flexShrink: 0
             }}
           >
             <button
@@ -687,10 +699,11 @@ export const DeliveryDashboard = () => {
             style={{
               flex: 1,
               display: 'grid',
-              gridTemplateColumns: 'minmax(280px, 420px) 1fr',
-              height: 'calc(100vh - 220px)',
-              minHeight: '520px',
-              minWidth: 0
+              gridTemplateColumns: 'minmax(300px, 410px) 1fr',
+              height: '100%',
+              minHeight: 0,
+              minWidth: 0,
+              overflow: 'hidden'
             }}
             className="dispatch-grid-container"
           >
@@ -1071,9 +1084,20 @@ export const DeliveryDashboard = () => {
       {/* Responsive adjustments */}
       <style>{`
         @media (max-width: 1024px) {
+          .dispatch-dashboard-root {
+            height: auto !important;
+            max-height: none !important;
+            min-height: 100vh !important;
+            overflow-y: auto !important;
+          }
           .dispatch-grid-container {
             grid-template-columns: 1fr !important;
             height: auto !important;
+            overflow: visible !important;
+          }
+          .dispatch-left-panel, .dispatch-right-panel {
+            height: auto !important;
+            overflow: visible !important;
           }
         }
       `}</style>
