@@ -113,8 +113,8 @@ export const FarmProvider = ({ children }) => {
           if (window.location.pathname.toLowerCase() !== '/driver') {
             window.history.pushState(null, '', '/driver');
           }
-        } else if (currentRole === 'customer') {
-          // Clear dashboard path when in customer store
+        } else if (currentRole === 'customer' || currentRole === 'login') {
+          // Clear dashboard path when in customer store or login page
           if (
             window.location.pathname.startsWith('/admin') ||
             window.location.pathname === '/delivery' ||

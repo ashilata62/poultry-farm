@@ -1,9 +1,9 @@
 import React from 'react';
 import { useFarm } from '../../context/FarmContext';
-import { Menu, Plus, RefreshCw, Store, Smartphone, MapPin } from 'lucide-react';
+import { Menu, Plus, RefreshCw, LogOut, Smartphone, MapPin } from 'lucide-react';
 
 export const AdminHeader = ({ title, subtitle, onToggleMobileSidebar, extraActions }) => {
-  const { setCurrentRole, setCustomerView } = useFarm();
+  const { setCurrentRole, setCustomerView, showToast } = useFarm();
 
   return (
     <header
@@ -87,15 +87,16 @@ export const AdminHeader = ({ title, subtitle, onToggleMobileSidebar, extraActio
 
         <button
           onClick={() => {
-            setCurrentRole('customer');
-            setCustomerView('shop');
+            setCurrentRole('login');
+            setCustomerView('login');
+            if (showToast) showToast('Logged out successfully', 'info');
           }}
           className="btn btn-secondary btn-sm"
-          title="Preview Customer Store"
-          style={{ padding: '0.4rem 0.65rem' }}
+          title="Logout from Admin Dashboard"
+          style={{ padding: '0.4rem 0.75rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}
         >
-          <Store size={15} />
-          <span className="hide-on-mobile">Store</span>
+          <LogOut size={15} color="var(--amber-dark)" />
+          <span>Logout</span>
         </button>
       </div>
     </header>
