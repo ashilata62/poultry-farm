@@ -77,11 +77,11 @@ export const ShopPage = () => {
 
   return (
     <div style={{ backgroundColor: '#FAF8F5', minHeight: '100vh', paddingBottom: '3.5rem' }}>
-      {/* 1. TOP HORIZONTAL CATEGORY CAROUSEL (Exact Client Reference Design) */}
+      {/* 1. TOP HORIZONTAL CATEGORY CAROUSEL (Warm Farm Amber Theme) */}
       <div
         style={{
-          backgroundColor: '#FFF5F5',
-          borderBottom: '1px solid rgba(229, 218, 218, 0.7)',
+          backgroundColor: '#FFF9F2',
+          borderBottom: '1px solid #EADFD5',
           padding: '0.75rem 0',
           position: 'sticky',
           top: 'var(--header-height, 65px)',
@@ -106,8 +106,8 @@ export const ShopPage = () => {
               height: '32px',
               borderRadius: '50%',
               backgroundColor: '#FFFFFF',
-              border: '1px solid #E5DADA',
-              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
+              border: '1px solid #EADFD5',
+              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -162,9 +162,9 @@ export const ShopPage = () => {
                       height: '54px',
                       borderRadius: '50%',
                       overflow: 'hidden',
-                      border: isSelected ? '2.5px solid #D32F2F' : '1.5px solid #E8DFDF',
+                      border: isSelected ? '2.5px solid #F28C28' : '1.5px solid #EADFD5',
                       boxShadow: isSelected
-                        ? '0 3px 10px rgba(211, 47, 47, 0.3)'
+                        ? '0 3px 10px rgba(242, 140, 40, 0.35)'
                         : '0 2px 5px rgba(0, 0, 0, 0.05)',
                       backgroundColor: '#FFFFFF',
                       display: 'flex',
@@ -190,7 +190,7 @@ export const ShopPage = () => {
                       marginTop: '6px',
                       fontSize: '0.8125rem',
                       fontWeight: isSelected ? 700 : 500,
-                      color: isSelected ? '#D32F2F' : '#374151',
+                      color: isSelected ? '#C05621' : '#374151',
                       whiteSpace: 'nowrap',
                       letterSpacing: '-0.01em'
                     }}
@@ -198,7 +198,7 @@ export const ShopPage = () => {
                     {cat.name}
                   </span>
 
-                  {/* Red Bottom Indicator Underline */}
+                  {/* Amber Bottom Indicator Underline */}
                   {isSelected && (
                     <div
                       style={{
@@ -207,7 +207,7 @@ export const ShopPage = () => {
                         left: '10%',
                         right: '10%',
                         height: '2.5px',
-                        backgroundColor: '#D32F2F',
+                        backgroundColor: '#F28C28',
                         borderRadius: '2px'
                       }}
                     />
@@ -261,7 +261,7 @@ export const ShopPage = () => {
               Home
             </span>
             <span>/</span>
-            <span style={{ color: '#D32F2F', fontWeight: 700 }}>{selectedCategory}</span>
+            <span style={{ color: '#C05621', fontWeight: 700 }}>{selectedCategory}</span>
           </div>
 
           {/* Compact Search & Sort Controls */}
@@ -358,13 +358,14 @@ export const ShopPage = () => {
                 setSelectedCategory('Chicken');
               }}
               style={{
-                backgroundColor: '#D32F2F',
+                backgroundColor: '#E27D16',
                 color: '#FFFFFF',
                 border: 'none',
                 padding: '0.65rem 1.5rem',
                 borderRadius: '8px',
                 fontWeight: 700,
-                cursor: 'pointer'
+                cursor: 'pointer',
+                boxShadow: '0 2px 8px rgba(226, 125, 22, 0.35)'
               }}
             >
               Reset Filters
@@ -385,7 +386,7 @@ export const ShopPage = () => {
               const cartQty = inCartItem ? inCartItem.quantity : 0;
 
               return (
-                <div
+                 <div
                   key={product.id}
                   className="product-cut-card"
                   onClick={() => setSelectedProductModal(product)}
@@ -444,35 +445,35 @@ export const ShopPage = () => {
                       </div>
                     )}
 
-                    {/* Red Trending Tag (Top Right) */}
+                    {/* Amber Trending Tag (Top Right) */}
                     {product.trending && (
                       <div
                         style={{
                           position: 'absolute',
                           top: '8px',
                           right: '8px',
-                          backgroundColor: '#DC2626',
+                          backgroundColor: '#EA580C',
                           color: '#FFFFFF',
                           fontSize: '0.6875rem',
                           fontWeight: 800,
                           padding: '2.5px 7px',
                           borderRadius: '5px',
                           letterSpacing: '0.02em',
-                          boxShadow: '0 2px 6px rgba(0, 0, 0, 0.2)'
+                          boxShadow: '0 2px 6px rgba(234, 88, 12, 0.35)'
                         }}
                       >
                         Trending
                       </div>
                     )}
 
-                    {/* Red Bottom Ribbon: "Antibiotic Free" */}
+                    {/* Warm Amber Bottom Ribbon: "Antibiotic Free" */}
                     <div
                       style={{
                         position: 'absolute',
                         bottom: 0,
                         left: 0,
                         right: 0,
-                        backgroundColor: '#D32F2F',
+                        backgroundColor: '#D97706',
                         color: '#FFFFFF',
                         fontSize: '0.70rem',
                         fontWeight: 800,
@@ -588,10 +589,10 @@ export const ShopPage = () => {
                             style={{
                               display: 'inline-flex',
                               alignItems: 'center',
-                              backgroundColor: '#D32F2F',
+                              backgroundColor: '#E27D16',
                               borderRadius: '7px',
                               overflow: 'hidden',
-                              boxShadow: '0 2px 6px rgba(211, 47, 47, 0.3)',
+                              boxShadow: '0 2px 6px rgba(242, 140, 40, 0.3)',
                               height: '31px'
                             }}
                             onClick={(e) => e.stopPropagation()}
@@ -661,7 +662,7 @@ export const ShopPage = () => {
                               type="button"
                               onClick={(e) => handleAddToCart(e, product)}
                               style={{
-                                backgroundColor: '#D32F2F',
+                                backgroundColor: '#E27D16',
                                 color: '#FFFFFF',
                                 border: 'none',
                                 borderRadius: '7px',
@@ -669,11 +670,11 @@ export const ShopPage = () => {
                                 fontWeight: 800,
                                 fontSize: '0.84375rem',
                                 cursor: 'pointer',
-                                boxShadow: '0 2px 6px rgba(211, 47, 47, 0.25)',
+                                boxShadow: '0 2px 8px rgba(242, 140, 40, 0.3)',
                                 transition: 'background-color 0.15s ease'
                               }}
-                              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#B71C1C')}
-                              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#D32F2F')}
+                              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#C87522')}
+                              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#E27D16')}
                             >
                               Add
                             </button>
@@ -695,8 +696,8 @@ export const ShopPage = () => {
                             onClick={(e) => handleNotifyMe(e, product)}
                             style={{
                               backgroundColor: '#FFFFFF',
-                              color: '#D32F2F',
-                              border: '1.5px solid #D32F2F',
+                              color: '#EA580C',
+                              border: '1.5px solid #EA580C',
                               borderRadius: '7px',
                               padding: '5px 12px',
                               fontWeight: 700,
@@ -707,10 +708,10 @@ export const ShopPage = () => {
                               gap: '4px',
                               transition: 'background-color 0.15s ease'
                             }}
-                            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(211, 47, 47, 0.05)')}
+                            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(242, 140, 40, 0.08)')}
                             onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#FFFFFF')}
                           >
-                            <Bell size={12} color="#D32F2F" />
+                            <Bell size={12} color="#EA580C" />
                             <span>Notify me</span>
                           </button>
                         )}
@@ -805,7 +806,7 @@ export const ShopPage = () => {
                 width: '32px',
                 height: '32px',
                 borderRadius: '8px',
-                backgroundColor: '#D32F2F',
+                backgroundColor: '#E27D16',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -828,7 +829,7 @@ export const ShopPage = () => {
           <button
             onClick={() => setIsCartDrawerOpen(true)}
             style={{
-              backgroundColor: '#D32F2F',
+              backgroundColor: '#E27D16',
               color: '#FFFFFF',
               border: 'none',
               borderRadius: '8px',
@@ -839,7 +840,7 @@ export const ShopPage = () => {
               alignItems: 'center',
               gap: '6px',
               cursor: 'pointer',
-              boxShadow: '0 4px 14px rgba(211, 47, 47, 0.4)'
+              boxShadow: '0 4px 14px rgba(242, 140, 40, 0.45)'
             }}
           >
             <span>View Cart & Order</span>
