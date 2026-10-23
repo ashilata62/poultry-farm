@@ -383,21 +383,26 @@ export const AdminSidebar = ({ isMobileOpen, setIsMobileOpen }) => {
             className="btn-ghost"
             style={{
               color: '#DDD6CC',
-              padding: '6px 8px',
+              padding: '7px',
               borderRadius: '6px',
               backgroundColor: 'rgba(255, 255, 255, 0.06)',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.35rem',
-              fontSize: '0.75rem',
+              justifyContent: 'center',
               border: 'none',
               cursor: 'pointer',
               transition: 'all 0.2s'
             }}
-            title="Logout from Admin Dashboard"
+            title="Logout"
+            aria-label="Logout"
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.12)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)';
+            }}
           >
-            <LogOut size={14} color="var(--amber-primary)" />
-            <span>Logout</span>
+            <LogOut size={16} color="var(--amber-primary)" />
           </button>
         </div>
       </aside>

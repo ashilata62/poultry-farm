@@ -243,37 +243,97 @@ export const Navbar = () => {
           <button
             onClick={() => handleNavClick('home')}
             className="btn-ghost"
-            style={{ textAlign: 'left', padding: '0.75rem', fontSize: '1rem', fontWeight: 500 }}
+            style={{
+              textAlign: 'left',
+              padding: '0.75rem 1rem',
+              fontSize: '0.9375rem',
+              fontWeight: customerView === 'home' ? 700 : 500,
+              backgroundColor: customerView === 'home' ? 'var(--amber-soft)' : 'transparent',
+              color: customerView === 'home' ? 'var(--amber-dark)' : 'var(--charcoal)',
+              borderRadius: 'var(--radius-sm)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between'
+            }}
           >
-            Home
+            <span>Home</span>
+            {customerView === 'home' && <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--amber-primary)' }} />}
           </button>
           <button
             onClick={() => handleNavClick('shop')}
             className="btn-ghost"
-            style={{ textAlign: 'left', padding: '0.75rem', fontSize: '1rem', fontWeight: 500 }}
+            style={{
+              textAlign: 'left',
+              padding: '0.75rem 1rem',
+              fontSize: '0.9375rem',
+              fontWeight: customerView === 'shop' ? 700 : 500,
+              backgroundColor: customerView === 'shop' ? 'var(--amber-soft)' : 'transparent',
+              color: customerView === 'shop' ? 'var(--amber-dark)' : 'var(--charcoal)',
+              borderRadius: 'var(--radius-sm)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between'
+            }}
           >
-            Fresh Cuts & Store
+            <span>Fresh Cuts & Store</span>
+            {customerView === 'shop' && <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--amber-primary)' }} />}
           </button>
           <button
             onClick={() => handleNavClick('tracking')}
             className="btn-ghost"
-            style={{ textAlign: 'left', padding: '0.75rem', fontSize: '1rem', fontWeight: 500 }}
+            style={{
+              textAlign: 'left',
+              padding: '0.75rem 1rem',
+              fontSize: '0.9375rem',
+              fontWeight: customerView === 'tracking' ? 700 : 500,
+              backgroundColor: customerView === 'tracking' ? 'var(--amber-soft)' : 'transparent',
+              color: customerView === 'tracking' ? 'var(--amber-dark)' : 'var(--charcoal)',
+              borderRadius: 'var(--radius-sm)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between'
+            }}
           >
-            Track Order
+            <span>Track Order</span>
+            {customerView === 'tracking' && <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--amber-primary)' }} />}
           </button>
           <button
             onClick={() => handleNavClick('about')}
             className="btn-ghost"
-            style={{ textAlign: 'left', padding: '0.75rem', fontSize: '1rem', fontWeight: 500 }}
+            style={{
+              textAlign: 'left',
+              padding: '0.75rem 1rem',
+              fontSize: '0.9375rem',
+              fontWeight: customerView === 'about' ? 700 : 500,
+              backgroundColor: customerView === 'about' ? 'var(--amber-soft)' : 'transparent',
+              color: customerView === 'about' ? 'var(--amber-dark)' : 'var(--charcoal)',
+              borderRadius: 'var(--radius-sm)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between'
+            }}
           >
-            Our Farm
+            <span>Our Farm</span>
+            {customerView === 'about' && <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--amber-primary)' }} />}
           </button>
           <button
             onClick={() => handleNavClick('contact')}
             className="btn-ghost"
-            style={{ textAlign: 'left', padding: '0.75rem', fontSize: '1rem', fontWeight: 500 }}
+            style={{
+              textAlign: 'left',
+              padding: '0.75rem 1rem',
+              fontSize: '0.9375rem',
+              fontWeight: customerView === 'contact' ? 700 : 500,
+              backgroundColor: customerView === 'contact' ? 'var(--amber-soft)' : 'transparent',
+              color: customerView === 'contact' ? 'var(--amber-dark)' : 'var(--charcoal)',
+              borderRadius: 'var(--radius-sm)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between'
+            }}
           >
-            Contact
+            <span>Contact</span>
+            {customerView === 'contact' && <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--amber-primary)' }} />}
           </button>
           
           <button

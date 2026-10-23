@@ -59,7 +59,7 @@ export const HomePage = () => {
           backgroundColor: 'var(--charcoal-deep)',
           color: 'var(--warm-ivory)',
           overflow: 'hidden',
-          padding: '4.5rem 0 5rem'
+          padding: 'clamp(2.5rem, 5vw, 4.5rem) 0 clamp(3rem, 6vw, 5rem)'
         }}
       >
         {/* Subtle Ambient Background */}
@@ -202,7 +202,7 @@ export const HomePage = () => {
                   alt="The Village Farm - Free Range Poultry Pastures"
                   style={{
                     width: '100%',
-                    height: '420px',
+                    height: 'clamp(260px, 45vw, 420px)',
                     objectFit: 'cover',
                     display: 'block'
                   }}
@@ -253,7 +253,7 @@ export const HomePage = () => {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 140px), 1fr))',
               gap: '1.5rem',
               textAlign: 'center'
             }}

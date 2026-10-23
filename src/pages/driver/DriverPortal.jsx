@@ -14,7 +14,8 @@ import {
   User,
   ShieldCheck,
   RotateCcw,
-  ChevronRight
+  ChevronRight,
+  ArrowLeft
 } from 'lucide-react';
 
 export const DriverPortal = () => {
@@ -24,7 +25,8 @@ export const DriverPortal = () => {
     activeDriverId,
     setActiveDriverId,
     driverUpdateDelivery,
-    setCurrentRole
+    setCurrentRole,
+    setAdminModule
   } = useFarm();
 
   const [activeTab, setActiveTab] = useState('active'); // 'active' | 'completed'
@@ -70,9 +72,69 @@ export const DriverPortal = () => {
     }
   };
 
+  const handleBackToFleet = () => {
+    setCurrentRole('admin');
+    setAdminModule('drivers');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div style={{ backgroundColor: '#F4EFE6', minHeight: '92vh', padding: '1rem 0 3rem' }}>
-      <div className="container" style={{ maxWidth: '480px' }}>
+      <div className="container" style={{ maxWidth: '480px', paddingLeft: '1rem', paddingRight: '1rem' }}>
+        {/* Back Navigation Bar with Arrow */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: '0.875rem'
+          }}
+        >
+          <button
+            onClick={handleBackToFleet}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              backgroundColor: 'var(--white)',
+              border: '1px solid var(--border-beige)',
+              borderRadius: 'var(--radius-full)',
+              padding: '0.4rem 0.85rem 0.4rem 0.65rem',
+              color: 'var(--charcoal)',
+              fontSize: '0.8125rem',
+              fontWeight: 600,
+              cursor: 'pointer',
+              boxShadow: 'var(--shadow-xs)',
+              transition: 'all 0.15s ease'
+            }}
+            title="Back to Driver Fleet Roster"
+            aria-label="Back to Driver Fleet Roster"
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = 'var(--warm-ivory)';
+              e.currentTarget.style.transform = 'translateX(-2px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'var(--white)';
+              e.currentTarget.style.transform = 'translateX(0)';
+            }}
+          >
+            <ArrowLeft size={16} />
+            <span>Back to Fleet</span>
+          </button>
+
+          <span
+            style={{
+              fontSize: '0.75rem',
+              color: 'var(--muted-text)',
+              fontWeight: 600,
+              letterSpacing: '0.04em',
+              textTransform: 'uppercase'
+            }}
+          >
+            Driver Mobile App
+          </span>
+        </div>
+
         {/* Driver Profile Header Card */}
         <div
           className="card"

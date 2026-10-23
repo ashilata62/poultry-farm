@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFarm } from '../../context/FarmContext';
-import { Menu, Plus, RefreshCw, LogOut, Smartphone, MapPin } from 'lucide-react';
+import { Menu, Plus, RefreshCw, Smartphone, MapPin } from 'lucide-react';
 
 export const AdminHeader = ({ title, subtitle, onToggleMobileSidebar, extraActions }) => {
   const { setCurrentRole, setCustomerView, showToast } = useFarm();
@@ -83,20 +83,6 @@ export const AdminHeader = ({ title, subtitle, onToggleMobileSidebar, extraActio
         >
           <MapPin size={14} />
           <span>Dispatch Map</span>
-        </button>
-
-        <button
-          onClick={() => {
-            setCurrentRole('login');
-            setCustomerView('login');
-            if (showToast) showToast('Logged out successfully', 'info');
-          }}
-          className="btn btn-secondary btn-sm"
-          title="Logout from Admin Dashboard"
-          style={{ padding: '0.4rem 0.75rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}
-        >
-          <LogOut size={15} color="var(--amber-dark)" />
-          <span>Logout</span>
         </button>
       </div>
     </header>
