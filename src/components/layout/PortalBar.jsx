@@ -3,7 +3,7 @@ import { useFarm } from '../../context/FarmContext';
 import { Store, LayoutDashboard, Truck, Smartphone, RotateCcw, QrCode } from 'lucide-react';
 
 export const PortalBar = () => {
-  const { currentRole, setCurrentRole, resetToDemoData, setIsQrModalOpen, orders } = useFarm();
+  const { currentRole, setCurrentRole, setCustomerView, resetToDemoData, setIsQrModalOpen, orders } = useFarm();
 
   const pendingOrdersCount = orders.filter((o) => o.orderStatus === 'pending').length;
   const inTransitCount = orders.filter((o) => o.orderStatus === 'in_transit').length;
@@ -24,7 +24,10 @@ export const PortalBar = () => {
       <nav className="portal-tabs" aria-label="Role Switcher Navigation">
         <button
           className={`portal-btn ${currentRole === 'customer' ? 'active' : ''}`}
-          onClick={() => setCurrentRole('customer')}
+          onClick={() => {
+            setCurrentRole('customer');
+            setCustomerView('home');
+          }}
           title="Customer Website & Online Store"
         >
           <Store size={14} />

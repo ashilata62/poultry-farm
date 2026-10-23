@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useFarm } from '../../context/FarmContext';
-import { ShoppingBag, Search, Menu, X, PhoneCall, QrCode } from 'lucide-react';
+import { ShoppingBag, Search, Menu, X, PhoneCall, QrCode, LogIn } from 'lucide-react';
 
 export const Navbar = () => {
   const {
+    currentRole,
+    setCurrentRole,
     customerView,
     setCustomerView,
     cartItemsCount,
@@ -15,7 +17,13 @@ export const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleNavClick = (view) => {
-    setCustomerView(view);
+    if (view === 'login') {
+      setCurrentRole('login');
+      setCustomerView('login');
+    } else {
+      setCurrentRole('customer');
+      setCustomerView(view);
+    }
     setMobileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -162,6 +170,24 @@ export const Navbar = () => {
             <span style={{ fontSize: '0.8125rem' }}>QR Order</span>
           </button>
 
+          {/* Sign In to Dashboards Button */}
+          <button
+            onClick={() => handleNavClick('login')}
+            className={`btn btn-sm ${customerView === 'login' ? 'btn-primary' : 'btn-secondary'}`}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              fontWeight: 600,
+              fontSize: '0.8125rem',
+              padding: '0.5rem 0.85rem'
+            }}
+            title="Sign In to Operational Dashboards"
+          >
+            <LogIn size={15} />
+            <span>Sign In</span>
+          </button>
+
           {/* Cart Trigger */}
           <button
             onClick={() => setIsCartDrawerOpen(true)}
@@ -249,13 +275,23 @@ export const Navbar = () => {
           >
             Contact
           </button>
+          
+          <button
+            onClick={() => handleNavClick('login')}
+            className={`btn ${customerView === 'login' ? 'btn-primary' : 'btn-secondary'} btn-block`}
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginTop: '0.25rem' }}
+          >
+            <LogIn size={18} />
+            <span>Sign In to Dashboards</span>
+          </button>
+
           <button
             onClick={() => {
               setIsQrModalOpen(true);
               setMobileMenuOpen(false);
             }}
             className="btn btn-secondary btn-block"
-            style={{ marginTop: '0.5rem' }}
+            style={{ marginTop: '0.25rem' }}
           >
             <QrCode size={18} />
             Show QR Code

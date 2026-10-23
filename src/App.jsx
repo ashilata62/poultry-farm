@@ -19,6 +19,7 @@ import { CheckoutPage } from './pages/customer/CheckoutPage';
 import { OrderTrackingPage } from './pages/customer/OrderTrackingPage';
 import { AboutPage } from './pages/customer/AboutPage';
 import { ContactPage } from './pages/customer/ContactPage';
+import { LoginPage } from './pages/auth/LoginPage';
 
 // Admin Pages
 import { AdminDashboard } from './pages/admin/AdminDashboard';
@@ -41,11 +42,20 @@ const AppContent = () => {
   const { currentRole, customerView, adminModule } = useFarm();
   const [isAdminMobileSidebarOpen, setIsAdminMobileSidebarOpen] = useState(false);
 
-  // Render Customer Subsystem
+  // Dedicated Multi-Role Login Gateway Screen
+  if (currentRole === 'login' || customerView === 'login') {
+    return (
+      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--soft-cream)' }}>
+        <LoginPage />
+        <Toast />
+      </div>
+    );
+  }
+
+  // Render Customer Subsystem (Landing Page & Storefront - No top black bar)
   if (currentRole === 'customer') {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-        <PortalBar />
         <Navbar />
 
         <main style={{ flex: 1 }}>
