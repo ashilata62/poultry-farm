@@ -120,37 +120,35 @@ const AppContent = () => {
   const currentModuleInfo = adminTitles[adminModule] || { title: 'Admin Console', sub: '' };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      <div style={{ display: 'flex', flex: 1, position: 'relative', zIndex: isAdminMobileSidebarOpen ? 1000 : 1 }}>
-        {/* Left Responsive SaaS Sidebar */}
-        <AdminSidebar
-          isMobileOpen={isAdminMobileSidebarOpen}
-          setIsMobileOpen={setIsAdminMobileSidebarOpen}
+    <div style={{ display: 'flex', height: '100vh', maxHeight: '100vh', overflow: 'hidden' }}>
+      {/* Left Responsive SaaS Sidebar (Static) */}
+      <AdminSidebar
+        isMobileOpen={isAdminMobileSidebarOpen}
+        setIsMobileOpen={setIsAdminMobileSidebarOpen}
+      />
+
+      {/* Right Content Area (Scrolls independently while sidebar stays static) */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, height: '100vh', overflowY: 'auto', backgroundColor: 'var(--soft-cream)' }}>
+        <AdminHeader
+          title={currentModuleInfo.title}
+          subtitle={currentModuleInfo.sub}
+          onToggleMobileSidebar={() => setIsAdminMobileSidebarOpen(!isAdminMobileSidebarOpen)}
         />
 
-        {/* Right Content Area */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, backgroundColor: 'var(--soft-cream)' }}>
-          <AdminHeader
-            title={currentModuleInfo.title}
-            subtitle={currentModuleInfo.sub}
-            onToggleMobileSidebar={() => setIsAdminMobileSidebarOpen(!isAdminMobileSidebarOpen)}
-          />
-
-          <main style={{ flex: 1 }}>
-            {adminModule === 'dashboard' && <AdminDashboard />}
-            {adminModule === 'orders' && <OrdersManager />}
-            {adminModule === 'products' && <ProductsManager />}
-            {adminModule === 'inventory' && <InventoryManager />}
-            {adminModule === 'batches' && <BatchesManager />}
-            {adminModule === 'purchases' && <PurchasesManager />}
-            {adminModule === 'expenses' && <ExpensesManager />}
-            {adminModule === 'reports' && <ReportsManager />}
-            {adminModule === 'customers' && <CustomersManager />}
-            {adminModule === 'drivers' && <DriversManager />}
-            {adminModule === 'delivery' && <DeliveryDashboard />}
-            {adminModule === 'settings' && <SettingsPage />}
-          </main>
-        </div>
+        <main style={{ flex: 1, paddingBottom: '2.5rem' }}>
+          {adminModule === 'dashboard' && <AdminDashboard />}
+          {adminModule === 'orders' && <OrdersManager />}
+          {adminModule === 'products' && <ProductsManager />}
+          {adminModule === 'inventory' && <InventoryManager />}
+          {adminModule === 'batches' && <BatchesManager />}
+          {adminModule === 'purchases' && <PurchasesManager />}
+          {adminModule === 'expenses' && <ExpensesManager />}
+          {adminModule === 'reports' && <ReportsManager />}
+          {adminModule === 'customers' && <CustomersManager />}
+          {adminModule === 'drivers' && <DriversManager />}
+          {adminModule === 'delivery' && <DeliveryDashboard />}
+          {adminModule === 'settings' && <SettingsPage />}
+        </main>
       </div>
 
       <QROrderingModal />

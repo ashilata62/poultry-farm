@@ -13,12 +13,12 @@ import {
   Truck,
   MapPin,
   Settings,
-  Store,
+  LogOut,
   X
 } from 'lucide-react';
 
 export const AdminSidebar = ({ isMobileOpen, setIsMobileOpen }) => {
-  const { adminModule, setAdminModule, orders, inventory, setCurrentRole } = useFarm();
+  const { adminModule, setAdminModule, orders, inventory, setCurrentRole, setCustomerView, showToast } = useFarm();
 
   const pendingOrdersCount = orders.filter((o) => o.orderStatus === 'pending').length;
   const lowStockCount = inventory.filter((i) => i.status === 'Low Stock').length;
@@ -100,11 +100,14 @@ export const AdminSidebar = ({ isMobileOpen, setIsMobileOpen }) => {
           display: 'flex',
           flexDirection: 'column',
           borderRight: '1px solid rgba(255, 255, 255, 0.08)',
-          height: '100%',
-          minHeight: '100vh',
+          height: '100vh',
+          maxHeight: '100vh',
           position: 'sticky',
           top: 0,
+          left: 0,
+          flexShrink: 0,
           zIndex: 1200,
+          overflow: 'hidden',
           transition: 'transform 0.28s cubic-bezier(0.16, 1, 0.3, 1)'
         }}
         className={isMobileOpen ? 'sidebar-open' : 'sidebar-closed'}
@@ -372,8 +375,10 @@ export const AdminSidebar = ({ isMobileOpen, setIsMobileOpen }) => {
 
           <button
             onClick={() => {
-              setCurrentRole('customer');
+              setCurrentRole('login');
+              setCustomerView('login');
               if (setIsMobileOpen) setIsMobileOpen(false);
+              if (showToast) showToast('Logged out successfully', 'info');
             }}
             className="btn-ghost"
             style={{
@@ -389,10 +394,10 @@ export const AdminSidebar = ({ isMobileOpen, setIsMobileOpen }) => {
               cursor: 'pointer',
               transition: 'all 0.2s'
             }}
-            title="Preview Customer Online Store"
+            title="Logout from Admin Dashboard"
           >
-            <Store size={14} color="var(--amber-primary)" />
-            <span>Store</span>
+            <LogOut size={14} color="var(--amber-primary)" />
+            <span>Logout</span>
           </button>
         </div>
       </aside>
