@@ -674,6 +674,10 @@ p {
 }
 
 @media (max-width: 768px) {
+  :root {
+    --header-height: 64px;
+  }
+
   .hide-on-mobile {
     display: none !important;
   }

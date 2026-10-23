@@ -44,14 +44,14 @@ export const Navbar = () => {
         {/* Brand Logo */}
         <div
           onClick={() => handleNavClick('home')}
-          style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer' }}
+          style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', cursor: 'pointer', flexShrink: 0, minWidth: 0 }}
         >
-          <img src="/logo.svg" alt="The Village Farm Logo" style={{ width: '42px', height: '42px' }} />
-          <div>
-            <div style={{ fontFamily: 'var(--font-heading)', fontSize: '1.25rem', fontWeight: 700, color: 'var(--charcoal)', lineHeight: 1.1 }}>
+          <img src="/logo.svg" alt="The Village Farm Logo" style={{ width: '38px', height: '38px', flexShrink: 0 }} />
+          <div style={{ minWidth: 0 }}>
+            <div style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(1.05rem, 3.8vw, 1.25rem)', fontWeight: 700, color: 'var(--charcoal)', lineHeight: 1.15, whiteSpace: 'nowrap' }}>
               The Village Farm
             </div>
-            <div style={{ fontSize: '0.6875rem', color: 'var(--amber-dark)', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+            <div style={{ fontSize: 'clamp(0.6rem, 2.2vw, 0.6875rem)', color: 'var(--amber-dark)', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
               Organic & Free-Range
             </div>
           </div>
@@ -158,7 +158,7 @@ export const Navbar = () => {
         </nav>
 
         {/* Right Actions */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexShrink: 0 }}>
           {/* QR Order Shortcut */}
           <button
             onClick={() => setIsQrModalOpen(true)}
@@ -170,10 +170,10 @@ export const Navbar = () => {
             <span style={{ fontSize: '0.8125rem' }}>QR Order</span>
           </button>
 
-          {/* Sign In to Dashboards Button */}
+          {/* Sign In to Dashboards Button - Visible on Desktop, in Mobile Menu on Phone */}
           <button
             onClick={() => handleNavClick('login')}
-            className={`btn btn-sm ${customerView === 'login' ? 'btn-primary' : 'btn-secondary'}`}
+            className={`btn btn-sm ${customerView === 'login' ? 'btn-primary' : 'btn-secondary'} hide-on-mobile`}
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -192,7 +192,7 @@ export const Navbar = () => {
           <button
             onClick={() => setIsCartDrawerOpen(true)}
             className="btn btn-primary"
-            style={{ padding: '0.5rem 1rem', position: 'relative' }}
+            style={{ padding: '0.45rem 0.85rem', position: 'relative', display: 'flex', alignItems: 'center', gap: '0.35rem', flexShrink: 0 }}
             aria-label={`Open shopping cart with ${cartItemsCount} items`}
           >
             <ShoppingBag size={18} />
@@ -203,7 +203,7 @@ export const Navbar = () => {
                   background: 'var(--charcoal-deep)',
                   color: 'var(--white)',
                   borderRadius: 'var(--radius-full)',
-                  padding: '1px 7px',
+                  padding: '1px 6px',
                   fontSize: '0.75rem',
                   fontWeight: 700,
                   marginLeft: '2px'
@@ -218,7 +218,7 @@ export const Navbar = () => {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="btn btn-ghost hide-on-desktop"
-            style={{ padding: '8px' }}
+            style={{ padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             aria-label="Toggle navigation menu"
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -236,7 +236,7 @@ export const Navbar = () => {
             padding: '1rem',
             display: 'flex',
             flexDirection: 'column',
-            gap: '0.75rem',
+            gap: '0.5rem',
             boxShadow: 'var(--shadow-lg)'
           }}
         >
