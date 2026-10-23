@@ -40,9 +40,7 @@ export const HomePage = () => {
     { id: 'Chicken', name: 'Chicken', image: '/images/categories/cat_chicken.jpg' },
     { id: 'Mutton', name: 'Mutton', image: '/images/categories/cat_mutton.jpg' },
     { id: 'Sea Food', name: 'Sea Food', image: '/images/categories/cat_seafood.jpg' },
-    { id: 'Ready To Cook', name: 'Ready To Cook', image: '/images/categories/cat_readycook.jpg' },
-    { id: 'Biryani', name: 'Biryani', image: '/images/categories/cat_biryani.jpg' },
-    { id: 'Snacks', name: 'Snacks', image: '/images/categories/cat_snacks.jpg' }
+    { id: 'Ready To Cook', name: 'Ready To Cook', image: '/images/categories/cat_readycook.jpg' }
   ];
 
   const scrollCarousel = (direction) => {

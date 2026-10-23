@@ -226,7 +226,11 @@ export const FarmProvider = ({ children }) => {
   const [orders, setOrders] = useState(() => getStorageItem(STORAGE_KEYS.ORDERS, INITIAL_ORDERS));
   const [products, setProducts] = useState(() => {
     const stored = getStorageItem(STORAGE_KEYS.PRODUCTS, null);
-    if (!stored || stored.length < INITIAL_PRODUCTS.length || stored.some(p => p.stock === 0)) {
+    if (
+      !stored ||
+      stored.length !== INITIAL_PRODUCTS.length ||
+      stored.some((p) => p.stock === 0 || p.category === 'Biryani' || p.category === 'Snacks')
+    ) {
       setStorageItem(STORAGE_KEYS.PRODUCTS, INITIAL_PRODUCTS);
       return INITIAL_PRODUCTS;
     }
