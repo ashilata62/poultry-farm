@@ -134,84 +134,102 @@ export const LoginPage = () => {
   return (
     <div
       style={{
-        position: 'relative',
-        minHeight: '100vh',
-        width: '100%',
+        position: 'fixed',
+        inset: 0,
+        width: '100vw',
+        height: '100vh',
+        maxHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
         backgroundImage: "url('/images/farm_hero.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        backgroundColor: '#FAF5EE'
+        backgroundColor: '#141615',
+        overflow: 'hidden'
       }}
     >
-      {/* Landing-Page-Style Warm Sunlight & Ivory Frosted Overlay */}
+      {/* Deep Charcoal & Warm Amber Ambient Glassmorphic Scrim Overlay */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
           background:
-            'radial-gradient(circle at 15% 20%, rgba(242, 140, 40, 0.18) 0%, transparent 50%), radial-gradient(circle at 85% 80%, rgba(200, 117, 34, 0.14) 0%, transparent 55%), linear-gradient(135deg, rgba(255, 252, 247, 0.90) 0%, rgba(247, 239, 227, 0.86) 45%, rgba(255, 248, 238, 0.92) 100%)',
-          backdropFilter: 'blur(10px)',
-          WebkitBackdropFilter: 'blur(10px)',
+            'radial-gradient(ellipse at 20% 25%, rgba(242, 140, 40, 0.28) 0%, transparent 55%), radial-gradient(ellipse at 80% 75%, rgba(217, 119, 6, 0.22) 0%, transparent 60%), linear-gradient(135deg, rgba(16, 18, 17, 0.88) 0%, rgba(22, 25, 23, 0.82) 48%, rgba(18, 20, 19, 0.92) 100%)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
           pointerEvents: 'none',
           zIndex: 1
         }}
       />
 
-      {/* Ambient Warm Golden Orb Top-Right */}
+      {/* Floating Amber Glowing Orb Top-Left */}
       <div
         style={{
           position: 'absolute',
-          top: '-70px',
-          right: '8%',
-          width: '450px',
-          height: '450px',
+          top: '-60px',
+          left: '10%',
+          width: '420px',
+          height: '420px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(242, 140, 40, 0.15) 0%, rgba(242, 140, 40, 0) 70%)',
+          background: 'radial-gradient(circle, rgba(242, 140, 40, 0.24) 0%, rgba(242, 140, 40, 0) 70%)',
+          pointerEvents: 'none',
+          zIndex: 2,
+          filter: 'blur(45px)'
+        }}
+      />
+
+      {/* Floating Amber Glowing Orb Bottom-Right */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '-80px',
+          right: '8%',
+          width: '480px',
+          height: '480px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(200, 117, 34, 0.20) 0%, rgba(200, 117, 34, 0) 70%)',
           pointerEvents: 'none',
           zIndex: 2,
           filter: 'blur(50px)'
         }}
       />
 
-      {/* Top Glassmorphic Navigation Bar (Landing Page Bright Aesthetic) */}
+      {/* Top Glassmorphic Navigation Bar */}
       <header
         style={{
-          height: '62px',
+          height: '52px',
           flexShrink: 0,
-          backgroundColor: 'rgba(255, 255, 255, 0.88)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-          borderBottom: '1px solid rgba(232, 222, 208, 0.85)',
-          padding: '0 1.5rem',
+          backgroundColor: 'rgba(20, 23, 21, 0.75)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+          padding: '0 1.25rem',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           position: 'relative',
-          zIndex: 20,
-          boxShadow: '0 2px 8px rgba(41, 43, 42, 0.04)'
+          zIndex: 20
         }}
       >
         {/* Brand Logo */}
         <div
           onClick={handleReturnToStore}
-          style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer' }}
+          style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', cursor: 'pointer' }}
           title="Return to Customer Store"
         >
           <img
             src="/logo.svg"
             alt="The Village Farm Logo"
-            style={{ width: '36px', height: '36px', filter: 'drop-shadow(0 2px 6px rgba(242, 140, 40, 0.35))' }}
+            style={{ width: '32px', height: '32px', filter: 'drop-shadow(0 2px 8px rgba(242, 140, 40, 0.45))' }}
           />
           <div>
             <div
               style={{
                 fontFamily: 'var(--font-heading)',
-                fontSize: '1.15rem',
+                fontSize: '1.05rem',
                 fontWeight: 700,
-                color: 'var(--charcoal-deep)',
+                color: '#FFFFFF',
                 lineHeight: 1.15,
                 letterSpacing: '0.01em'
               }}
@@ -220,10 +238,10 @@ export const LoginPage = () => {
             </div>
             <div
               style={{
-                fontSize: '0.625rem',
+                fontSize: '0.6rem',
                 color: 'var(--amber-primary)',
                 fontWeight: 700,
-                letterSpacing: '0.08em',
+                letterSpacing: '0.07em',
                 textTransform: 'uppercase'
               }}
             >
@@ -239,23 +257,24 @@ export const LoginPage = () => {
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '0.45rem',
-              fontSize: '0.75rem',
-              color: 'var(--success-green)',
+              gap: '0.4rem',
+              fontSize: '0.71875rem',
+              color: '#4ADE80',
               fontWeight: 600,
-              backgroundColor: 'var(--success-bg)',
-              border: '1px solid rgba(40, 122, 75, 0.25)',
-              padding: '0.25rem 0.8rem',
-              borderRadius: 'var(--radius-full)'
+              backgroundColor: 'rgba(34, 197, 94, 0.12)',
+              border: '1px solid rgba(34, 197, 94, 0.3)',
+              padding: '0.2rem 0.7rem',
+              borderRadius: 'var(--radius-full)',
+              backdropFilter: 'blur(10px)'
             }}
           >
             <span
               style={{
-                width: '7px',
-                height: '7px',
+                width: '6px',
+                height: '6px',
                 borderRadius: '50%',
-                backgroundColor: 'var(--success-green)',
-                boxShadow: '0 0 6px rgba(40, 122, 75, 0.6)'
+                backgroundColor: '#22C55E',
+                boxShadow: '0 0 8px #22C55E'
               }}
             />
             4 Portals Online
@@ -266,72 +285,72 @@ export const LoginPage = () => {
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '0.45rem',
+              gap: '0.4rem',
               fontWeight: 600,
-              padding: '0.45rem 0.95rem',
-              fontSize: '0.8125rem',
-              color: 'var(--charcoal-deep)',
-              backgroundColor: '#FFFFFF',
-              border: '1px solid var(--border-beige)',
+              padding: '0.4rem 0.85rem',
+              fontSize: '0.78125rem',
+              color: '#FFFFFF',
+              backgroundColor: 'rgba(255, 255, 255, 0.08)',
+              border: '1px solid rgba(255, 255, 255, 0.16)',
               borderRadius: 'var(--radius-sm)',
               cursor: 'pointer',
-              boxShadow: 'var(--shadow-xs)',
-              transition: 'background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease'
+              backdropFilter: 'blur(10px)',
+              transition: 'background-color 0.2s ease, border-color 0.2s ease'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--amber-soft)';
-              e.currentTarget.style.borderColor = 'var(--amber-primary)';
-              e.currentTarget.style.color = 'var(--amber-dark)';
+              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.18)';
+              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.32)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = '#FFFFFF';
-              e.currentTarget.style.borderColor = 'var(--border-beige)';
-              e.currentTarget.style.color = 'var(--charcoal-deep)';
+              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
+              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.16)';
             }}
           >
-            <ArrowLeft size={15} />
+            <ArrowLeft size={14} />
             <span>Back to Store</span>
           </button>
         </div>
       </header>
 
-      {/* Main Centered Master Glassmorphic Area (Fluid, Fully Responsive) */}
+      {/* Main Centered Master Glassmorphic Area */}
       <main
         style={{
           flex: 1,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '2rem 1.25rem',
+          padding: '0.5rem 1rem',
           position: 'relative',
-          zIndex: 10
+          zIndex: 10,
+          overflow: 'hidden'
         }}
       >
-        {/* Master Glassmorphic Card Container (Landing Page Warm Ivory & Amber Glass) */}
+        {/* Master Glassmorphic Card Container */}
         <div
           className="login-glass-card"
           style={{
             width: '100%',
-            maxWidth: '980px',
-            backgroundColor: 'rgba(255, 255, 255, 0.88)',
-            backdropFilter: 'blur(28px) saturate(170%)',
-            WebkitBackdropFilter: 'blur(28px) saturate(170%)',
-            border: '1px solid rgba(232, 222, 208, 0.95)',
+            maxWidth: '960px',
+            maxHeight: 'calc(100vh - 70px)',
+            backgroundColor: 'rgba(26, 29, 28, 0.78)',
+            backdropFilter: 'blur(30px) saturate(190%)',
+            WebkitBackdropFilter: 'blur(30px) saturate(190%)',
+            border: '1px solid rgba(255, 255, 255, 0.16)',
             boxShadow:
-              '0 24px 60px -12px rgba(41, 43, 42, 0.12), 0 0 0 1px rgba(242, 140, 40, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.9)',
-            borderRadius: '24px',
+              '0 24px 60px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(242, 140, 40, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.22)',
+            borderRadius: '20px',
             display: 'grid',
-            gridTemplateColumns: '380px 1fr',
+            gridTemplateColumns: '370px 1fr',
             overflow: 'hidden'
           }}
         >
-          {/* LEFT COLUMN: Fresh Cut Chicken Showcase Frame */}
+          {/* LEFT COLUMN: Fresh Cut Chicken Showcase Frame (Matching Reference) */}
           <div
             className="login-image-frame"
             style={{
-              padding: '1.25rem',
-              backgroundColor: 'rgba(247, 239, 227, 0.55)',
-              borderRight: '1px solid rgba(232, 222, 208, 0.85)',
+              padding: '1rem',
+              backgroundColor: 'rgba(15, 17, 16, 0.50)',
+              borderRight: '1px solid rgba(255, 255, 255, 0.10)',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
@@ -340,15 +359,14 @@ export const LoginPage = () => {
           >
             {/* Top Showcase Image Card with Reference Bottom Pill */}
             <div
-              className="login-hero-img-box"
               style={{
                 width: '100%',
-                height: '240px',
-                borderRadius: '16px',
+                height: '195px',
+                borderRadius: '14px',
                 overflow: 'hidden',
                 position: 'relative',
-                border: '1px solid rgba(232, 222, 208, 0.9)',
-                boxShadow: 'var(--shadow-md)'
+                border: '1px solid rgba(255, 255, 255, 0.14)',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.5)'
               }}
             >
               <img
@@ -362,12 +380,12 @@ export const LoginPage = () => {
                   display: 'block'
                 }}
               />
-              {/* Subtle warm vignette */}
+              {/* Subtle dark vignette */}
               <div
                 style={{
                   position: 'absolute',
                   inset: 0,
-                  background: 'linear-gradient(to top, rgba(26, 28, 27, 0.82) 0%, rgba(26, 28, 27, 0.05) 60%)',
+                  background: 'linear-gradient(to top, rgba(16, 18, 17, 0.85) 0%, rgba(16, 18, 17, 0.1) 60%)',
                   pointerEvents: 'none'
                 }}
               />
@@ -376,37 +394,37 @@ export const LoginPage = () => {
               <div
                 style={{
                   position: 'absolute',
-                  bottom: '12px',
-                  left: '12px',
-                  right: '12px',
-                  backgroundColor: 'rgba(32, 35, 33, 0.90)',
+                  bottom: '10px',
+                  left: '10px',
+                  right: '10px',
+                  backgroundColor: 'rgba(20, 23, 21, 0.88)',
                   backdropFilter: 'blur(12px)',
                   WebkitBackdropFilter: 'blur(12px)',
-                  padding: '7px 12px',
-                  borderRadius: '12px',
+                  padding: '6px 10px',
+                  borderRadius: '10px',
                   border: '1px solid rgba(255, 255, 255, 0.16)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between'
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <span
                     style={{
-                      width: '8px',
-                      height: '8px',
+                      width: '7px',
+                      height: '7px',
                       borderRadius: '50%',
                       backgroundColor: 'var(--amber-primary)',
                       boxShadow: '0 0 8px var(--amber-primary)'
                     }}
                   />
-                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#FFFFFF' }}>
+                  <span style={{ fontSize: '0.71875rem', fontWeight: 700, color: '#FFFFFF' }}>
                     Ethical Pasture Farm
                   </span>
                 </div>
                 <span
                   style={{
-                    fontSize: '0.71875rem',
+                    fontSize: '0.6875rem',
                     color: 'var(--amber-primary)',
                     fontWeight: 700,
                     letterSpacing: '0.02em'
@@ -417,48 +435,45 @@ export const LoginPage = () => {
               </div>
             </div>
 
-            {/* Farm Trust Pillars with Warm Ivory/Cream Frosted Accents */}
+            {/* Farm Trust Pillars with Frosted Accents */}
             <div
-              className="login-trust-pillars"
               style={{
-                marginTop: '1rem',
+                marginTop: '0.65rem',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '0.55rem'
+                gap: '0.45rem'
               }}
             >
               <div
                 style={{
-                  padding: '0.55rem 0.75rem',
-                  borderRadius: '12px',
-                  backgroundColor: 'rgba(255, 255, 255, 0.75)',
-                  border: '1px solid var(--border-beige)',
+                  padding: '0.45rem 0.65rem',
+                  borderRadius: '10px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.65rem',
-                  boxShadow: 'var(--shadow-xs)'
+                  gap: '0.55rem'
                 }}
               >
                 <div
                   style={{
-                    width: '30px',
-                    height: '30px',
-                    borderRadius: '8px',
-                    backgroundColor: 'var(--amber-soft)',
-                    border: '1px solid rgba(242, 140, 40, 0.25)',
+                    width: '26px',
+                    height: '26px',
+                    borderRadius: '7px',
+                    backgroundColor: 'rgba(242, 140, 40, 0.18)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     flexShrink: 0
                   }}
                 >
-                  <Feather size={15} color="var(--amber-dark)" />
+                  <Feather size={14} color="var(--amber-primary)" />
                 </div>
                 <div>
-                  <div style={{ fontSize: '0.78125rem', fontWeight: 700, color: 'var(--charcoal-deep)', lineHeight: 1.2 }}>
+                  <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#FFFFFF', lineHeight: 1.2 }}>
                     Free-Range Country Pastures
                   </div>
-                  <div style={{ fontSize: '0.6875rem', color: 'var(--muted-text)' }}>
+                  <div style={{ fontSize: '0.65625rem', color: '#9CA3AF' }}>
                     4 Active sheds, natural sunlight & non-GMO grains
                   </div>
                 </div>
@@ -466,36 +481,34 @@ export const LoginPage = () => {
 
               <div
                 style={{
-                  padding: '0.55rem 0.75rem',
-                  borderRadius: '12px',
-                  backgroundColor: 'rgba(255, 255, 255, 0.75)',
-                  border: '1px solid var(--border-beige)',
+                  padding: '0.45rem 0.65rem',
+                  borderRadius: '10px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.65rem',
-                  boxShadow: 'var(--shadow-xs)'
+                  gap: '0.55rem'
                 }}
               >
                 <div
                   style={{
-                    width: '30px',
-                    height: '30px',
-                    borderRadius: '8px',
-                    backgroundColor: 'var(--success-bg)',
-                    border: '1px solid rgba(40, 122, 75, 0.25)',
+                    width: '26px',
+                    height: '26px',
+                    borderRadius: '7px',
+                    backgroundColor: 'rgba(34, 197, 94, 0.18)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     flexShrink: 0
                   }}
                 >
-                  <Thermometer size={15} color="var(--success-green)" />
+                  <Thermometer size={14} color="#4ADE80" />
                 </div>
                 <div>
-                  <div style={{ fontSize: '0.78125rem', fontWeight: 700, color: 'var(--charcoal-deep)', lineHeight: 1.2 }}>
+                  <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#FFFFFF', lineHeight: 1.2 }}>
                     Strict 2.4°C Chilled Cold-Chain
                   </div>
-                  <div style={{ fontSize: '0.6875rem', color: 'var(--muted-text)' }}>
+                  <div style={{ fontSize: '0.65625rem', color: '#9CA3AF' }}>
                     Zero freezing, preserved tenderness & hygiene
                   </div>
                 </div>
@@ -503,36 +516,34 @@ export const LoginPage = () => {
 
               <div
                 style={{
-                  padding: '0.55rem 0.75rem',
-                  borderRadius: '12px',
-                  backgroundColor: 'rgba(255, 255, 255, 0.75)',
-                  border: '1px solid var(--border-beige)',
+                  padding: '0.45rem 0.65rem',
+                  borderRadius: '10px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.65rem',
-                  boxShadow: 'var(--shadow-xs)'
+                  gap: '0.55rem'
                 }}
               >
                 <div
                   style={{
-                    width: '30px',
-                    height: '30px',
-                    borderRadius: '8px',
-                    backgroundColor: 'var(--amber-soft)',
-                    border: '1px solid rgba(242, 140, 40, 0.25)',
+                    width: '26px',
+                    height: '26px',
+                    borderRadius: '7px',
+                    backgroundColor: 'rgba(242, 140, 40, 0.18)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     flexShrink: 0
                   }}
                 >
-                  <Award size={15} color="var(--amber-dark)" />
+                  <Award size={14} color="var(--amber-primary)" />
                 </div>
                 <div>
-                  <div style={{ fontSize: '0.78125rem', fontWeight: 700, color: 'var(--charcoal-deep)', lineHeight: 1.2 }}>
+                  <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#FFFFFF', lineHeight: 1.2 }}>
                     No Antibiotics or Hormones
                   </div>
-                  <div style={{ fontSize: '0.6875rem', color: 'var(--muted-text)' }}>
+                  <div style={{ fontSize: '0.65625rem', color: '#9CA3AF' }}>
                     Daily farm biosecurity & veterinary verification
                   </div>
                 </div>
@@ -541,82 +552,80 @@ export const LoginPage = () => {
 
             {/* Farm Location Footnote */}
             <div
-              className="login-footnote"
               style={{
-                fontSize: '0.6875rem',
-                color: 'var(--muted-text)',
+                fontSize: '0.65625rem',
+                color: '#8A857B',
                 textAlign: 'center',
-                paddingTop: '0.65rem',
-                marginTop: '0.65rem',
-                borderTop: '1px solid var(--border-subtle)'
+                paddingTop: '0.45rem',
+                marginTop: '0.45rem',
+                borderTop: '1px solid rgba(255, 255, 255, 0.08)'
               }}
             >
               The Village Farm Hub • Varthur Hobli, Bengaluru
             </div>
           </div>
 
-          {/* RIGHT COLUMN: Interactive Multi-Role Form Pane */}
+          {/* RIGHT COLUMN: Interactive Multi-Role Glassmorphic Form Pane */}
           <div
             className="login-form-pane"
             style={{
-              padding: '1.75rem 2.25rem',
+              padding: '1.15rem 1.75rem',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center'
             }}
           >
             {/* Header Titles */}
-            <div style={{ marginBottom: '1rem' }}>
+            <div style={{ marginBottom: '0.7rem' }}>
               <div
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '0.4rem',
-                  backgroundColor: 'var(--amber-soft)',
-                  color: 'var(--amber-dark)',
-                  border: '1px solid rgba(242, 140, 40, 0.3)',
-                  padding: '0.25rem 0.75rem',
+                  gap: '0.35rem',
+                  backgroundColor: 'rgba(242, 140, 40, 0.16)',
+                  color: 'var(--amber-primary)',
+                  border: '1px solid rgba(242, 140, 40, 0.35)',
+                  padding: '0.2rem 0.65rem',
                   borderRadius: 'var(--radius-full)',
-                  fontSize: '0.71875rem',
+                  fontSize: '0.6875rem',
                   fontWeight: 700,
-                  marginBottom: '0.5rem',
+                  marginBottom: '0.35rem',
                   letterSpacing: '0.04em'
                 }}
               >
-                <Sparkles size={13} />
+                <Sparkles size={12} />
                 <span>Unified Enterprise Gateway</span>
               </div>
 
               <h1
                 style={{
                   fontFamily: 'var(--font-heading)',
-                  fontSize: '1.75rem',
+                  fontSize: '1.65rem',
                   fontWeight: 700,
-                  color: 'var(--charcoal-deep)',
-                  lineHeight: 1.2,
+                  color: '#FFFFFF',
+                  lineHeight: 1.15,
                   margin: 0,
                   letterSpacing: '-0.01em'
                 }}
               >
                 Sign In to Dashboard
               </h1>
-              <p style={{ fontSize: '0.84375rem', color: 'var(--muted-text)', margin: '4px 0 0' }}>
+              <p style={{ fontSize: '0.8125rem', color: '#B5B0A6', margin: '3px 0 0' }}>
                 Select your operational console to authenticate into your session
               </p>
             </div>
 
             {/* 4 Dashboard Selector Glassmorphic Tabs */}
-            <div style={{ marginBottom: '0.85rem' }}>
+            <div style={{ marginBottom: '0.65rem' }}>
               <div
-                className="login-tabs-grid"
                 style={{
                   display: 'grid',
                   gridTemplateColumns: 'repeat(4, 1fr)',
-                  gap: '0.4rem',
-                  backgroundColor: 'rgba(247, 239, 227, 0.7)',
+                  gap: '0.35rem',
+                  backgroundColor: 'rgba(15, 17, 16, 0.60)',
                   padding: '0.35rem',
-                  borderRadius: '14px',
-                  border: '1px solid var(--border-beige)'
+                  borderRadius: '12px',
+                  border: '1px solid rgba(255, 255, 255, 0.10)'
                 }}
               >
                 {rolePortals.map((portal) => {
@@ -629,33 +638,33 @@ export const LoginPage = () => {
                       type="button"
                       onClick={() => handleSelectRole(portal.id)}
                       style={{
-                        padding: '0.55rem 0.25rem',
-                        borderRadius: '10px',
+                        padding: '0.45rem 0.25rem',
+                        borderRadius: '9px',
                         border: isSelected
                           ? '1.5px solid var(--amber-primary)'
-                          : '1px solid transparent',
+                          : '1px solid rgba(255, 255, 255, 0.06)',
                         backgroundColor: isSelected
-                          ? '#FFFFFF'
+                          ? 'rgba(242, 140, 40, 0.20)'
                           : 'transparent',
-                        color: isSelected ? 'var(--amber-dark)' : 'var(--charcoal)',
-                        boxShadow: isSelected ? '0 4px 12px rgba(242, 140, 40, 0.2)' : 'none',
+                        color: isSelected ? 'var(--amber-primary)' : '#DDD6CC',
+                        boxShadow: isSelected ? '0 4px 16px rgba(242, 140, 40, 0.32)' : 'none',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
                         gap: '0.25rem',
                         cursor: 'pointer',
-                        transition: 'all 0.18s ease'
+                        transition: 'background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease'
                       }}
                       title={portal.title}
                     >
                       <IconComponent
-                        size={17}
-                        color={isSelected ? 'var(--amber-primary)' : 'var(--muted-text)'}
+                        size={16}
+                        color={isSelected ? 'var(--amber-primary)' : '#9CA3AF'}
                       />
                       <span
                         style={{
-                          fontSize: '0.75rem',
+                          fontSize: '0.71875rem',
                           fontWeight: isSelected ? 700 : 500,
                           whiteSpace: 'nowrap'
                         }}
@@ -668,48 +677,47 @@ export const LoginPage = () => {
               </div>
             </div>
 
-            {/* Active Portal Summary Glass Bar (Landing Page Warm Style) */}
+            {/* Active Portal Summary Glass Bar (Exact reference style) */}
             <div
               style={{
-                backgroundColor: 'var(--amber-soft)',
-                border: '1px solid rgba(242, 140, 40, 0.25)',
-                borderRadius: '12px',
-                padding: '0.65rem 0.95rem',
-                marginBottom: '0.9rem',
+                backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.10)',
+                borderRadius: '11px',
+                padding: '0.5rem 0.75rem',
+                marginBottom: '0.65rem',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between'
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
                 <div
                   style={{
-                    width: '34px',
-                    height: '34px',
-                    borderRadius: '10px',
-                    backgroundColor: '#FFFFFF',
+                    width: '30px',
+                    height: '30px',
+                    borderRadius: '8px',
+                    backgroundColor: 'rgba(242, 140, 40, 0.2)',
                     color: 'var(--amber-primary)',
                     border: '1px solid rgba(242, 140, 40, 0.35)',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    boxShadow: 'var(--shadow-xs)'
+                    justifyContent: 'center'
                   }}
                 >
-                  <currentPortal.icon size={18} />
+                  <currentPortal.icon size={16} />
                 </div>
                 <div>
                   <div
                     style={{
-                      fontSize: '0.875rem',
+                      fontSize: '0.84375rem',
                       fontWeight: 700,
-                      color: 'var(--charcoal-deep)',
-                      lineHeight: 1.2
+                      color: '#FFFFFF',
+                      lineHeight: 1.15
                     }}
                   >
                     {currentPortal.title}
                   </div>
-                  <div style={{ fontSize: '0.71875rem', color: 'var(--muted-text)' }}>
+                  <div style={{ fontSize: '0.6875rem', color: '#9CA3AF' }}>
                     {currentPortal.tagline}
                   </div>
                 </div>
@@ -717,36 +725,36 @@ export const LoginPage = () => {
 
               <span
                 className={`badge ${currentPortal.badgeColor}`}
-                style={{ fontSize: '0.65625rem', padding: '4px 9px', borderRadius: 'var(--radius-full)' }}
+                style={{ fontSize: '0.625rem', padding: '3px 8px', borderRadius: 'var(--radius-full)' }}
               >
                 {currentPortal.roleBadge}
               </span>
             </div>
 
             {/* Login Form Fields */}
-            <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+            <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
               {/* Enterprise Email */}
               <div>
                 <label
                   style={{
                     display: 'block',
-                    fontSize: '0.78125rem',
+                    fontSize: '0.75rem',
                     fontWeight: 600,
-                    color: 'var(--charcoal-deep)',
-                    marginBottom: '0.3rem'
+                    color: '#E5E0D8',
+                    marginBottom: '0.2rem'
                   }}
                 >
                   Enterprise Email
                 </label>
                 <div style={{ position: 'relative' }}>
                   <Mail
-                    size={15}
+                    size={14}
                     style={{
                       position: 'absolute',
-                      left: '12px',
+                      left: '11px',
                       top: '50%',
                       transform: 'translateY(-50%)',
-                      color: 'var(--muted-text)'
+                      color: '#9CA3AF'
                     }}
                   />
                   <input
@@ -756,22 +764,22 @@ export const LoginPage = () => {
                     required
                     style={{
                       width: '100%',
-                      paddingLeft: '2.35rem',
-                      height: '40px',
-                      fontSize: '0.84375rem',
-                      backgroundColor: '#FFFFFF',
-                      border: '1px solid var(--border-beige)',
-                      borderRadius: '10px',
-                      color: 'var(--charcoal-deep)',
+                      paddingLeft: '2.2rem',
+                      height: '36px',
+                      fontSize: '0.8125rem',
+                      backgroundColor: 'rgba(12, 14, 13, 0.65)',
+                      border: '1px solid rgba(255, 255, 255, 0.15)',
+                      borderRadius: '9px',
+                      color: '#FFFFFF',
                       outline: 'none',
                       transition: 'border-color 0.2s ease, box-shadow 0.2s ease'
                     }}
                     onFocus={(e) => {
                       e.target.style.borderColor = 'var(--amber-primary)';
-                      e.target.style.boxShadow = '0 0 0 3px rgba(242, 140, 40, 0.2)';
+                      e.target.style.boxShadow = '0 0 0 3px rgba(242, 140, 40, 0.25)';
                     }}
                     onBlur={(e) => {
-                      e.target.style.borderColor = 'var(--border-beige)';
+                      e.target.style.borderColor = 'rgba(255, 255, 255, 0.15)';
                       e.target.style.boxShadow = 'none';
                     }}
                     placeholder="name@thevillagefarm.in"
@@ -786,16 +794,16 @@ export const LoginPage = () => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    marginBottom: '0.3rem'
+                    marginBottom: '0.2rem'
                   }}
                 >
-                  <label style={{ fontSize: '0.78125rem', fontWeight: 600, color: 'var(--charcoal-deep)' }}>
+                  <label style={{ fontSize: '0.75rem', fontWeight: 600, color: '#E5E0D8' }}>
                     Password
                   </label>
                   <span
                     style={{
-                      fontSize: '0.71875rem',
-                      color: 'var(--amber-dark)',
+                      fontSize: '0.6875rem',
+                      color: 'var(--amber-primary)',
                       fontWeight: 600,
                       letterSpacing: '0.02em'
                     }}
@@ -805,13 +813,13 @@ export const LoginPage = () => {
                 </div>
                 <div style={{ position: 'relative' }}>
                   <Lock
-                    size={15}
+                    size={14}
                     style={{
                       position: 'absolute',
-                      left: '12px',
+                      left: '11px',
                       top: '50%',
                       transform: 'translateY(-50%)',
-                      color: 'var(--muted-text)'
+                      color: '#9CA3AF'
                     }}
                   />
                   <input
@@ -821,23 +829,23 @@ export const LoginPage = () => {
                     required
                     style={{
                       width: '100%',
-                      paddingLeft: '2.35rem',
-                      paddingRight: '2.5rem',
-                      height: '40px',
-                      fontSize: '0.84375rem',
-                      backgroundColor: '#FFFFFF',
-                      border: '1px solid var(--border-beige)',
-                      borderRadius: '10px',
-                      color: 'var(--charcoal-deep)',
+                      paddingLeft: '2.2rem',
+                      paddingRight: '2.4rem',
+                      height: '36px',
+                      fontSize: '0.8125rem',
+                      backgroundColor: 'rgba(12, 14, 13, 0.65)',
+                      border: '1px solid rgba(255, 255, 255, 0.15)',
+                      borderRadius: '9px',
+                      color: '#FFFFFF',
                       outline: 'none',
                       transition: 'border-color 0.2s ease, box-shadow 0.2s ease'
                     }}
                     onFocus={(e) => {
                       e.target.style.borderColor = 'var(--amber-primary)';
-                      e.target.style.boxShadow = '0 0 0 3px rgba(242, 140, 40, 0.2)';
+                      e.target.style.boxShadow = '0 0 0 3px rgba(242, 140, 40, 0.25)';
                     }}
                     onBlur={(e) => {
-                      e.target.style.borderColor = 'var(--border-beige)';
+                      e.target.style.borderColor = 'rgba(255, 255, 255, 0.15)';
                       e.target.style.boxShadow = 'none';
                     }}
                     placeholder="Enter password"
@@ -847,12 +855,12 @@ export const LoginPage = () => {
                     onClick={() => setShowPassword(!showPassword)}
                     style={{
                       position: 'absolute',
-                      right: '12px',
+                      right: '11px',
                       top: '50%',
                       transform: 'translateY(-50%)',
                       background: 'none',
                       border: 'none',
-                      color: 'var(--muted-text)',
+                      color: '#9CA3AF',
                       cursor: 'pointer',
                       display: 'flex',
                       alignItems: 'center',
@@ -860,7 +868,7 @@ export const LoginPage = () => {
                     }}
                     aria-label={showPassword ? 'Hide password' : 'Show password'}
                   >
-                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                    {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
                   </button>
                 </div>
               </div>
@@ -871,17 +879,17 @@ export const LoginPage = () => {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  fontSize: '0.78125rem',
-                  padding: '2px 0'
+                  fontSize: '0.71875rem',
+                  padding: '1px 0'
                 }}
               >
                 <label
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '0.45rem',
+                    gap: '0.4rem',
                     cursor: 'pointer',
-                    color: 'var(--charcoal)'
+                    color: '#D1CBC0'
                   }}
                 >
                   <input
@@ -894,77 +902,76 @@ export const LoginPage = () => {
                 </label>
                 <span
                   style={{
-                    color: 'var(--muted-text)',
-                    fontSize: '0.71875rem',
+                    color: '#8E8A80',
+                    fontSize: '0.6875rem',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '4px'
+                    gap: '3px'
                   }}
                 >
-                  <Lock size={12} color="var(--amber-primary)" />
+                  <Lock size={11} color="var(--amber-primary)" />
                   <span>SSL 256-Bit</span>
                 </span>
               </div>
 
-              {/* Primary Amber Sign In Button (Rock Solid, No Shift) */}
+              {/* Primary Glassmorphic Sign In Button (Rock-solid static, zero jump) */}
               <button
                 type="submit"
                 style={{
-                  height: '44px',
-                  fontSize: '0.9375rem',
+                  height: '40px',
+                  fontSize: '0.875rem',
                   fontWeight: 700,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '0.55rem',
+                  gap: '0.5rem',
                   background: 'linear-gradient(135deg, #F28C28 0%, #D97706 100%)',
-                  color: '#FFFFFF',
+                  color: '#1A1C1B',
                   border: 'none',
-                  borderRadius: '12px',
+                  borderRadius: '10px',
                   boxShadow: '0 6px 20px rgba(242, 140, 40, 0.40)',
                   cursor: 'pointer',
-                  marginTop: '0.35rem',
+                  marginTop: '0.25rem',
                   transition: 'box-shadow 0.2s ease, filter 0.2s ease',
                   letterSpacing: '0.01em'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(242, 140, 40, 0.55)';
-                  e.currentTarget.style.filter = 'brightness(1.04)';
+                  e.currentTarget.style.boxShadow = '0 8px 28px rgba(242, 140, 40, 0.55)';
+                  e.currentTarget.style.filter = 'brightness(1.05)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.boxShadow = '0 6px 20px rgba(242, 140, 40, 0.40)';
                   e.currentTarget.style.filter = 'none';
                 }}
               >
-                <ShieldCheck size={18} />
+                <ShieldCheck size={17} />
                 <span>Sign In as {currentPortal.title}</span>
-                <ArrowRight size={16} />
+                <ArrowRight size={15} />
               </button>
 
               {/* 1-Click Direct Launch Shortcuts */}
               <div
                 style={{
-                  paddingTop: '0.75rem',
-                  borderTop: '1px solid var(--border-subtle)',
+                  paddingTop: '0.55rem',
+                  borderTop: '1px solid rgba(255, 255, 255, 0.10)',
                   textAlign: 'center'
                 }}
               >
                 <div
                   style={{
-                    fontSize: '0.71875rem',
-                    color: 'var(--muted-text)',
-                    marginBottom: '0.45rem',
+                    fontSize: '0.6875rem',
+                    color: '#9CA3AF',
+                    marginBottom: '0.35rem',
                     fontWeight: 500
                   }}
                 >
                   1-Click Instant Demo Launch:
                 </div>
                 <div
-                  className="login-quick-launch-grid"
                   style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(4, 1fr)',
-                    gap: '0.4rem'
+                    gap: '0.35rem'
                   }}
                 >
                   {rolePortals.map((p) => (
@@ -973,26 +980,25 @@ export const LoginPage = () => {
                       type="button"
                       onClick={p.action}
                       style={{
-                        padding: '0.45rem 0.3rem',
-                        fontSize: '0.71875rem',
+                        padding: '0.35rem 0.25rem',
+                        fontSize: '0.6875rem',
                         fontWeight: 600,
-                        borderRadius: '8px',
-                        backgroundColor: '#FFFFFF',
-                        border: '1px solid var(--border-beige)',
-                        color: 'var(--charcoal-deep)',
+                        borderRadius: '7px',
+                        backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                        border: '1px solid rgba(255, 255, 255, 0.14)',
+                        color: '#FFFFFF',
                         cursor: 'pointer',
-                        boxShadow: 'var(--shadow-xs)',
-                        transition: 'all 0.18s ease'
+                        transition: 'background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease'
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = 'var(--amber-soft)';
+                        e.currentTarget.style.backgroundColor = 'rgba(242, 140, 40, 0.25)';
                         e.currentTarget.style.borderColor = 'var(--amber-primary)';
-                        e.currentTarget.style.color = 'var(--amber-dark)';
+                        e.currentTarget.style.color = 'var(--amber-primary)';
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = '#FFFFFF';
-                        e.currentTarget.style.borderColor = 'var(--border-beige)';
-                        e.currentTarget.style.color = 'var(--charcoal-deep)';
+                        e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
+                        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.14)';
+                        e.currentTarget.style.color = '#FFFFFF';
                       }}
                       title={`Instant login to ${p.title}`}
                     >
@@ -1006,41 +1012,17 @@ export const LoginPage = () => {
         </div>
       </main>
 
-      {/* Comprehensive Fluid Responsive Styling */}
+      {/* Responsive Glassmorphism Styling */}
       <style>{`
         @media (max-width: 920px) {
           .login-glass-card {
             grid-template-columns: 1fr !important;
-            max-width: 540px !important;
-            border-radius: 20px !important;
+            border-radius: 18px !important;
+            max-height: 90vh !important;
+            overflow-y: auto !important;
           }
           .login-image-frame {
-            border-right: none !important;
-            border-bottom: 1px solid var(--border-beige) !important;
-            padding: 1rem !important;
-          }
-          .login-hero-img-box {
-            height: 160px !important;
-          }
-          .login-trust-pillars {
             display: none !important;
-          }
-          .login-footnote {
-            display: none !important;
-          }
-          .login-form-pane {
-            padding: 1.5rem 1.25rem !important;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .login-tabs-grid {
-            gap: 0.25rem !important;
-            padding: 0.25rem !important;
-          }
-          .login-quick-launch-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 0.4rem !important;
           }
           .login-form-pane {
             padding: 1.25rem 1rem !important;
