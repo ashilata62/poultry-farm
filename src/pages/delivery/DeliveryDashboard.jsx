@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useFarm } from '../../context/FarmContext';
+import { OpenStreetMap } from '../../components/common/OpenStreetMap';
 import { StatusBadge } from '../../components/ui/StatusBadge';
 import {
   MapPin,
@@ -98,8 +99,9 @@ export const DeliveryDashboard = () => {
         style={{
           flex: 1,
           display: 'grid',
-          gridTemplateColumns: 'minmax(380px, 420px) 1fr',
-          height: 'calc(100vh - 110px)'
+          gridTemplateColumns: 'minmax(280px, 420px) 1fr',
+          height: 'calc(100vh - 110px)',
+          minWidth: 0
         }}
         className="dispatch-grid-container"
       >
@@ -251,10 +253,10 @@ export const DeliveryDashboard = () => {
             gap: '1.25rem'
           }}
         >
-          {/* Map Status & Configuration Banner */}
+          {/* Real OpenStreetMap Live Engine Status */}
           <div
             style={{
-              padding: '0.875rem 1rem',
+              padding: '0.75rem 1rem',
               backgroundColor: 'var(--white)',
               borderRadius: 'var(--radius-sm)',
               border: '1px solid var(--border-beige)',
@@ -267,66 +269,24 @@ export const DeliveryDashboard = () => {
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--charcoal)' }}>
-              <Info size={16} color="var(--amber-dark)" />
+              <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--success-green)', boxShadow: '0 0 6px var(--success-green)' }} />
               <span>
-                <strong>Map Engine:</strong> Vector Route Preview Active • Provider API: <em>Unconfigured (Local Spatial Mode)</em>
+                <strong>Live StreetMap:</strong> OpenStreetMap Real Geospatial Navigation • Varthur Farm Hub to Bengaluru Destinations
               </span>
             </div>
 
-            <button
-              onClick={() => setShowConfigDrawer(!showConfigDrawer)}
-              className="btn btn-secondary btn-sm"
-              style={{ fontSize: '0.75rem' }}
-            >
-              Configure Map API Key
-            </button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.75rem', color: 'var(--muted-text)' }}>
+              <span>📍 {orders.filter(o => o.orderStatus === 'in_transit').length} In-Transit</span>
+              <span>🚚 {drivers.filter(d => d.status === 'On Route').length} Active Vans</span>
+            </div>
           </div>
 
-          {/* Map Provider Setup Form (if toggled) */}
-          {showConfigDrawer && (
-            <div
-              style={{
-                padding: '1rem',
-                backgroundColor: 'var(--warm-ivory)',
-                borderRadius: 'var(--radius-sm)',
-                border: '1px solid var(--border-beige)',
-                fontSize: '0.8125rem'
-              }}
-            >
-              <div style={{ fontWeight: 600, marginBottom: '0.25rem', color: 'var(--charcoal)' }}>
-                Production Map Service Configuration (Mapbox / Google Maps / Leaflet)
-              </div>
-              <p style={{ color: 'var(--muted-text)', margin: '0 0 0.75rem' }}>
-                To display satellite tiles or turn-by-turn road networks, configure <code>VITE_MAPBOX_TOKEN</code> or <code>VITE_GOOGLE_MAPS_KEY</code> in your environment file.
-              </p>
-              <div style={{ display: 'flex', gap: '0.5rem', maxWidth: '480px' }}>
-                <input
-                  type="text"
-                  placeholder="Enter pk.eyJ... or AIzaSy..."
-                  value={apiKeyInput}
-                  onChange={(e) => setApiKeyInput(e.target.value)}
-                  className="form-input"
-                  style={{ fontSize: '0.8125rem', padding: '4px 8px' }}
-                />
-                <button
-                  onClick={() => {
-                    alert('Map provider configuration recorded for session.');
-                    setShowConfigDrawer(false);
-                  }}
-                  className="btn btn-primary btn-sm"
-                >
-                  Save Key
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Geospatial Map Canvas Container */}
+          {/* Real OpenStreetMap Geospatial Canvas */}
           <div
             style={{
               flex: 1,
-              minHeight: '340px',
-              backgroundColor: '#EAE6DF',
+              minHeight: '380px',
+              height: '420px',
               borderRadius: 'var(--radius-md)',
               border: '1px solid var(--border-beige)',
               position: 'relative',
@@ -334,107 +294,21 @@ export const DeliveryDashboard = () => {
               boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.05)'
             }}
           >
-            {/* Ambient Map Grid Background */}
-            <svg width="100%" height="100%" style={{ position: 'absolute', inset: 0 }}>
-              <defs>
-                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(41, 43, 42, 0.08)" strokeWidth="1" />
-                </pattern>
-                <linearGradient id="routeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#287A4B" />
-                  <stop offset="50%" stopColor="#F28C28" />
-                  <stop offset="100%" stopColor="#C74440" />
-                </linearGradient>
-              </defs>
-
-              <rect width="100%" height="100%" fill="#F3EFE8" />
-              <rect width="100%" height="100%" fill="url(#grid)" />
-
-              {/* Simulated Arterial Road Network (Varthur - Sarjapur - Bellandur - Koramangala) */}
-              <path d="M 50 180 Q 220 160 380 220 T 700 180" stroke="#DDD7CE" strokeWidth="8" fill="none" />
-              <path d="M 220 50 Q 240 200 260 350" stroke="#DDD7CE" strokeWidth="6" fill="none" />
-              <path d="M 120 320 Q 340 290 580 340" stroke="#DDD7CE" strokeWidth="6" fill="none" />
-
-              {/* Active Route Vector */}
-              <path
-                d="M 160 140 Q 280 200 460 210"
-                stroke="url(#routeGrad)"
-                strokeWidth="4"
-                strokeDasharray="6 4"
-                fill="none"
-              />
-
-              {/* Waypoint Nodes */}
-              <circle cx="160" cy="140" r="8" fill="#287A4B" stroke="#FFF" strokeWidth="2" />
-              <circle cx="310" cy="180" r="7" fill="#F28C28" stroke="#FFF" strokeWidth="2" />
-              <circle cx="460" cy="210" r="9" fill="#C74440" stroke="#FFF" strokeWidth="2" />
-            </svg>
-
-            {/* Farm Origin Pin */}
-            <div
-              style={{
-                position: 'absolute',
-                left: '120px',
-                top: '90px',
-                backgroundColor: 'var(--charcoal-deep)',
-                color: 'var(--white)',
-                padding: '4px 8px',
-                borderRadius: 'var(--radius-xs)',
-                fontSize: '0.6875rem',
-                fontWeight: 600,
-                boxShadow: 'var(--shadow-md)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px'
+            <OpenStreetMap
+              center={[settings.mapCenter?.lat || 12.923, settings.mapCenter?.lng || 77.674]}
+              zoom={13}
+              orders={filteredOrders}
+              selectedOrderId={selectedOrderId}
+              onSelectOrder={(id) => setSelectedOrderId(id)}
+              drivers={drivers}
+              farmLocation={{
+                lat: settings.mapCenter?.lat || 12.923,
+                lng: settings.mapCenter?.lng || 77.674,
+                name: 'The Village Farm Hub (Varthur Hobli)'
               }}
-            >
-              <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--success-green)' }} />
-              <span>Varthur Farm Hub (Origin)</span>
-            </div>
-
-            {/* In-Transit Van Node */}
-            <div
-              style={{
-                position: 'absolute',
-                left: '280px',
-                top: '140px',
-                backgroundColor: 'var(--amber-primary)',
-                color: 'var(--charcoal-deep)',
-                padding: '4px 8px',
-                borderRadius: 'var(--radius-xs)',
-                fontSize: '0.6875rem',
-                fontWeight: 700,
-                boxShadow: 'var(--shadow-md)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px'
-              }}
-            >
-              <Truck size={13} />
-              <span>{selectedOrder ? selectedOrder.assignedDriverName : 'Delivery Van'} (Chilled 2.8°C)</span>
-            </div>
-
-            {/* Destination Pin */}
-            <div
-              style={{
-                position: 'absolute',
-                left: '430px',
-                top: '225px',
-                backgroundColor: 'var(--error-red)',
-                color: 'var(--white)',
-                padding: '4px 8px',
-                borderRadius: 'var(--radius-xs)',
-                fontSize: '0.6875rem',
-                fontWeight: 600,
-                boxShadow: 'var(--shadow-md)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px'
-              }}
-            >
-              <MapPin size={13} />
-              <span>{selectedOrder ? selectedOrder.customerName : 'Destination'}</span>
-            </div>
+              showRoute={true}
+              height="100%"
+            />
 
             {/* Bottom Floating Telemetry Card */}
             <div

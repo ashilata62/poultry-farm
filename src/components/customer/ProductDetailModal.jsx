@@ -118,7 +118,7 @@ export const ProductDetailModal = () => {
           </div>
 
           {/* Quantity and Add to Cart */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
             <div style={{ display: 'flex', alignItems: 'center', border: '1.5px solid var(--border-beige)', borderRadius: 'var(--radius-sm)', backgroundColor: 'var(--white)' }}>
               <button
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}

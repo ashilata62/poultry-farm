@@ -31,7 +31,7 @@ export const AdminDashboard = () => {
   const recentOrders = orders.slice(0, 5);
 
   return (
-    <div style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
+    <div className="admin-page-container">
       {/* KPI Cards Grid */}
       <div
         style={{
@@ -153,7 +153,7 @@ export const AdminDashboard = () => {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
           gap: '1.75rem'
         }}
       >
@@ -185,7 +185,10 @@ export const AdminDashboard = () => {
           </div>
 
           <div className="table-container" style={{ border: 'none', borderRadius: 0, boxShadow: 'none' }}>
-            <table className="data-table">
+            <div className="table-scroll-hint">
+              <span>← Scroll horizontally to see all columns →</span>
+            </div>
+            <table className="data-table" style={{ minWidth: '600px' }}>
               <thead>
                 <tr>
                   <th>Order</th>

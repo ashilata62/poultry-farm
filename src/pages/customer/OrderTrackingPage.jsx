@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useFarm } from '../../context/FarmContext';
+import { OpenStreetMap } from '../../components/common/OpenStreetMap';
 import { StatusBadge } from '../../components/ui/StatusBadge';
 import {
   Search,
@@ -118,8 +119,8 @@ export const OrderTrackingPage = () => {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '2rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '1.5rem',
               maxWidth: '1080px',
               margin: '0 auto'
             }}
@@ -141,8 +142,8 @@ export const OrderTrackingPage = () => {
                 </div>
 
                 {/* Horizontal / Stepper Progress Bar */}
-                <div style={{ marginBottom: '2.5rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative' }}>
+                <div style={{ marginBottom: '2rem', overflowX: 'auto', WebkitOverflowScrolling: 'touch', paddingBottom: '0.5rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative', minWidth: '300px' }}>
                     {/* Connecting Bar */}
                     <div
                       style={{
@@ -300,6 +301,45 @@ export const OrderTrackingPage = () => {
                     <span>Awaiting driver fleet allocation from Varthur Cold Storage.</span>
                   </div>
                 )}
+              </div>
+
+              {/* Real OpenStreetMap Live Dispatch Route */}
+              <div className="card" style={{ backgroundColor: 'var(--white)', padding: '1.25rem', overflow: 'hidden' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.875rem' }}>
+                  <h4 style={{ fontSize: '1rem', margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <MapPin size={18} color="var(--amber-primary)" />
+                    <span>Live GPS Delivery Route</span>
+                  </h4>
+                  <span style={{ fontSize: '0.6875rem', fontWeight: 700, color: 'var(--success-green)', backgroundColor: 'rgba(34, 197, 94, 0.1)', padding: '3px 8px', borderRadius: 'var(--radius-full)', letterSpacing: '0.04em' }}>
+                    ● OpenStreetMap Live
+                  </span>
+                </div>
+
+                <div style={{ height: '260px', borderRadius: 'var(--radius-sm)', overflow: 'hidden', border: '1px solid var(--border-beige)' }}>
+                  <OpenStreetMap
+                    center={[activeOrder.coordinates?.lat || 12.923, activeOrder.coordinates?.lng || 77.674]}
+                    zoom={13}
+                    orders={[activeOrder]}
+                    selectedOrderId={activeOrder.id}
+                    drivers={activeOrder.assignedDriverId ? [{ id: activeOrder.assignedDriverId, name: activeOrder.assignedDriverName, vehicle: 'Chilled Delivery Van', status: 'On Route', activeDeliveries: 1 }] : []}
+                    farmLocation={{ lat: settings.mapCenter?.lat || 12.923, lng: settings.mapCenter?.lng || 77.674, name: 'The Village Farm Hub (Origin)' }}
+                    showRoute={true}
+                    height="100%"
+                  />
+                </div>
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.75rem', fontSize: '0.75rem', color: 'var(--muted-text)', flexWrap: 'wrap', gap: '0.5rem' }}>
+                  <span>🟢 Varthur Hub ➔ 🔴 {activeOrder.customerName}</span>
+                  <a
+                    href={`https://www.openstreetmap.org/search?query=${encodeURIComponent(activeOrder.deliveryAddress)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: 'var(--amber-dark)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '3px' }}
+                  >
+                    <span>Open in StreetMap</span>
+                    <span>↗</span>
+                  </a>
+                </div>
               </div>
             </div>
 

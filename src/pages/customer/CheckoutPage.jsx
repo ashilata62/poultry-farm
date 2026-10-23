@@ -116,15 +116,15 @@ export const CheckoutPage = () => {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '2.5rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '1.5rem',
               alignItems: 'start'
             }}
           >
             {/* Left: Customer Information & Delivery Address */}
             <div
               className="card"
-              style={{ backgroundColor: 'var(--white)', padding: '2rem' }}
+              style={{ backgroundColor: 'var(--white)' }}
             >
               <h3 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <span
@@ -381,7 +381,6 @@ export const CheckoutPage = () => {
               className="card"
               style={{
                 backgroundColor: 'var(--white)',
-                padding: '2rem',
                 position: 'sticky',
                 top: '90px'
               }}
