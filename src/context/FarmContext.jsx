@@ -129,6 +129,7 @@ export const FarmProvider = ({ children }) => {
   const [adminModule, setAdminModule] = useState(initialRoute.adminModule); // 'dashboard' | 'orders' | 'products' | 'inventory' | 'batches' | 'purchases' | 'expenses' | 'reports' | 'customers' | 'drivers' | 'delivery' | 'settings'
   const [activeDriverId, setActiveDriverId] = useState('drv-1');
   const [trackingOrderId, setTrackingOrderId] = useState('TVF-84920');
+  const [driverSource, setDriverSource] = useState('login'); // 'login' | 'admin'
 
   // Synchronize routes with browser URL for landing page, login page, store views, and dashboard menus
   useEffect(() => {
@@ -683,6 +684,8 @@ export const FarmProvider = ({ children }) => {
         setActiveDriverId,
         trackingOrderId,
         setTrackingOrderId,
+        driverSource,
+        setDriverSource,
 
         // Data Models
         orders,

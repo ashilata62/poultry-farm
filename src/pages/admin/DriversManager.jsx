@@ -4,7 +4,7 @@ import { Modal } from '../../components/ui/Modal';
 import { Truck, Plus, Phone, CheckCircle2, AlertCircle, Search, Star } from 'lucide-react';
 
 export const DriversManager = () => {
-  const { drivers, addDriver, setActiveDriverId, setCurrentRole } = useFarm();
+  const { drivers, addDriver, setActiveDriverId, setCurrentRole, setDriverSource } = useFarm();
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddOpen, setIsAddOpen] = useState(false);
 
@@ -34,6 +34,7 @@ export const DriversManager = () => {
 
   const handleTestDriverView = (driverId) => {
     setActiveDriverId(driverId);
+    if (setDriverSource) setDriverSource('admin');
     setCurrentRole('driver');
   };
 

@@ -26,7 +26,10 @@ export const DriverPortal = () => {
     setActiveDriverId,
     driverUpdateDelivery,
     setCurrentRole,
-    setAdminModule
+    setAdminModule,
+    setCustomerView,
+    driverSource,
+    showToast
   } = useFarm();
 
   const [activeTab, setActiveTab] = useState('active'); // 'active' | 'completed'
@@ -72,16 +75,24 @@ export const DriverPortal = () => {
     }
   };
 
-  const handleBackToFleet = () => {
-    setCurrentRole('admin');
-    setAdminModule('drivers');
+  const isFromAdmin = driverSource === 'admin';
+
+  const handleBack = () => {
+    if (isFromAdmin) {
+      setCurrentRole('admin');
+      setAdminModule('drivers');
+    } else {
+      setCurrentRole('login');
+      setCustomerView('login');
+      if (showToast) showToast('Logged out from Driver Portal', 'info');
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <div style={{ backgroundColor: '#F4EFE6', minHeight: '92vh', padding: '1rem 0 3rem' }}>
       <div className="container" style={{ maxWidth: '480px', paddingLeft: '1rem', paddingRight: '1rem' }}>
-        {/* Back Navigation Bar with Arrow */}
+        {/* Back / Logout Navigation Bar with Arrow */}
         <div
           style={{
             display: 'flex',
@@ -91,7 +102,7 @@ export const DriverPortal = () => {
           }}
         >
           <button
-            onClick={handleBackToFleet}
+            onClick={handleBack}
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -107,8 +118,8 @@ export const DriverPortal = () => {
               boxShadow: 'var(--shadow-xs)',
               transition: 'all 0.15s ease'
             }}
-            title="Back to Driver Fleet Roster"
-            aria-label="Back to Driver Fleet Roster"
+            title={isFromAdmin ? "Back to Driver Fleet Roster" : "Logout from Driver App"}
+            aria-label={isFromAdmin ? "Back to Driver Fleet Roster" : "Logout from Driver App"}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = 'var(--warm-ivory)';
               e.currentTarget.style.transform = 'translateX(-2px)';
@@ -119,7 +130,7 @@ export const DriverPortal = () => {
             }}
           >
             <ArrowLeft size={16} />
-            <span>Back to Fleet</span>
+            <span>{isFromAdmin ? 'Back to Fleet' : 'Logout'}</span>
           </button>
 
           <span

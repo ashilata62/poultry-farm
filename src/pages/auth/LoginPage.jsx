@@ -24,7 +24,8 @@ export const LoginPage = () => {
     setCustomerView,
     setAdminModule,
     orders,
-    showToast
+    showToast,
+    setDriverSource
   } = useFarm();
 
   const [selectedRole, setSelectedRole] = useState('admin');
@@ -99,6 +100,7 @@ export const LoginPage = () => {
       tagline: 'Driver Mobile Delivery Portal',
       email: 'rajesh.driver@thevillagefarm.in',
       action: () => {
+        if (setDriverSource) setDriverSource('login');
         setCurrentRole('driver');
         setCustomerView('home');
         if (showToast) showToast('Logged in to Driver Mobile Portal');
