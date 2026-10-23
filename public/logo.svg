@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <circle cx="24" cy="24" r="22" fill="#202321" stroke="#F28C28" stroke-width="2"/>
+  <path d="M24 10C21.5 10 19 12 19 14.5C19 16 19.8 17.2 21 17.8V20C17 21 14 24.5 14 29C14 34.5 18.5 39 24 39C29.5 39 34 34.5 34 29C34 24.5 31 21 27 20V17.8C28.2 17.2 29 16 29 14.5C29 12 26.5 10 24 10Z" fill="#F28C28" opacity="0.15"/>
+  <!-- Stylized Rooster Profile -->
+  <path d="M26 12C26.5 12 28 12.8 28 14C28 15.2 27 16 25.5 16C24.5 16 23.5 15.2 23.5 14C23.5 12.8 25 12 26 12Z" fill="#F28C28"/>
+  <path d="M28 13.5L31 14.5L28 15.5" stroke="#F28C28" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M24.5 16C23 18 20.5 20.5 17 21C16 22.5 15.5 24.5 15.5 26.5C15.5 31.2 19.3 35 24 35C28.7 35 32.5 31.2 32.5 26.5C32.5 23.5 30.5 20.5 28 19L27 16" stroke="#F28C28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Comb and wattle -->
+  <path d="M24 10C24.5 9 26 8.5 27 9.5C28 10.5 27.5 11.5 27 12" stroke="#E7A12B" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M27.5 16C27.5 17 26.8 17.5 26 17.5" stroke="#C74440" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- Wheat sprigs -->
+  <path d="M19 28L15 31M19 28L15 26M29 28L33 31M29 28L33 26" stroke="#F7EFE3" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Horizon line -->
+  <path d="M12 37H36" stroke="#F28C28" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+</svg>

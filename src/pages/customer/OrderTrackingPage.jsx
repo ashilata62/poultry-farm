@@ -1,0 +1,394 @@
+import React, { useState } from 'react';
+import { useFarm } from '../../context/FarmContext';
+import { StatusBadge } from '../../components/ui/StatusBadge';
+import {
+  Search,
+  CheckCircle2,
+  Clock,
+  Truck,
+  Phone,
+  MessageCircle,
+  MapPin,
+  Package,
+  Calendar,
+  AlertCircle
+} from 'lucide-react';
+
+export const OrderTrackingPage = () => {
+  const { orders, trackingOrderId, setTrackingOrderId, settings } = useFarm();
+  const [searchInput, setSearchInput] = useState(trackingOrderId || '');
+
+  const activeOrder = orders.find(
+    (o) => o.id.toLowerCase() === (trackingOrderId || '').toLowerCase()
+  ) || orders[0];
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (!searchInput.trim()) return;
+    const found = orders.find(
+      (o) =>
+        o.id.toLowerCase() === searchInput.trim().toLowerCase() ||
+        o.customerPhone.includes(searchInput.trim())
+    );
+    if (found) {
+      setTrackingOrderId(found.id);
+    }
+  };
+
+  const steps = [
+    { key: 'pending', label: 'Order Placed', desc: 'Received at farm dispatch' },
+    { key: 'confirmed', label: 'Confirmed', desc: 'Stock & batch allocated' },
+    { key: 'processing', label: 'Chilled Packaging', desc: 'Vacuum-sealed in food tray' },
+    { key: 'in_transit', label: 'Out for Delivery', desc: 'In refrigerated electric van' },
+    { key: 'delivered', label: 'Delivered', desc: 'Handed over fresh' }
+  ];
+
+  const getStepIndex = (status) => {
+    const map = {
+      pending: 0,
+      confirmed: 1,
+      processing: 2,
+      in_transit: 3,
+      delivered: 4,
+      cancelled: -1
+    };
+    return map[status] !== undefined ? map[status] : 1;
+  };
+
+  const currentStepIdx = activeOrder ? getStepIndex(activeOrder.orderStatus) : 0;
+
+  return (
+    <div style={{ backgroundColor: 'var(--soft-cream)', minHeight: '85vh', padding: '3rem 0 5rem' }}>
+      <div className="container">
+        {/* Header */}
+        <div style={{ maxWidth: '640px', margin: '0 auto 2.5rem', textAlign: 'center' }}>
+          <div className="badge badge-amber" style={{ marginBottom: '0.5rem' }}>
+            Live Cold-Chain Dispatch
+          </div>
+          <h1 style={{ color: 'var(--charcoal)', marginBottom: '0.5rem' }}>
+            Track Your Farm Delivery
+          </h1>
+          <p style={{ fontSize: '0.9375rem', color: 'var(--muted-text)' }}>
+            Monitor your fresh poultry delivery from dawn harvest through chilled refrigerated dispatch to your doorstep.
+          </p>
+
+          {/* Search Bar */}
+          <form
+            onSubmit={handleSearch}
+            style={{
+              display: 'flex',
+              gap: '0.75rem',
+              marginTop: '1.5rem',
+              backgroundColor: 'var(--white)',
+              padding: '0.5rem',
+              borderRadius: 'var(--radius-md)',
+              border: '1px solid var(--border-beige)',
+              boxShadow: 'var(--shadow-sm)'
+            }}
+          >
+            <div style={{ position: 'relative', flex: 1 }}>
+              <Search
+                size={18}
+                style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--muted-text)' }}
+              />
+              <input
+                type="text"
+                placeholder="Enter Order ID (e.g. TVF-84920) or Phone..."
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                className="form-input"
+                style={{ border: 'none', paddingLeft: '2.5rem', boxShadow: 'none' }}
+              />
+            </div>
+            <button type="submit" className="btn btn-primary" style={{ padding: '0.5rem 1.25rem' }}>
+              Track
+            </button>
+          </form>
+        </div>
+
+        {!activeOrder ? (
+          <div className="card" style={{ textAlign: 'center', padding: '3rem 1.5rem', maxWidth: '500px', margin: '0 auto' }}>
+            <AlertCircle size={36} color="var(--error-red)" style={{ margin: '0 auto 1rem' }} />
+            <h3>Order Not Found</h3>
+            <p style={{ fontSize: '0.875rem', color: 'var(--muted-text)' }}>
+              We could not find an order matching that ID. Please verify your order number from the confirmation SMS/WhatsApp.
+            </p>
+          </div>
+        ) : (
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gap: '2rem',
+              maxWidth: '1080px',
+              margin: '0 auto'
+            }}
+          >
+            {/* Left Column: Status Timeline & Driver Card */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              {/* Order Status Card */}
+              <div className="card" style={{ backgroundColor: 'var(--white)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid var(--border-beige)', paddingBottom: '1rem', marginBottom: '1.5rem' }}>
+                  <div>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--muted-text)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                      Order Tracking
+                    </div>
+                    <div style={{ fontSize: '1.35rem', fontWeight: 700, color: 'var(--charcoal)', fontFamily: 'var(--font-mono)' }}>
+                      {activeOrder.id}
+                    </div>
+                  </div>
+                  <StatusBadge status={activeOrder.orderStatus} type="order" />
+                </div>
+
+                {/* Horizontal / Stepper Progress Bar */}
+                <div style={{ marginBottom: '2.5rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative' }}>
+                    {/* Connecting Bar */}
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: '14px',
+                        left: '20px',
+                        right: '20px',
+                        height: '3px',
+                        backgroundColor: 'var(--border-beige)',
+                        zIndex: 1
+                      }}
+                    >
+                      <div
+                        style={{
+                          height: '100%',
+                          backgroundColor: 'var(--amber-primary)',
+                          width: `${Math.max(0, Math.min(100, (currentStepIdx / (steps.length - 1)) * 100))}%`,
+                          transition: 'width 0.4s ease'
+                        }}
+                      />
+                    </div>
+
+                    {steps.map((s, idx) => {
+                      const isComplete = idx <= currentStepIdx;
+                      const isCurrent = idx === currentStepIdx;
+
+                      return (
+                        <div
+                          key={s.key}
+                          style={{
+                            position: 'relative',
+                            zIndex: 2,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            textAlign: 'center',
+                            width: '60px'
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: '28px',
+                              height: '28px',
+                              borderRadius: '50%',
+                              backgroundColor: isComplete ? 'var(--amber-primary)' : 'var(--white)',
+                              border: '2px solid',
+                              borderColor: isComplete ? 'var(--amber-primary)' : 'var(--border-beige)',
+                              color: isComplete ? 'var(--charcoal-deep)' : 'var(--muted-text)',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: '0.75rem',
+                              fontWeight: 700,
+                              boxShadow: isCurrent ? '0 0 0 4px rgba(242, 140, 40, 0.25)' : 'none'
+                            }}
+                          >
+                            {isComplete ? <CheckCircle2 size={16} /> : idx + 1}
+                          </div>
+                          <span
+                            style={{
+                              fontSize: '0.6875rem',
+                              fontWeight: isCurrent ? 700 : 500,
+                              color: isCurrent ? 'var(--charcoal)' : 'var(--muted-text)',
+                              marginTop: '6px',
+                              lineHeight: 1.2
+                            }}
+                          >
+                            {s.label}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Vertical Detailed Timeline History */}
+                <h4 style={{ fontSize: '1rem', marginBottom: '1rem', color: 'var(--charcoal)' }}>
+                  Delivery Progress Log
+                </h4>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', borderLeft: '2px solid var(--amber-light)', paddingLeft: '1.25rem', marginLeft: '0.5rem' }}>
+                  {activeOrder.timeline.map((entry, idx) => (
+                    <div key={idx} style={{ position: 'relative' }}>
+                      <div
+                        style={{
+                          position: 'absolute',
+                          left: '-1.65rem',
+                          top: '3px',
+                          width: '10px',
+                          height: '10px',
+                          borderRadius: '50%',
+                          backgroundColor: 'var(--amber-primary)',
+                          border: '2px solid var(--white)'
+                        }}
+                      />
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+                        <span style={{ fontWeight: 600, fontSize: '0.875rem', color: 'var(--charcoal)' }}>
+                          {entry.status}
+                        </span>
+                        <span style={{ fontSize: '0.75rem', color: 'var(--muted-text)' }}>
+                          {entry.time}
+                        </span>
+                      </div>
+                      <p style={{ fontSize: '0.8125rem', color: 'var(--muted-text)', margin: '2px 0 0' }}>
+                        {entry.note}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Assigned Driver Card */}
+              <div className="card" style={{ backgroundColor: 'var(--white)' }}>
+                <h4 style={{ fontSize: '1rem', marginBottom: '1rem' }}>Refrigerated Dispatch Courier</h4>
+                {activeOrder.assignedDriverId ? (
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem' }}>
+                      <div
+                        style={{
+                          width: '46px',
+                          height: '46px',
+                          borderRadius: '50%',
+                          backgroundColor: 'var(--amber-soft)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: 'var(--amber-dark)'
+                        }}
+                      >
+                        <Truck size={22} />
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: 600, color: 'var(--charcoal)' }}>
+                          {activeOrder.assignedDriverName}
+                        </div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--muted-text)' }}>
+                          Chilled Van Dispatch • On Route
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                      <a
+                        href={`tel:${activeOrder.assignedDriverPhone}`}
+                        className="btn btn-secondary btn-sm"
+                        style={{ gap: '0.35rem' }}
+                      >
+                        <Phone size={14} />
+                        <span>Call Driver</span>
+                      </a>
+                    </div>
+                  </div>
+                ) : (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--muted-text)', fontSize: '0.875rem' }}>
+                    <Clock size={18} color="var(--amber-primary)" />
+                    <span>Awaiting driver fleet allocation from Varthur Cold Storage.</span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Right Column: Order Details & Address */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              {/* Destination Card */}
+              <div className="card" style={{ backgroundColor: 'var(--white)' }}>
+                <h4 style={{ fontSize: '1rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <MapPin size={18} color="var(--amber-primary)" />
+                  <span>Delivery Address</span>
+                </h4>
+
+                <div style={{ fontSize: '0.875rem', lineHeight: '1.5', color: 'var(--charcoal)' }}>
+                  <div style={{ fontWeight: 600 }}>{activeOrder.customerName}</div>
+                  <div style={{ color: 'var(--muted-text)', marginTop: '2px' }}>{activeOrder.customerPhone}</div>
+                  <div style={{ marginTop: '0.5rem' }}>{activeOrder.deliveryAddress}</div>
+                  {activeOrder.landmark && (
+                    <div style={{ fontSize: '0.8125rem', color: 'var(--muted-text)', marginTop: '4px' }}>
+                      <strong>Landmark:</strong> {activeOrder.landmark}
+                    </div>
+                  )}
+                  {activeOrder.instructions && (
+                    <div style={{ fontSize: '0.8125rem', color: 'var(--muted-text)', marginTop: '4px' }}>
+                      <strong>Note:</strong> {activeOrder.instructions}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Items Summary Card */}
+              <div className="card" style={{ backgroundColor: 'var(--white)' }}>
+                <h4 style={{ fontSize: '1rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <Package size={18} color="var(--amber-primary)" />
+                  <span>Items Ordered ({activeOrder.items.length})</span>
+                </h4>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1rem', borderBottom: '1px solid var(--border-beige)', paddingBottom: '1rem' }}>
+                  {activeOrder.items.map((item, idx) => (
+                    <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.875rem' }}>
+                      <div>
+                        <span style={{ fontWeight: 500, color: 'var(--charcoal)' }}>{item.name}</span>
+                        <span style={{ fontSize: '0.75rem', color: 'var(--muted-text)', marginLeft: '6px' }}>
+                          × {item.quantity}
+                        </span>
+                      </div>
+                      <span style={{ fontWeight: 600, color: 'var(--charcoal)' }}>
+                        ₹{item.price * item.quantity}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.8125rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--muted-text)' }}>
+                    <span>Subtotal</span>
+                    <span>₹{activeOrder.subtotal}</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--muted-text)' }}>
+                    <span>Cold Chain Delivery</span>
+                    <span>{activeOrder.deliveryFee === 0 ? 'FREE' : `₹${activeOrder.deliveryFee}`}</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--muted-text)' }}>
+                    <span>Payment Method</span>
+                    <span>{activeOrder.paymentMethod}</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.0625rem', fontWeight: 700, color: 'var(--charcoal)', borderTop: '1px dashed var(--border-beige)', paddingTop: '0.5rem', marginTop: '0.25rem' }}>
+                    <span>Total Amount</span>
+                    <span style={{ color: 'var(--amber-dark)' }}>₹{activeOrder.total}</span>
+                  </div>
+                </div>
+
+                {/* Support CTA */}
+                <div style={{ marginTop: '1.25rem' }}>
+                  <a
+                    href={`https://wa.me/${settings.whatsapp.replace(/\+/g, '')}?text=Help%20with%20Order%20${activeOrder.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-secondary btn-block btn-sm"
+                    style={{ gap: '0.5rem' }}
+                  >
+                    <MessageCircle size={15} color="var(--success-green)" />
+                    <span>WhatsApp Support for Order {activeOrder.id}</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
