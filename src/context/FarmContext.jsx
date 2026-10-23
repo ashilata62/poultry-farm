@@ -44,13 +44,119 @@ const setStorageItem = (key, value) => {
   }
 };
 
+// Valid dashboard menu routes
+const VALID_ADMIN_MODULES = [
+  'dashboard',
+  'orders',
+  'products',
+  'inventory',
+  'batches',
+  'purchases',
+  'expenses',
+  'reports',
+  'customers',
+  'drivers',
+  'delivery',
+  'settings'
+];
+
 export const FarmProvider = ({ children }) => {
+  // Resolve initial route from browser URL for dashboard menus (landing & login routes untouched)
+  const getInitialDashboardRoute = () => {
+    try {
+      if (typeof window !== 'undefined') {
+        const path = window.location.pathname.toLowerCase();
+        if (path.startsWith('/admin')) {
+          const parts = path.split('/').filter(Boolean);
+          const module = parts[1];
+          return {
+            role: 'admin',
+            adminModule: VALID_ADMIN_MODULES.includes(module) ? module : 'dashboard'
+          };
+        }
+        if (path === '/delivery' || path === '/dispatch') {
+          return { role: 'delivery', adminModule: 'delivery' };
+        }
+        if (path === '/driver') {
+          return { role: 'driver', adminModule: 'dashboard' };
+        }
+      }
+    } catch (e) {
+      console.warn('Error reading dashboard route:', e);
+    }
+    return { role: 'customer', adminModule: 'dashboard' };
+  };
+
+  const initialRoute = getInitialDashboardRoute();
+
   // Navigation & Subsystem Modes
-  const [currentRole, setCurrentRole] = useState('customer'); // 'customer' | 'admin' | 'delivery' | 'driver'
+  const [currentRole, setCurrentRole] = useState(initialRoute.role); // 'customer' | 'admin' | 'delivery' | 'driver' | 'login'
   const [customerView, setCustomerView] = useState('home'); // 'home' | 'shop' | 'about' | 'contact' | 'tracking' | 'checkout' | 'cart'
-  const [adminModule, setAdminModule] = useState('dashboard'); // 'dashboard' | 'orders' | 'products' | 'inventory' | 'batches' | 'purchases' | 'expenses' | 'reports' | 'customers' | 'drivers' | 'delivery' | 'settings'
+  const [adminModule, setAdminModule] = useState(initialRoute.adminModule); // 'dashboard' | 'orders' | 'products' | 'inventory' | 'batches' | 'purchases' | 'expenses' | 'reports' | 'customers' | 'drivers' | 'delivery' | 'settings'
   const [activeDriverId, setActiveDriverId] = useState('drv-1');
   const [trackingOrderId, setTrackingOrderId] = useState('TVF-84920');
+
+  // Synchronize dashboard menu routes with browser URL
+  useEffect(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        if (currentRole === 'admin') {
+          const targetPath = `/admin/${adminModule}`;
+          if (window.location.pathname.toLowerCase() !== targetPath) {
+            window.history.pushState(null, '', targetPath);
+          }
+        } else if (currentRole === 'delivery') {
+          if (window.location.pathname.toLowerCase() !== '/delivery') {
+            window.history.pushState(null, '', '/delivery');
+          }
+        } else if (currentRole === 'driver') {
+          if (window.location.pathname.toLowerCase() !== '/driver') {
+            window.history.pushState(null, '', '/driver');
+          }
+        } else if (currentRole === 'customer') {
+          // Clear dashboard path when in customer store
+          if (
+            window.location.pathname.startsWith('/admin') ||
+            window.location.pathname === '/delivery' ||
+            window.location.pathname === '/driver'
+          ) {
+            window.history.pushState(null, '', '/');
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('Error synchronizing dashboard route URL:', e);
+    }
+  }, [currentRole, adminModule]);
+
+  // Handle browser Back / Forward buttons for dashboard menus
+  useEffect(() => {
+    const handlePopState = () => {
+      try {
+        if (typeof window !== 'undefined') {
+          const path = window.location.pathname.toLowerCase();
+          if (path.startsWith('/admin')) {
+            const parts = path.split('/').filter(Boolean);
+            const module = parts[1];
+            setCurrentRole('admin');
+            setAdminModule(VALID_ADMIN_MODULES.includes(module) ? module : 'dashboard');
+          } else if (path === '/delivery' || path === '/dispatch') {
+            setCurrentRole('delivery');
+          } else if (path === '/driver') {
+            setCurrentRole('driver');
+          } else if (path === '/' || path === '') {
+            setCurrentRole('customer');
+            setCustomerView('home');
+          }
+        }
+      } catch (e) {
+        console.warn('Error handling dashboard popstate:', e);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // Business State (with persistence)
   const [orders, setOrders] = useState(() => getStorageItem(STORAGE_KEYS.ORDERS, INITIAL_ORDERS));
