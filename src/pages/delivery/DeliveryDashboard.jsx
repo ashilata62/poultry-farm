@@ -14,11 +14,7 @@ import {
   Thermometer,
   Package,
   Star,
-  LogOut,
-  Store,
-  LayoutDashboard,
-  ArrowRight,
-  ShieldCheck
+  LogOut
 } from 'lucide-react';
 
 export const DeliveryDashboard = () => {
@@ -30,8 +26,6 @@ export const DeliveryDashboard = () => {
     settings,
     currentRole,
     setCurrentRole,
-    setCustomerView,
-    setAdminModule,
     showToast
   } = useFarm();
 
@@ -76,18 +70,6 @@ export const DeliveryDashboard = () => {
     .filter((o) => o.orderStatus === 'delivered')
     .reduce((sum, o) => sum + (o.total || 0), 0);
 
-  const handleReturnToStore = () => {
-    setCurrentRole('customer');
-    setCustomerView('home');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleSwitchToAdmin = () => {
-    setCurrentRole('admin');
-    setAdminModule('dashboard');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   const handleSignOut = () => {
     setCurrentRole('login');
     if (showToast) showToast('Signed out of Dispatch Console');
@@ -95,24 +77,34 @@ export const DeliveryDashboard = () => {
   };
 
   return (
-    <div style={{ backgroundColor: 'var(--soft-cream)', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {/* 1. TOP DISPATCH HEADER (Shown when running as dedicated dispatch role) */}
+    <div
+      className="dispatch-dashboard-root"
+      style={{
+        backgroundColor: 'var(--soft-cream)',
+        height: '100%',
+        maxHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden'
+      }}
+    >
+      {/* 1. TOP DISPATCH HEADER (Dedicated Clean Console Header - Only Dispatch Specific) */}
       {currentRole === 'delivery' && (
         <header
           style={{
-            backgroundColor: 'var(--charcoal-deep)',
-            color: 'var(--white)',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-            padding: '0.75rem 1.25rem',
+            backgroundColor: 'var(--white)',
+            borderBottom: '1px solid var(--border-beige)',
+            padding: '0.65rem 1.25rem',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             flexWrap: 'wrap',
             gap: '0.75rem',
+            flexShrink: 0,
             position: 'sticky',
             top: 0,
             zIndex: 30,
-            boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+            boxShadow: '0 1px 3px rgba(0,0,0,0.04)'
           }}
         >
           {/* Brand & Portal Title */}
@@ -120,16 +112,16 @@ export const DeliveryDashboard = () => {
             <img
               src="/logo.svg"
               alt="The Village Farm Logo"
-              style={{ width: '32px', height: '32px', filter: 'drop-shadow(0 2px 6px rgba(242,140,40,0.4))' }}
+              style={{ width: '34px', height: '34px', filter: 'drop-shadow(0 2px 4px rgba(242,140,40,0.3))' }}
             />
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
                 <span
                   style={{
                     fontFamily: 'var(--font-heading)',
-                    fontSize: '1.05rem',
+                    fontSize: '1.15rem',
                     fontWeight: 700,
-                    color: 'var(--white)',
+                    color: 'var(--charcoal)',
                     lineHeight: 1.2
                   }}
                 >
@@ -137,18 +129,18 @@ export const DeliveryDashboard = () => {
                 </span>
                 <span
                   className="badge badge-amber"
-                  style={{ fontSize: '0.625rem', padding: '2px 6px', textTransform: 'uppercase' }}
+                  style={{ fontSize: '0.625rem', padding: '2px 7px', textTransform: 'uppercase', fontWeight: 700 }}
                 >
                   Dispatch Hub
                 </span>
               </div>
-              <div style={{ fontSize: '0.6875rem', color: 'var(--amber-primary)', fontWeight: 600 }}>
-                Cold-Chain Logistics & Delivery Fleet Operations
+              <div style={{ fontSize: '0.71875rem', color: 'var(--muted-text)', marginTop: '1px' }}>
+                Cold-Chain Delivery & Fleet Operations • Varthur Hobli
               </div>
             </div>
           </div>
 
-          {/* Hub Status & User Profile */}
+          {/* Hub Status, User Profile & Sign Out (Only Dispatch-Specific Controls) */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
             {/* Live Station Status */}
             <span
@@ -156,25 +148,26 @@ export const DeliveryDashboard = () => {
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '0.4rem',
-                fontSize: '0.71875rem',
-                color: '#4ADE80',
-                backgroundColor: 'rgba(34, 197, 94, 0.12)',
-                border: '1px solid rgba(34, 197, 94, 0.3)',
-                padding: '0.25rem 0.65rem',
-                borderRadius: 'var(--radius-full)'
+                gap: '0.45rem',
+                fontSize: '0.75rem',
+                color: '#15803D',
+                backgroundColor: 'rgba(34, 197, 94, 0.10)',
+                border: '1px solid rgba(34, 197, 94, 0.28)',
+                padding: '0.25rem 0.75rem',
+                borderRadius: 'var(--radius-full)',
+                fontWeight: 600
               }}
             >
               <span
                 style={{
-                  width: '6px',
-                  height: '6px',
+                  width: '7px',
+                  height: '7px',
                   borderRadius: '50%',
                   backgroundColor: '#22C55E',
                   boxShadow: '0 0 6px #22C55E'
                 }}
               />
-              Hub Online • Varthur Hobli
+              Station Active • 0-4°C Cold Chain
             </span>
 
             {/* Officer Profile Badge */}
@@ -182,105 +175,71 @@ export const DeliveryDashboard = () => {
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.4rem',
-                padding: '0.25rem 0.65rem',
-                borderRadius: 'var(--radius-full)',
-                backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                border: '1px solid rgba(255, 255, 255, 0.14)',
-                fontSize: '0.75rem',
-                color: 'var(--white)'
+                gap: '0.45rem',
+                padding: '0.35rem 0.75rem',
+                borderRadius: 'var(--radius-sm)',
+                backgroundColor: 'var(--soft-cream)',
+                border: '1px solid var(--border-beige)',
+                fontSize: '0.78125rem',
+                color: 'var(--charcoal)',
+                fontWeight: 600
               }}
             >
-              <User size={13} color="var(--amber-primary)" />
+              <User size={14} color="var(--amber-dark)" />
               <span>Officer: Rajesh Sharma</span>
             </div>
 
-            {/* Navigation Actions */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-              <button
-                onClick={handleReturnToStore}
-                className="hide-on-mobile"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.35rem',
-                  fontSize: '0.75rem',
-                  fontWeight: 600,
-                  color: 'var(--white)',
-                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                  border: '1px solid rgba(255, 255, 255, 0.16)',
-                  padding: '0.35rem 0.75rem',
-                  borderRadius: 'var(--radius-sm)',
-                  cursor: 'pointer'
-                }}
-                title="Go to Customer Storefront"
-              >
-                <Store size={13} />
-                <span>Store</span>
-              </button>
-
-              <button
-                onClick={handleSwitchToAdmin}
-                className="hide-on-mobile"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.35rem',
-                  fontSize: '0.75rem',
-                  fontWeight: 600,
-                  color: 'var(--white)',
-                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                  border: '1px solid rgba(255, 255, 255, 0.16)',
-                  padding: '0.35rem 0.75rem',
-                  borderRadius: 'var(--radius-sm)',
-                  cursor: 'pointer'
-                }}
-                title="Open Farm Admin ERP"
-              >
-                <LayoutDashboard size={13} />
-                <span>Admin ERP</span>
-              </button>
-
-              <button
-                onClick={handleSignOut}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.35rem',
-                  fontSize: '0.75rem',
-                  fontWeight: 600,
-                  color: '#FFFFFF',
-                  backgroundColor: 'rgba(239, 68, 68, 0.18)',
-                  border: '1px solid rgba(239, 68, 68, 0.35)',
-                  padding: '0.35rem 0.75rem',
-                  borderRadius: 'var(--radius-sm)',
-                  cursor: 'pointer'
-                }}
-                title="Sign out of Dispatch Console"
-              >
-                <LogOut size={13} color="#F87171" />
-                <span>Sign Out</span>
-              </button>
-            </div>
+            {/* Sign Out Button (Only action button - no store, no admin) */}
+            <button
+              onClick={handleSignOut}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.4rem',
+                fontSize: '0.78125rem',
+                fontWeight: 600,
+                color: '#DC2626',
+                backgroundColor: 'rgba(239, 68, 68, 0.08)',
+                border: '1px solid rgba(239, 68, 68, 0.25)',
+                padding: '0.35rem 0.85rem',
+                borderRadius: 'var(--radius-sm)',
+                cursor: 'pointer',
+                transition: 'all 0.15s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.16)';
+                e.currentTarget.style.borderColor = '#DC2626';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.08)';
+                e.currentTarget.style.borderColor = 'rgba(239, 68, 68, 0.25)';
+              }}
+              title="Sign out of Dispatch Console"
+            >
+              <LogOut size={14} />
+              <span>Sign Out</span>
+            </button>
           </div>
         </header>
       )}
 
-      {/* 2. LOGISTICS KPI METRICS SUMMARY BAR */}
+      {/* 2. LOGISTICS KPI METRICS SUMMARY BAR (PINNED & STABLE) */}
       <div
+        className="dispatch-pinned-top"
         style={{
-          padding: '0.875rem 1.25rem 0',
+          padding: '0.5rem 1.25rem 0',
           maxWidth: '1600px',
           width: '100%',
-          margin: '0 auto'
+          margin: '0 auto',
+          flexShrink: 0
         }}
       >
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: '0.75rem',
-            marginBottom: '0.875rem'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: '0.5rem',
+            marginBottom: '0.5rem'
           }}
         >
           {/* Metric 1: Scheduled Queue */}
@@ -289,17 +248,17 @@ export const DeliveryDashboard = () => {
               backgroundColor: 'var(--white)',
               border: '1px solid var(--border-beige)',
               borderRadius: 'var(--radius-sm)',
-              padding: '0.75rem 1rem',
+              padding: '0.45rem 0.75rem',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.75rem',
+              gap: '0.65rem',
               boxShadow: 'var(--shadow-xs)'
             }}
           >
             <div
               style={{
-                width: '38px',
-                height: '38px',
+                width: '32px',
+                height: '32px',
                 borderRadius: '8px',
                 backgroundColor: 'rgba(242, 140, 40, 0.15)',
                 color: 'var(--amber-primary)',
@@ -309,16 +268,16 @@ export const DeliveryDashboard = () => {
                 flexShrink: 0
               }}
             >
-              <Package size={19} />
+              <Package size={17} />
             </div>
             <div>
-              <div style={{ fontSize: '0.6875rem', color: 'var(--muted-text)', fontWeight: 600, textTransform: 'uppercase' }}>
+              <div style={{ fontSize: '0.65625rem', color: 'var(--muted-text)', fontWeight: 600, textTransform: 'uppercase' }}>
                 Delivery Queue
               </div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--charcoal)', lineHeight: 1.15 }}>
+              <div style={{ fontSize: '1.125rem', fontWeight: 700, color: 'var(--charcoal)', lineHeight: 1.15 }}>
                 {orders.length} Orders
               </div>
-              <div style={{ fontSize: '0.6875rem', color: 'var(--amber-dark)', marginTop: '2px' }}>
+              <div style={{ fontSize: '0.65625rem', color: 'var(--amber-dark)', marginTop: '1px' }}>
                 {inTransitCount} In-Transit • {pendingCount} Pending
               </div>
             </div>
@@ -330,17 +289,17 @@ export const DeliveryDashboard = () => {
               backgroundColor: 'var(--white)',
               border: '1px solid var(--border-beige)',
               borderRadius: 'var(--radius-sm)',
-              padding: '0.75rem 1rem',
+              padding: '0.45rem 0.75rem',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.75rem',
+              gap: '0.65rem',
               boxShadow: 'var(--shadow-xs)'
             }}
           >
             <div
               style={{
-                width: '38px',
-                height: '38px',
+                width: '32px',
+                height: '32px',
                 borderRadius: '8px',
                 backgroundColor: 'rgba(34, 197, 94, 0.15)',
                 color: 'var(--success-green)',
@@ -350,16 +309,16 @@ export const DeliveryDashboard = () => {
                 flexShrink: 0
               }}
             >
-              <Truck size={19} />
+              <Truck size={17} />
             </div>
             <div>
-              <div style={{ fontSize: '0.6875rem', color: 'var(--muted-text)', fontWeight: 600, textTransform: 'uppercase' }}>
+              <div style={{ fontSize: '0.65625rem', color: 'var(--muted-text)', fontWeight: 600, textTransform: 'uppercase' }}>
                 Refrigerated Vans
               </div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--charcoal)', lineHeight: 1.15 }}>
+              <div style={{ fontSize: '1.125rem', fontWeight: 700, color: 'var(--charcoal)', lineHeight: 1.15 }}>
                 {activeVansCount} on Road
               </div>
-              <div style={{ fontSize: '0.6875rem', color: 'var(--success-green)', marginTop: '2px' }}>
+              <div style={{ fontSize: '0.65625rem', color: 'var(--success-green)', marginTop: '1px' }}>
                 {drivers.length} Drivers in Bengaluru Fleet
               </div>
             </div>
@@ -371,17 +330,17 @@ export const DeliveryDashboard = () => {
               backgroundColor: 'var(--white)',
               border: '1px solid var(--border-beige)',
               borderRadius: 'var(--radius-sm)',
-              padding: '0.75rem 1rem',
+              padding: '0.45rem 0.75rem',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.75rem',
+              gap: '0.65rem',
               boxShadow: 'var(--shadow-xs)'
             }}
           >
             <div
               style={{
-                width: '38px',
-                height: '38px',
+                width: '32px',
+                height: '32px',
                 borderRadius: '8px',
                 backgroundColor: 'rgba(242, 140, 40, 0.15)',
                 color: 'var(--amber-primary)',
@@ -391,16 +350,16 @@ export const DeliveryDashboard = () => {
                 flexShrink: 0
               }}
             >
-              <Thermometer size={19} />
+              <Thermometer size={17} />
             </div>
             <div>
-              <div style={{ fontSize: '0.6875rem', color: 'var(--muted-text)', fontWeight: 600, textTransform: 'uppercase' }}>
+              <div style={{ fontSize: '0.65625rem', color: 'var(--muted-text)', fontWeight: 600, textTransform: 'uppercase' }}>
                 Cold-Chain Health
               </div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--charcoal)', lineHeight: 1.15 }}>
+              <div style={{ fontSize: '1.125rem', fontWeight: 700, color: 'var(--charcoal)', lineHeight: 1.15 }}>
                 2.4°C Chilled
               </div>
-              <div style={{ fontSize: '0.6875rem', color: 'var(--success-green)', marginTop: '2px' }}>
+              <div style={{ fontSize: '0.65625rem', color: 'var(--success-green)', marginTop: '1px' }}>
                 0-4°C Preserved • Zero Freezing
               </div>
             </div>
@@ -412,17 +371,17 @@ export const DeliveryDashboard = () => {
               backgroundColor: 'var(--white)',
               border: '1px solid var(--border-beige)',
               borderRadius: 'var(--radius-sm)',
-              padding: '0.75rem 1rem',
+              padding: '0.45rem 0.75rem',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.75rem',
+              gap: '0.65rem',
               boxShadow: 'var(--shadow-xs)'
             }}
           >
             <div
               style={{
-                width: '38px',
-                height: '38px',
+                width: '32px',
+                height: '32px',
                 borderRadius: '8px',
                 backgroundColor: 'rgba(34, 197, 94, 0.15)',
                 color: 'var(--success-green)',
@@ -432,46 +391,46 @@ export const DeliveryDashboard = () => {
                 flexShrink: 0
               }}
             >
-              <CheckCircle2 size={19} />
+              <CheckCircle2 size={17} />
             </div>
             <div>
-              <div style={{ fontSize: '0.6875rem', color: 'var(--muted-text)', fontWeight: 600, textTransform: 'uppercase' }}>
+              <div style={{ fontSize: '0.65625rem', color: 'var(--muted-text)', fontWeight: 600, textTransform: 'uppercase' }}>
                 Fulfillment Status
               </div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--charcoal)', lineHeight: 1.15 }}>
+              <div style={{ fontSize: '1.125rem', fontWeight: 700, color: 'var(--charcoal)', lineHeight: 1.15 }}>
                 {deliveredCount} Delivered
               </div>
-              <div style={{ fontSize: '0.6875rem', color: 'var(--muted-text)', marginTop: '2px' }}>
+              <div style={{ fontSize: '0.65625rem', color: 'var(--muted-text)', marginTop: '1px' }}>
                 ₹{deliveredRevenue.toLocaleString('en-IN')} revenue dispatched
               </div>
             </div>
           </div>
         </div>
 
-        {/* 3. PRIMARY VIEW SWITCHER TABS: [ Live Map & Dispatch Queue ] vs [ Drivers & Fleet Roster ] */}
+        {/* 3. PRIMARY VIEW SWITCHER TABS (PINNED & STABLE) */}
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             borderBottom: '2px solid var(--border-beige)',
-            paddingBottom: '0.5rem',
-            marginBottom: '0.75rem',
+            paddingBottom: '0.35rem',
+            marginBottom: '0',
             flexWrap: 'wrap',
-            gap: '0.5rem'
+            gap: '0.4rem'
           }}
         >
-          <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <div style={{ display: 'flex', gap: '0.4rem' }}>
             <button
               onClick={() => setViewMode('map')}
               style={{
-                padding: '0.45rem 1rem',
+                padding: '0.35rem 0.85rem',
                 borderRadius: 'var(--radius-sm)',
                 fontWeight: 600,
-                fontSize: '0.84375rem',
+                fontSize: '0.8125rem',
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '0.45rem',
+                gap: '0.4rem',
                 border: viewMode === 'map' ? '1px solid var(--charcoal-deep)' : '1px solid var(--border-beige)',
                 backgroundColor: viewMode === 'map' ? 'var(--charcoal-deep)' : 'var(--white)',
                 color: viewMode === 'map' ? 'var(--amber-primary)' : 'var(--charcoal)',
@@ -479,20 +438,20 @@ export const DeliveryDashboard = () => {
                 transition: 'all 0.15s ease'
               }}
             >
-              <Navigation size={15} />
+              <Navigation size={14} />
               <span>Live Map & Route Dispatch</span>
             </button>
 
             <button
               onClick={() => setViewMode('fleet')}
               style={{
-                padding: '0.45rem 1rem',
+                padding: '0.35rem 0.85rem',
                 borderRadius: 'var(--radius-sm)',
                 fontWeight: 600,
-                fontSize: '0.84375rem',
+                fontSize: '0.8125rem',
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '0.45rem',
+                gap: '0.4rem',
                 border: viewMode === 'fleet' ? '1px solid var(--charcoal-deep)' : '1px solid var(--border-beige)',
                 backgroundColor: viewMode === 'fleet' ? 'var(--charcoal-deep)' : 'var(--white)',
                 color: viewMode === 'fleet' ? 'var(--amber-primary)' : 'var(--charcoal)',
@@ -500,20 +459,20 @@ export const DeliveryDashboard = () => {
                 transition: 'all 0.15s ease'
               }}
             >
-              <Truck size={15} />
+              <Truck size={14} />
               <span>Drivers & Fleet Roster ({drivers.length})</span>
             </button>
           </div>
 
-          <div style={{ fontSize: '0.75rem', color: 'var(--muted-text)' }}>
+          <div style={{ fontSize: '0.71875rem', color: 'var(--muted-text)' }}>
             Serving: Indiranagar • Koramangala • Bellandur • Sarjapur • Whitefield
           </div>
         </div>
       </div>
 
-      {/* VIEW A: DRIVERS & FLEET ROSTER (Who the dispatcher monitors and manages) */}
+      {/* VIEW A: DRIVERS & FLEET ROSTER */}
       {viewMode === 'fleet' && (
-        <div style={{ padding: '0 1.25rem 2rem', maxWidth: '1600px', width: '100%', margin: '0 auto' }}>
+        <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', padding: '0.85rem 1.25rem 2rem', maxWidth: '1600px', width: '100%', margin: '0 auto' }}>
           <div
             style={{
               display: 'grid',
@@ -705,7 +664,7 @@ export const DeliveryDashboard = () => {
 
       {/* VIEW B: LIVE MAP & ROUTE DISPATCH QUEUE (Preserved completely) */}
       {viewMode === 'map' && (
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
           {/* Mobile Tab Switcher */}
           <div
             className="hide-on-desktop"
@@ -714,7 +673,8 @@ export const DeliveryDashboard = () => {
               backgroundColor: 'var(--white)',
               borderBottom: '1px solid var(--border-beige)',
               padding: '0.5rem 1rem',
-              gap: '0.5rem'
+              gap: '0.5rem',
+              flexShrink: 0
             }}
           >
             <button
@@ -739,10 +699,11 @@ export const DeliveryDashboard = () => {
             style={{
               flex: 1,
               display: 'grid',
-              gridTemplateColumns: 'minmax(280px, 420px) 1fr',
-              height: 'calc(100vh - 220px)',
-              minHeight: '520px',
-              minWidth: 0
+              gridTemplateColumns: 'minmax(300px, 410px) 1fr',
+              height: '100%',
+              minHeight: 0,
+              minWidth: 0,
+              overflow: 'hidden'
             }}
             className="dispatch-grid-container"
           >
@@ -1123,9 +1084,20 @@ export const DeliveryDashboard = () => {
       {/* Responsive adjustments */}
       <style>{`
         @media (max-width: 1024px) {
+          .dispatch-dashboard-root {
+            height: auto !important;
+            max-height: none !important;
+            min-height: 100vh !important;
+            overflow-y: auto !important;
+          }
           .dispatch-grid-container {
             grid-template-columns: 1fr !important;
             height: auto !important;
+            overflow: visible !important;
+          }
+          .dispatch-left-panel, .dispatch-right-panel {
+            height: auto !important;
+            overflow: visible !important;
           }
         }
       `}</style>

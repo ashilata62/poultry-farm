@@ -572,7 +572,9 @@ export const LoginPage = () => {
               padding: '1.15rem 1.75rem',
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'center'
+              justifyContent: 'center',
+              backgroundColor: '#FFFCF7',
+              borderLeft: '1px solid rgba(0, 0, 0, 0.08)'
             }}
           >
             {/* Header Titles */}
@@ -582,8 +584,8 @@ export const LoginPage = () => {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.35rem',
-                  backgroundColor: 'rgba(242, 140, 40, 0.16)',
-                  color: 'var(--amber-primary)',
+                  backgroundColor: 'rgba(242, 140, 40, 0.12)',
+                  color: '#C05621',
                   border: '1px solid rgba(242, 140, 40, 0.35)',
                   padding: '0.2rem 0.65rem',
                   borderRadius: 'var(--radius-full)',
@@ -593,7 +595,7 @@ export const LoginPage = () => {
                   letterSpacing: '0.04em'
                 }}
               >
-                <Sparkles size={12} />
+                <Sparkles size={12} color="#C05621" />
                 <span>Unified Enterprise Gateway</span>
               </div>
 
@@ -602,7 +604,7 @@ export const LoginPage = () => {
                   fontFamily: 'var(--font-heading)',
                   fontSize: '1.65rem',
                   fontWeight: 700,
-                  color: '#FFFFFF',
+                  color: '#1A1C1B',
                   lineHeight: 1.15,
                   margin: 0,
                   letterSpacing: '-0.01em'
@@ -610,7 +612,7 @@ export const LoginPage = () => {
               >
                 Sign In to Dashboard
               </h1>
-              <p style={{ fontSize: '0.8125rem', color: '#B5B0A6', margin: '3px 0 0' }}>
+              <p style={{ fontSize: '0.8125rem', color: '#5C6460', margin: '3px 0 0' }}>
                 Select your operational console to authenticate into your session
               </p>
             </div>
@@ -622,10 +624,10 @@ export const LoginPage = () => {
                   display: 'grid',
                   gridTemplateColumns: 'repeat(4, 1fr)',
                   gap: '0.35rem',
-                  backgroundColor: 'rgba(15, 17, 16, 0.60)',
+                  backgroundColor: '#F0ECE4',
                   padding: '0.35rem',
                   borderRadius: '12px',
-                  border: '1px solid rgba(255, 255, 255, 0.10)'
+                  border: '1px solid rgba(0, 0, 0, 0.06)'
                 }}
               >
                 {rolePortals.map((portal) => {
@@ -642,25 +644,25 @@ export const LoginPage = () => {
                         borderRadius: '9px',
                         border: isSelected
                           ? '1.5px solid var(--amber-primary)'
-                          : '1px solid rgba(255, 255, 255, 0.06)',
+                          : '1px solid transparent',
                         backgroundColor: isSelected
-                          ? 'rgba(242, 140, 40, 0.20)'
+                          ? '#FFFFFF'
                           : 'transparent',
-                        color: isSelected ? 'var(--amber-primary)' : '#DDD6CC',
-                        boxShadow: isSelected ? '0 4px 16px rgba(242, 140, 40, 0.32)' : 'none',
+                        color: isSelected ? 'var(--amber-primary)' : '#52525B',
+                        boxShadow: isSelected ? '0 2px 8px rgba(242, 140, 40, 0.20), 0 1px 3px rgba(0, 0, 0, 0.06)' : 'none',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
                         gap: '0.25rem',
                         cursor: 'pointer',
-                        transition: 'background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease'
+                        transition: 'background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease'
                       }}
                       title={portal.title}
                     >
                       <IconComponent
                         size={16}
-                        color={isSelected ? 'var(--amber-primary)' : '#9CA3AF'}
+                        color={isSelected ? 'var(--amber-primary)' : '#6B7280'}
                       />
                       <span
                         style={{
@@ -680,8 +682,9 @@ export const LoginPage = () => {
             {/* Active Portal Summary Glass Bar (Exact reference style) */}
             <div
               style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.10)',
+                backgroundColor: '#FFFFFF',
+                border: '1px solid rgba(0, 0, 0, 0.08)',
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
                 borderRadius: '11px',
                 padding: '0.5rem 0.75rem',
                 marginBottom: '0.65rem',
@@ -696,28 +699,28 @@ export const LoginPage = () => {
                     width: '30px',
                     height: '30px',
                     borderRadius: '8px',
-                    backgroundColor: 'rgba(242, 140, 40, 0.2)',
+                    backgroundColor: 'rgba(242, 140, 40, 0.14)',
                     color: 'var(--amber-primary)',
-                    border: '1px solid rgba(242, 140, 40, 0.35)',
+                    border: '1px solid rgba(242, 140, 40, 0.30)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center'
                   }}
                 >
-                  <currentPortal.icon size={16} />
+                  <currentPortal.icon size={16} color="var(--amber-primary)" />
                 </div>
                 <div>
                   <div
                     style={{
                       fontSize: '0.84375rem',
                       fontWeight: 700,
-                      color: '#FFFFFF',
+                      color: '#1A1C1B',
                       lineHeight: 1.15
                     }}
                   >
                     {currentPortal.title}
                   </div>
-                  <div style={{ fontSize: '0.6875rem', color: '#9CA3AF' }}>
+                  <div style={{ fontSize: '0.6875rem', color: '#6B7280' }}>
                     {currentPortal.tagline}
                   </div>
                 </div>
@@ -740,7 +743,7 @@ export const LoginPage = () => {
                     display: 'block',
                     fontSize: '0.75rem',
                     fontWeight: 600,
-                    color: '#E5E0D8',
+                    color: '#2D312E',
                     marginBottom: '0.2rem'
                   }}
                 >
@@ -754,7 +757,7 @@ export const LoginPage = () => {
                       left: '11px',
                       top: '50%',
                       transform: 'translateY(-50%)',
-                      color: '#9CA3AF'
+                      color: '#6B7280'
                     }}
                   />
                   <input
@@ -767,19 +770,19 @@ export const LoginPage = () => {
                       paddingLeft: '2.2rem',
                       height: '36px',
                       fontSize: '0.8125rem',
-                      backgroundColor: 'rgba(12, 14, 13, 0.65)',
-                      border: '1px solid rgba(255, 255, 255, 0.15)',
+                      backgroundColor: '#FFFFFF',
+                      border: '1px solid #D6D1C7',
                       borderRadius: '9px',
-                      color: '#FFFFFF',
+                      color: '#1A1C1B',
                       outline: 'none',
                       transition: 'border-color 0.2s ease, box-shadow 0.2s ease'
                     }}
                     onFocus={(e) => {
                       e.target.style.borderColor = 'var(--amber-primary)';
-                      e.target.style.boxShadow = '0 0 0 3px rgba(242, 140, 40, 0.25)';
+                      e.target.style.boxShadow = '0 0 0 3px rgba(242, 140, 40, 0.22)';
                     }}
                     onBlur={(e) => {
-                      e.target.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+                      e.target.style.borderColor = '#D6D1C7';
                       e.target.style.boxShadow = 'none';
                     }}
                     placeholder="name@thevillagefarm.in"
@@ -797,7 +800,7 @@ export const LoginPage = () => {
                     marginBottom: '0.2rem'
                   }}
                 >
-                  <label style={{ fontSize: '0.75rem', fontWeight: 600, color: '#E5E0D8' }}>
+                  <label style={{ fontSize: '0.75rem', fontWeight: 600, color: '#2D312E' }}>
                     Password
                   </label>
                   <span
@@ -819,7 +822,7 @@ export const LoginPage = () => {
                       left: '11px',
                       top: '50%',
                       transform: 'translateY(-50%)',
-                      color: '#9CA3AF'
+                      color: '#6B7280'
                     }}
                   />
                   <input
@@ -833,19 +836,19 @@ export const LoginPage = () => {
                       paddingRight: '2.4rem',
                       height: '36px',
                       fontSize: '0.8125rem',
-                      backgroundColor: 'rgba(12, 14, 13, 0.65)',
-                      border: '1px solid rgba(255, 255, 255, 0.15)',
+                      backgroundColor: '#FFFFFF',
+                      border: '1px solid #D6D1C7',
                       borderRadius: '9px',
-                      color: '#FFFFFF',
+                      color: '#1A1C1B',
                       outline: 'none',
                       transition: 'border-color 0.2s ease, box-shadow 0.2s ease'
                     }}
                     onFocus={(e) => {
                       e.target.style.borderColor = 'var(--amber-primary)';
-                      e.target.style.boxShadow = '0 0 0 3px rgba(242, 140, 40, 0.25)';
+                      e.target.style.boxShadow = '0 0 0 3px rgba(242, 140, 40, 0.22)';
                     }}
                     onBlur={(e) => {
-                      e.target.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+                      e.target.style.borderColor = '#D6D1C7';
                       e.target.style.boxShadow = 'none';
                     }}
                     placeholder="Enter password"
@@ -860,7 +863,7 @@ export const LoginPage = () => {
                       transform: 'translateY(-50%)',
                       background: 'none',
                       border: 'none',
-                      color: '#9CA3AF',
+                      color: '#6B7280',
                       cursor: 'pointer',
                       display: 'flex',
                       alignItems: 'center',
@@ -889,7 +892,7 @@ export const LoginPage = () => {
                     alignItems: 'center',
                     gap: '0.4rem',
                     cursor: 'pointer',
-                    color: '#D1CBC0'
+                    color: '#374151'
                   }}
                 >
                   <input
@@ -902,7 +905,7 @@ export const LoginPage = () => {
                 </label>
                 <span
                   style={{
-                    color: '#8E8A80',
+                    color: '#6B7280',
                     fontSize: '0.6875rem',
                     display: 'flex',
                     alignItems: 'center',
