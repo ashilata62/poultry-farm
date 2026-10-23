@@ -667,36 +667,39 @@ export const CheckoutPage = () => {
                   paddingBottom: '1.25rem'
                 }}
               >
-                {cart.map((item) => (
-                  <div
-                    key={item.product.id}
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      fontSize: '0.875rem'
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                      <img
-                        src={item.product.image}
-                        alt={item.product.name}
-                        style={{ width: '40px', height: '40px', borderRadius: 'var(--radius-xs)', objectFit: 'cover' }}
-                      />
-                      <div>
-                        <div style={{ fontWeight: 600, color: 'var(--charcoal)' }}>
-                          {item.product.name}
-                        </div>
-                        <div style={{ fontSize: '0.75rem', color: 'var(--muted-text)' }}>
-                          Qty: {item.quantity} × ₹{item.product.price}
+                {cart.map((item) => {
+                  const prod = item.product || item;
+                  return (
+                    <div
+                      key={prod.id}
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        fontSize: '0.875rem'
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                        <img
+                          src={prod.image}
+                          alt={prod.name}
+                          style={{ width: '40px', height: '40px', borderRadius: 'var(--radius-xs)', objectFit: 'cover' }}
+                        />
+                        <div>
+                          <div style={{ fontWeight: 600, color: 'var(--charcoal)' }}>
+                            {prod.name}
+                          </div>
+                          <div style={{ fontSize: '0.75rem', color: 'var(--muted-text)' }}>
+                            Qty: {item.quantity} × ₹{prod.price}
+                          </div>
                         </div>
                       </div>
+                      <span style={{ fontWeight: 600, color: 'var(--charcoal)' }}>
+                        ₹{prod.price * item.quantity}
+                      </span>
                     </div>
-                    <span style={{ fontWeight: 600, color: 'var(--charcoal)' }}>
-                      ₹{item.product.price * item.quantity}
-                    </span>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
               {/* Calculations */}
