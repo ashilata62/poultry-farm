@@ -44,7 +44,7 @@ const AppContent = () => {
   // Dedicated Multi-Role Login Gateway Screen
   if (currentRole === 'login') {
     return (
-      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#141615' }}>
+      <div style={{ height: '100vh', maxHeight: '100vh', overflow: 'hidden', display: 'flex', flexDirection: 'column', backgroundColor: '#141615' }}>
         <LoginPage />
         <Toast />
       </div>

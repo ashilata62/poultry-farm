@@ -134,9 +134,11 @@ export const LoginPage = () => {
   return (
     <div
       style={{
-        position: 'relative',
-        minHeight: '100vh',
-        width: '100%',
+        position: 'fixed',
+        inset: 0,
+        width: '100vw',
+        height: '100vh',
+        maxHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
         backgroundImage: "url('/images/farm_hero.jpg')",
@@ -144,7 +146,7 @@ export const LoginPage = () => {
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundColor: '#141615',
-        overflowX: 'hidden'
+        overflow: 'hidden'
       }}
     >
       {/* Deep Charcoal & Warm Amber Ambient Glassmorphic Scrim Overlay */}
@@ -196,13 +198,13 @@ export const LoginPage = () => {
       {/* Top Glassmorphic Navigation Bar */}
       <header
         style={{
-          height: '60px',
+          height: '52px',
           flexShrink: 0,
           backgroundColor: 'rgba(20, 23, 21, 0.75)',
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',
           borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
-          padding: '0 1.5rem',
+          padding: '0 1.25rem',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -213,19 +215,19 @@ export const LoginPage = () => {
         {/* Brand Logo */}
         <div
           onClick={handleReturnToStore}
-          style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer' }}
+          style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', cursor: 'pointer' }}
           title="Return to Customer Store"
         >
           <img
             src="/logo.svg"
             alt="The Village Farm Logo"
-            style={{ width: '36px', height: '36px', filter: 'drop-shadow(0 2px 8px rgba(242, 140, 40, 0.45))' }}
+            style={{ width: '32px', height: '32px', filter: 'drop-shadow(0 2px 8px rgba(242, 140, 40, 0.45))' }}
           />
           <div>
             <div
               style={{
                 fontFamily: 'var(--font-heading)',
-                fontSize: '1.15rem',
+                fontSize: '1.05rem',
                 fontWeight: 700,
                 color: '#FFFFFF',
                 lineHeight: 1.15,
@@ -236,7 +238,7 @@ export const LoginPage = () => {
             </div>
             <div
               style={{
-                fontSize: '0.625rem',
+                fontSize: '0.6rem',
                 color: 'var(--amber-primary)',
                 fontWeight: 700,
                 letterSpacing: '0.07em',
@@ -249,27 +251,27 @@ export const LoginPage = () => {
         </div>
 
         {/* Right Status & Back to Store Action */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <span
             className="hide-on-mobile"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '0.45rem',
-              fontSize: '0.75rem',
+              gap: '0.4rem',
+              fontSize: '0.71875rem',
               color: '#4ADE80',
               fontWeight: 600,
               backgroundColor: 'rgba(34, 197, 94, 0.12)',
               border: '1px solid rgba(34, 197, 94, 0.3)',
-              padding: '0.25rem 0.8rem',
+              padding: '0.2rem 0.7rem',
               borderRadius: 'var(--radius-full)',
               backdropFilter: 'blur(10px)'
             }}
           >
             <span
               style={{
-                width: '7px',
-                height: '7px',
+                width: '6px',
+                height: '6px',
                 borderRadius: '50%',
                 backgroundColor: '#22C55E',
                 boxShadow: '0 0 8px #22C55E'
@@ -283,30 +285,28 @@ export const LoginPage = () => {
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '0.45rem',
+              gap: '0.4rem',
               fontWeight: 600,
-              padding: '0.45rem 0.95rem',
-              fontSize: '0.8125rem',
+              padding: '0.4rem 0.85rem',
+              fontSize: '0.78125rem',
               color: '#FFFFFF',
               backgroundColor: 'rgba(255, 255, 255, 0.08)',
               border: '1px solid rgba(255, 255, 255, 0.16)',
               borderRadius: 'var(--radius-sm)',
               cursor: 'pointer',
               backdropFilter: 'blur(10px)',
-              transition: 'all 0.2s ease'
+              transition: 'background-color 0.2s ease, border-color 0.2s ease'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.18)';
               e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.32)';
-              e.currentTarget.style.transform = 'translateX(-2px)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
               e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.16)';
-              e.currentTarget.style.transform = 'translateX(0)';
             }}
           >
-            <ArrowLeft size={15} />
+            <ArrowLeft size={14} />
             <span>Back to Store</span>
           </button>
         </div>
@@ -319,9 +319,10 @@ export const LoginPage = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '2rem 1.25rem',
+          padding: '0.5rem 1rem',
           position: 'relative',
-          zIndex: 10
+          zIndex: 10,
+          overflow: 'hidden'
         }}
       >
         {/* Master Glassmorphic Card Container */}
@@ -329,16 +330,17 @@ export const LoginPage = () => {
           className="login-glass-card"
           style={{
             width: '100%',
-            maxWidth: '1000px',
+            maxWidth: '960px',
+            maxHeight: 'calc(100vh - 70px)',
             backgroundColor: 'rgba(26, 29, 28, 0.78)',
             backdropFilter: 'blur(30px) saturate(190%)',
             WebkitBackdropFilter: 'blur(30px) saturate(190%)',
             border: '1px solid rgba(255, 255, 255, 0.16)',
             boxShadow:
-              '0 32px 80px -16px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(242, 140, 40, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.22)',
-            borderRadius: '24px',
+              '0 24px 60px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(242, 140, 40, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.22)',
+            borderRadius: '20px',
             display: 'grid',
-            gridTemplateColumns: '400px 1fr',
+            gridTemplateColumns: '370px 1fr',
             overflow: 'hidden'
           }}
         >
@@ -346,7 +348,7 @@ export const LoginPage = () => {
           <div
             className="login-image-frame"
             style={{
-              padding: '1.25rem',
+              padding: '1rem',
               backgroundColor: 'rgba(15, 17, 16, 0.50)',
               borderRight: '1px solid rgba(255, 255, 255, 0.10)',
               display: 'flex',
@@ -359,12 +361,12 @@ export const LoginPage = () => {
             <div
               style={{
                 width: '100%',
-                height: '260px',
-                borderRadius: '16px',
+                height: '195px',
+                borderRadius: '14px',
                 overflow: 'hidden',
                 position: 'relative',
                 border: '1px solid rgba(255, 255, 255, 0.14)',
-                boxShadow: '0 12px 28px rgba(0, 0, 0, 0.5)'
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.5)'
               }}
             >
               <img
@@ -392,37 +394,37 @@ export const LoginPage = () => {
               <div
                 style={{
                   position: 'absolute',
-                  bottom: '12px',
-                  left: '12px',
-                  right: '12px',
+                  bottom: '10px',
+                  left: '10px',
+                  right: '10px',
                   backgroundColor: 'rgba(20, 23, 21, 0.88)',
                   backdropFilter: 'blur(12px)',
                   WebkitBackdropFilter: 'blur(12px)',
-                  padding: '7px 12px',
-                  borderRadius: '12px',
+                  padding: '6px 10px',
+                  borderRadius: '10px',
                   border: '1px solid rgba(255, 255, 255, 0.16)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between'
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <span
                     style={{
-                      width: '8px',
-                      height: '8px',
+                      width: '7px',
+                      height: '7px',
                       borderRadius: '50%',
                       backgroundColor: 'var(--amber-primary)',
                       boxShadow: '0 0 8px var(--amber-primary)'
                     }}
                   />
-                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#FFFFFF' }}>
+                  <span style={{ fontSize: '0.71875rem', fontWeight: 700, color: '#FFFFFF' }}>
                     Ethical Pasture Farm
                   </span>
                 </div>
                 <span
                   style={{
-                    fontSize: '0.71875rem',
+                    fontSize: '0.6875rem',
                     color: 'var(--amber-primary)',
                     fontWeight: 700,
                     letterSpacing: '0.02em'
@@ -436,28 +438,28 @@ export const LoginPage = () => {
             {/* Farm Trust Pillars with Frosted Accents */}
             <div
               style={{
-                marginTop: '1.1rem',
+                marginTop: '0.65rem',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '0.6rem'
+                gap: '0.45rem'
               }}
             >
               <div
                 style={{
-                  padding: '0.65rem 0.85rem',
-                  borderRadius: '12px',
+                  padding: '0.45rem 0.65rem',
+                  borderRadius: '10px',
                   backgroundColor: 'rgba(255, 255, 255, 0.05)',
                   border: '1px solid rgba(255, 255, 255, 0.08)',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.75rem'
+                  gap: '0.55rem'
                 }}
               >
                 <div
                   style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '8px',
+                    width: '26px',
+                    height: '26px',
+                    borderRadius: '7px',
                     backgroundColor: 'rgba(242, 140, 40, 0.18)',
                     display: 'flex',
                     alignItems: 'center',
@@ -465,13 +467,13 @@ export const LoginPage = () => {
                     flexShrink: 0
                   }}
                 >
-                  <Feather size={16} color="var(--amber-primary)" />
+                  <Feather size={14} color="var(--amber-primary)" />
                 </div>
                 <div>
-                  <div style={{ fontSize: '0.78125rem', fontWeight: 700, color: '#FFFFFF' }}>
+                  <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#FFFFFF', lineHeight: 1.2 }}>
                     Free-Range Country Pastures
                   </div>
-                  <div style={{ fontSize: '0.6875rem', color: '#9CA3AF' }}>
+                  <div style={{ fontSize: '0.65625rem', color: '#9CA3AF' }}>
                     4 Active sheds, natural sunlight & non-GMO grains
                   </div>
                 </div>
@@ -479,20 +481,20 @@ export const LoginPage = () => {
 
               <div
                 style={{
-                  padding: '0.65rem 0.85rem',
-                  borderRadius: '12px',
+                  padding: '0.45rem 0.65rem',
+                  borderRadius: '10px',
                   backgroundColor: 'rgba(255, 255, 255, 0.05)',
                   border: '1px solid rgba(255, 255, 255, 0.08)',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.75rem'
+                  gap: '0.55rem'
                 }}
               >
                 <div
                   style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '8px',
+                    width: '26px',
+                    height: '26px',
+                    borderRadius: '7px',
                     backgroundColor: 'rgba(34, 197, 94, 0.18)',
                     display: 'flex',
                     alignItems: 'center',
@@ -500,13 +502,13 @@ export const LoginPage = () => {
                     flexShrink: 0
                   }}
                 >
-                  <Thermometer size={16} color="#4ADE80" />
+                  <Thermometer size={14} color="#4ADE80" />
                 </div>
                 <div>
-                  <div style={{ fontSize: '0.78125rem', fontWeight: 700, color: '#FFFFFF' }}>
+                  <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#FFFFFF', lineHeight: 1.2 }}>
                     Strict 2.4°C Chilled Cold-Chain
                   </div>
-                  <div style={{ fontSize: '0.6875rem', color: '#9CA3AF' }}>
+                  <div style={{ fontSize: '0.65625rem', color: '#9CA3AF' }}>
                     Zero freezing, preserved tenderness & hygiene
                   </div>
                 </div>
@@ -514,20 +516,20 @@ export const LoginPage = () => {
 
               <div
                 style={{
-                  padding: '0.65rem 0.85rem',
-                  borderRadius: '12px',
+                  padding: '0.45rem 0.65rem',
+                  borderRadius: '10px',
                   backgroundColor: 'rgba(255, 255, 255, 0.05)',
                   border: '1px solid rgba(255, 255, 255, 0.08)',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.75rem'
+                  gap: '0.55rem'
                 }}
               >
                 <div
                   style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '8px',
+                    width: '26px',
+                    height: '26px',
+                    borderRadius: '7px',
                     backgroundColor: 'rgba(242, 140, 40, 0.18)',
                     display: 'flex',
                     alignItems: 'center',
@@ -535,13 +537,13 @@ export const LoginPage = () => {
                     flexShrink: 0
                   }}
                 >
-                  <Award size={16} color="var(--amber-primary)" />
+                  <Award size={14} color="var(--amber-primary)" />
                 </div>
                 <div>
-                  <div style={{ fontSize: '0.78125rem', fontWeight: 700, color: '#FFFFFF' }}>
+                  <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#FFFFFF', lineHeight: 1.2 }}>
                     No Antibiotics or Hormones
                   </div>
-                  <div style={{ fontSize: '0.6875rem', color: '#9CA3AF' }}>
+                  <div style={{ fontSize: '0.65625rem', color: '#9CA3AF' }}>
                     Daily farm biosecurity & veterinary verification
                   </div>
                 </div>
@@ -551,11 +553,11 @@ export const LoginPage = () => {
             {/* Farm Location Footnote */}
             <div
               style={{
-                fontSize: '0.6875rem',
+                fontSize: '0.65625rem',
                 color: '#8A857B',
                 textAlign: 'center',
-                paddingTop: '0.75rem',
-                marginTop: '0.75rem',
+                paddingTop: '0.45rem',
+                marginTop: '0.45rem',
                 borderTop: '1px solid rgba(255, 255, 255, 0.08)'
               }}
             >
@@ -567,62 +569,62 @@ export const LoginPage = () => {
           <div
             className="login-form-pane"
             style={{
-              padding: '1.75rem 2.25rem',
+              padding: '1.15rem 1.75rem',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center'
             }}
           >
             {/* Header Titles */}
-            <div style={{ marginBottom: '1.1rem' }}>
+            <div style={{ marginBottom: '0.7rem' }}>
               <div
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '0.4rem',
+                  gap: '0.35rem',
                   backgroundColor: 'rgba(242, 140, 40, 0.16)',
                   color: 'var(--amber-primary)',
                   border: '1px solid rgba(242, 140, 40, 0.35)',
-                  padding: '0.25rem 0.75rem',
+                  padding: '0.2rem 0.65rem',
                   borderRadius: 'var(--radius-full)',
-                  fontSize: '0.71875rem',
+                  fontSize: '0.6875rem',
                   fontWeight: 700,
-                  marginBottom: '0.5rem',
+                  marginBottom: '0.35rem',
                   letterSpacing: '0.04em'
                 }}
               >
-                <Sparkles size={13} />
+                <Sparkles size={12} />
                 <span>Unified Enterprise Gateway</span>
               </div>
 
               <h1
                 style={{
                   fontFamily: 'var(--font-heading)',
-                  fontSize: '1.75rem',
+                  fontSize: '1.65rem',
                   fontWeight: 700,
                   color: '#FFFFFF',
-                  lineHeight: 1.2,
+                  lineHeight: 1.15,
                   margin: 0,
                   letterSpacing: '-0.01em'
                 }}
               >
                 Sign In to Dashboard
               </h1>
-              <p style={{ fontSize: '0.84375rem', color: '#B5B0A6', margin: '4px 0 0' }}>
+              <p style={{ fontSize: '0.8125rem', color: '#B5B0A6', margin: '3px 0 0' }}>
                 Select your operational console to authenticate into your session
               </p>
             </div>
 
             {/* 4 Dashboard Selector Glassmorphic Tabs */}
-            <div style={{ marginBottom: '0.9rem' }}>
+            <div style={{ marginBottom: '0.65rem' }}>
               <div
                 style={{
                   display: 'grid',
                   gridTemplateColumns: 'repeat(4, 1fr)',
-                  gap: '0.4rem',
+                  gap: '0.35rem',
                   backgroundColor: 'rgba(15, 17, 16, 0.60)',
-                  padding: '0.4rem',
-                  borderRadius: '14px',
+                  padding: '0.35rem',
+                  borderRadius: '12px',
                   border: '1px solid rgba(255, 255, 255, 0.10)'
                 }}
               >
@@ -636,8 +638,8 @@ export const LoginPage = () => {
                       type="button"
                       onClick={() => handleSelectRole(portal.id)}
                       style={{
-                        padding: '0.55rem 0.3rem',
-                        borderRadius: '10px',
+                        padding: '0.45rem 0.25rem',
+                        borderRadius: '9px',
                         border: isSelected
                           ? '1.5px solid var(--amber-primary)'
                           : '1px solid rgba(255, 255, 255, 0.06)',
@@ -650,19 +652,19 @@ export const LoginPage = () => {
                         flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        gap: '0.3rem',
+                        gap: '0.25rem',
                         cursor: 'pointer',
-                        transition: 'all 0.2s ease'
+                        transition: 'background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease'
                       }}
                       title={portal.title}
                     >
                       <IconComponent
-                        size={18}
+                        size={16}
                         color={isSelected ? 'var(--amber-primary)' : '#9CA3AF'}
                       />
                       <span
                         style={{
-                          fontSize: '0.75rem',
+                          fontSize: '0.71875rem',
                           fontWeight: isSelected ? 700 : 500,
                           whiteSpace: 'nowrap'
                         }}
@@ -680,20 +682,20 @@ export const LoginPage = () => {
               style={{
                 backgroundColor: 'rgba(255, 255, 255, 0.05)',
                 border: '1px solid rgba(255, 255, 255, 0.10)',
-                borderRadius: '12px',
-                padding: '0.65rem 0.95rem',
-                marginBottom: '1rem',
+                borderRadius: '11px',
+                padding: '0.5rem 0.75rem',
+                marginBottom: '0.65rem',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between'
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
                 <div
                   style={{
-                    width: '34px',
-                    height: '34px',
-                    borderRadius: '10px',
+                    width: '30px',
+                    height: '30px',
+                    borderRadius: '8px',
                     backgroundColor: 'rgba(242, 140, 40, 0.2)',
                     color: 'var(--amber-primary)',
                     border: '1px solid rgba(242, 140, 40, 0.35)',
@@ -702,20 +704,20 @@ export const LoginPage = () => {
                     justifyContent: 'center'
                   }}
                 >
-                  <currentPortal.icon size={18} />
+                  <currentPortal.icon size={16} />
                 </div>
                 <div>
                   <div
                     style={{
-                      fontSize: '0.875rem',
+                      fontSize: '0.84375rem',
                       fontWeight: 700,
                       color: '#FFFFFF',
-                      lineHeight: 1.2
+                      lineHeight: 1.15
                     }}
                   >
                     {currentPortal.title}
                   </div>
-                  <div style={{ fontSize: '0.71875rem', color: '#9CA3AF' }}>
+                  <div style={{ fontSize: '0.6875rem', color: '#9CA3AF' }}>
                     {currentPortal.tagline}
                   </div>
                 </div>
@@ -723,33 +725,33 @@ export const LoginPage = () => {
 
               <span
                 className={`badge ${currentPortal.badgeColor}`}
-                style={{ fontSize: '0.65625rem', padding: '4px 9px', borderRadius: 'var(--radius-full)' }}
+                style={{ fontSize: '0.625rem', padding: '3px 8px', borderRadius: 'var(--radius-full)' }}
               >
                 {currentPortal.roleBadge}
               </span>
             </div>
 
             {/* Login Form Fields */}
-            <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
+            <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
               {/* Enterprise Email */}
               <div>
                 <label
                   style={{
                     display: 'block',
-                    fontSize: '0.78125rem',
+                    fontSize: '0.75rem',
                     fontWeight: 600,
                     color: '#E5E0D8',
-                    marginBottom: '0.3rem'
+                    marginBottom: '0.2rem'
                   }}
                 >
                   Enterprise Email
                 </label>
                 <div style={{ position: 'relative' }}>
                   <Mail
-                    size={15}
+                    size={14}
                     style={{
                       position: 'absolute',
-                      left: '12px',
+                      left: '11px',
                       top: '50%',
                       transform: 'translateY(-50%)',
                       color: '#9CA3AF'
@@ -762,12 +764,12 @@ export const LoginPage = () => {
                     required
                     style={{
                       width: '100%',
-                      paddingLeft: '2.35rem',
-                      height: '40px',
-                      fontSize: '0.84375rem',
+                      paddingLeft: '2.2rem',
+                      height: '36px',
+                      fontSize: '0.8125rem',
                       backgroundColor: 'rgba(12, 14, 13, 0.65)',
                       border: '1px solid rgba(255, 255, 255, 0.15)',
-                      borderRadius: '10px',
+                      borderRadius: '9px',
                       color: '#FFFFFF',
                       outline: 'none',
                       transition: 'border-color 0.2s ease, box-shadow 0.2s ease'
@@ -792,15 +794,15 @@ export const LoginPage = () => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    marginBottom: '0.3rem'
+                    marginBottom: '0.2rem'
                   }}
                 >
-                  <label style={{ fontSize: '0.78125rem', fontWeight: 600, color: '#E5E0D8' }}>
+                  <label style={{ fontSize: '0.75rem', fontWeight: 600, color: '#E5E0D8' }}>
                     Password
                   </label>
                   <span
                     style={{
-                      fontSize: '0.71875rem',
+                      fontSize: '0.6875rem',
                       color: 'var(--amber-primary)',
                       fontWeight: 600,
                       letterSpacing: '0.02em'
@@ -811,10 +813,10 @@ export const LoginPage = () => {
                 </div>
                 <div style={{ position: 'relative' }}>
                   <Lock
-                    size={15}
+                    size={14}
                     style={{
                       position: 'absolute',
-                      left: '12px',
+                      left: '11px',
                       top: '50%',
                       transform: 'translateY(-50%)',
                       color: '#9CA3AF'
@@ -827,13 +829,13 @@ export const LoginPage = () => {
                     required
                     style={{
                       width: '100%',
-                      paddingLeft: '2.35rem',
-                      paddingRight: '2.5rem',
-                      height: '40px',
-                      fontSize: '0.84375rem',
+                      paddingLeft: '2.2rem',
+                      paddingRight: '2.4rem',
+                      height: '36px',
+                      fontSize: '0.8125rem',
                       backgroundColor: 'rgba(12, 14, 13, 0.65)',
                       border: '1px solid rgba(255, 255, 255, 0.15)',
-                      borderRadius: '10px',
+                      borderRadius: '9px',
                       color: '#FFFFFF',
                       outline: 'none',
                       transition: 'border-color 0.2s ease, box-shadow 0.2s ease'
@@ -853,7 +855,7 @@ export const LoginPage = () => {
                     onClick={() => setShowPassword(!showPassword)}
                     style={{
                       position: 'absolute',
-                      right: '12px',
+                      right: '11px',
                       top: '50%',
                       transform: 'translateY(-50%)',
                       background: 'none',
@@ -866,7 +868,7 @@ export const LoginPage = () => {
                     }}
                     aria-label={showPassword ? 'Hide password' : 'Show password'}
                   >
-                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                    {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
                   </button>
                 </div>
               </div>
@@ -877,15 +879,15 @@ export const LoginPage = () => {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  fontSize: '0.78125rem',
-                  padding: '2px 0'
+                  fontSize: '0.71875rem',
+                  padding: '1px 0'
                 }}
               >
                 <label
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '0.45rem',
+                    gap: '0.4rem',
                     cursor: 'pointer',
                     color: '#D1CBC0'
                   }}
@@ -901,65 +903,65 @@ export const LoginPage = () => {
                 <span
                   style={{
                     color: '#8E8A80',
-                    fontSize: '0.71875rem',
+                    fontSize: '0.6875rem',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '4px'
+                    gap: '3px'
                   }}
                 >
-                  <Lock size={12} color="var(--amber-primary)" />
+                  <Lock size={11} color="var(--amber-primary)" />
                   <span>SSL 256-Bit</span>
                 </span>
               </div>
 
-              {/* Primary Glassmorphic Sign In Button */}
+              {/* Primary Glassmorphic Sign In Button (Rock-solid static, zero jump) */}
               <button
                 type="submit"
                 style={{
-                  height: '44px',
-                  fontSize: '0.9375rem',
+                  height: '40px',
+                  fontSize: '0.875rem',
                   fontWeight: 700,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '0.55rem',
+                  gap: '0.5rem',
                   background: 'linear-gradient(135deg, #F28C28 0%, #D97706 100%)',
                   color: '#1A1C1B',
                   border: 'none',
-                  borderRadius: '12px',
-                  boxShadow: '0 8px 24px rgba(242, 140, 40, 0.45)',
+                  borderRadius: '10px',
+                  boxShadow: '0 6px 20px rgba(242, 140, 40, 0.40)',
                   cursor: 'pointer',
-                  marginTop: '0.4rem',
-                  transition: 'all 0.2s ease',
+                  marginTop: '0.25rem',
+                  transition: 'box-shadow 0.2s ease, filter 0.2s ease',
                   letterSpacing: '0.01em'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 12px 30px rgba(242, 140, 40, 0.55)';
+                  e.currentTarget.style.boxShadow = '0 8px 28px rgba(242, 140, 40, 0.55)';
+                  e.currentTarget.style.filter = 'brightness(1.05)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(242, 140, 40, 0.45)';
+                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(242, 140, 40, 0.40)';
+                  e.currentTarget.style.filter = 'none';
                 }}
               >
-                <ShieldCheck size={18} />
+                <ShieldCheck size={17} />
                 <span>Sign In as {currentPortal.title}</span>
-                <ArrowRight size={16} />
+                <ArrowRight size={15} />
               </button>
 
               {/* 1-Click Direct Launch Shortcuts */}
               <div
                 style={{
-                  paddingTop: '0.75rem',
+                  paddingTop: '0.55rem',
                   borderTop: '1px solid rgba(255, 255, 255, 0.10)',
                   textAlign: 'center'
                 }}
               >
                 <div
                   style={{
-                    fontSize: '0.71875rem',
+                    fontSize: '0.6875rem',
                     color: '#9CA3AF',
-                    marginBottom: '0.45rem',
+                    marginBottom: '0.35rem',
                     fontWeight: 500
                   }}
                 >
@@ -969,7 +971,7 @@ export const LoginPage = () => {
                   style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(4, 1fr)',
-                    gap: '0.4rem'
+                    gap: '0.35rem'
                   }}
                 >
                   {rolePortals.map((p) => (
@@ -978,27 +980,25 @@ export const LoginPage = () => {
                       type="button"
                       onClick={p.action}
                       style={{
-                        padding: '0.45rem 0.3rem',
-                        fontSize: '0.71875rem',
+                        padding: '0.35rem 0.25rem',
+                        fontSize: '0.6875rem',
                         fontWeight: 600,
-                        borderRadius: '8px',
+                        borderRadius: '7px',
                         backgroundColor: 'rgba(255, 255, 255, 0.08)',
                         border: '1px solid rgba(255, 255, 255, 0.14)',
                         color: '#FFFFFF',
                         cursor: 'pointer',
-                        transition: 'all 0.18s ease'
+                        transition: 'background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease'
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.backgroundColor = 'rgba(242, 140, 40, 0.25)';
                         e.currentTarget.style.borderColor = 'var(--amber-primary)';
                         e.currentTarget.style.color = 'var(--amber-primary)';
-                        e.currentTarget.style.transform = 'translateY(-1px)';
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
                         e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.14)';
                         e.currentTarget.style.color = '#FFFFFF';
-                        e.currentTarget.style.transform = 'translateY(0)';
                       }}
                       title={`Instant login to ${p.title}`}
                     >
@@ -1017,13 +1017,15 @@ export const LoginPage = () => {
         @media (max-width: 920px) {
           .login-glass-card {
             grid-template-columns: 1fr !important;
-            border-radius: 20px !important;
+            border-radius: 18px !important;
+            max-height: 90vh !important;
+            overflow-y: auto !important;
           }
           .login-image-frame {
             display: none !important;
           }
           .login-form-pane {
-            padding: 1.5rem 1.25rem !important;
+            padding: 1.25rem 1rem !important;
           }
         }
       `}</style>
