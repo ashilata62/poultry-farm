@@ -154,77 +154,81 @@ export const CartDrawer = () => {
             </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              {cart.map((item) => (
-                <div
-                  key={item.product.id}
-                  style={{
-                    display: 'flex',
-                    gap: '1rem',
-                    padding: '0.875rem',
-                    borderRadius: 'var(--radius-sm)',
-                    border: '1px solid var(--border-beige)',
-                    backgroundColor: 'var(--soft-cream)'
-                  }}
-                >
-                  <img
-                    src={item.product.image}
-                    alt={item.product.name}
+              {cart.map((item) => {
+                const prod = item.product || item;
+                const prodId = prod.id;
+                return (
+                  <div
+                    key={prodId}
                     style={{
-                      width: '72px',
-                      height: '72px',
-                      borderRadius: 'var(--radius-xs)',
-                      objectFit: 'cover',
-                      border: '1px solid var(--border-subtle)'
+                      display: 'flex',
+                      gap: '1rem',
+                      padding: '0.875rem',
+                      borderRadius: 'var(--radius-sm)',
+                      border: '1px solid var(--border-beige)',
+                      backgroundColor: 'var(--soft-cream)'
                     }}
-                  />
-                  <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                    <div>
-                      <div style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--charcoal)', lineHeight: 1.3 }}>
-                        {item.product.name}
-                      </div>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--muted-text)', marginTop: '2px' }}>
-                        {item.product.unit}
-                      </div>
-                    </div>
-
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '0.5rem' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', border: '1px solid var(--border-beige)', borderRadius: 'var(--radius-xs)', backgroundColor: 'var(--white)' }}>
-                        <button
-                          onClick={() => updateCartQuantity(item.product.id, item.quantity - 1)}
-                          style={{ padding: '4px 8px', display: 'flex', alignItems: 'center', color: 'var(--charcoal)' }}
-                          aria-label="Decrease quantity"
-                        >
-                          <Minus size={13} />
-                        </button>
-                        <span style={{ fontSize: '0.8125rem', fontWeight: 600, minWidth: '22px', textAlign: 'center' }}>
-                          {item.quantity}
-                        </span>
-                        <button
-                          onClick={() => updateCartQuantity(item.product.id, item.quantity + 1)}
-                          style={{ padding: '4px 8px', display: 'flex', alignItems: 'center', color: 'var(--charcoal)' }}
-                          aria-label="Increase quantity"
-                        >
-                          <Plus size={13} />
-                        </button>
+                  >
+                    <img
+                      src={prod.image}
+                      alt={prod.name}
+                      style={{
+                        width: '72px',
+                        height: '72px',
+                        borderRadius: 'var(--radius-xs)',
+                        objectFit: 'cover',
+                        border: '1px solid var(--border-subtle)'
+                      }}
+                    />
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                      <div>
+                        <div style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--charcoal)', lineHeight: 1.3 }}>
+                          {prod.name}
+                        </div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--muted-text)', marginTop: '2px' }}>
+                          {prod.unit}
+                        </div>
                       </div>
 
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                        <span style={{ fontWeight: 700, fontSize: '0.9375rem', color: 'var(--charcoal)' }}>
-                          ₹{item.product.price * item.quantity}
-                        </span>
-                        <button
-                          onClick={() => removeFromCart(item.product.id)}
-                          style={{ color: '#A09C94', display: 'flex', padding: '4px' }}
-                          title="Remove item"
-                          aria-label="Remove item"
-                        >
-                          <Trash2 size={15} />
-                        </button>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '0.5rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', border: '1px solid var(--border-beige)', borderRadius: 'var(--radius-xs)', backgroundColor: 'var(--white)' }}>
+                          <button
+                            onClick={() => updateCartQuantity(prodId, item.quantity - 1)}
+                            style={{ padding: '4px 8px', display: 'flex', alignItems: 'center', color: 'var(--charcoal)' }}
+                            aria-label="Decrease quantity"
+                          >
+                            <Minus size={13} />
+                          </button>
+                          <span style={{ fontSize: '0.8125rem', fontWeight: 600, minWidth: '22px', textAlign: 'center' }}>
+                            {item.quantity}
+                          </span>
+                          <button
+                            onClick={() => updateCartQuantity(prodId, item.quantity + 1)}
+                            style={{ padding: '4px 8px', display: 'flex', alignItems: 'center', color: 'var(--charcoal)' }}
+                            aria-label="Increase quantity"
+                          >
+                            <Plus size={13} />
+                          </button>
+                        </div>
+
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                          <span style={{ fontWeight: 700, fontSize: '0.9375rem', color: 'var(--charcoal)' }}>
+                            ₹{prod.price * item.quantity}
+                          </span>
+                          <button
+                            onClick={() => removeFromCart(prodId)}
+                            style={{ color: '#A09C94', display: 'flex', padding: '4px' }}
+                            title="Remove item"
+                            aria-label="Remove item"
+                          >
+                            <Trash2 size={15} />
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
 
               <div style={{ textAlign: 'right' }}>
                 <button

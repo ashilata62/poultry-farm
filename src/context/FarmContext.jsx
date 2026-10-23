@@ -226,7 +226,7 @@ export const FarmProvider = ({ children }) => {
   const [orders, setOrders] = useState(() => getStorageItem(STORAGE_KEYS.ORDERS, INITIAL_ORDERS));
   const [products, setProducts] = useState(() => {
     const stored = getStorageItem(STORAGE_KEYS.PRODUCTS, null);
-    if (!stored || stored.length < INITIAL_PRODUCTS.length) {
+    if (!stored || stored.length < INITIAL_PRODUCTS.length || stored.some(p => p.stock === 0)) {
       setStorageItem(STORAGE_KEYS.PRODUCTS, INITIAL_PRODUCTS);
       return INITIAL_PRODUCTS;
     }
@@ -282,7 +282,7 @@ export const FarmProvider = ({ children }) => {
     }
 
     setCart((prev) => {
-      const existing = prev.find((item) => item.product.id === product.id);
+      const existing = prev.find((item) => (item.product?.id || item.id) === product.id);
       if (existing) {
         const newQty = existing.quantity + quantity;
         if (newQty > product.stock) {
@@ -290,7 +290,7 @@ export const FarmProvider = ({ children }) => {
           return prev;
         }
         return prev.map((item) =>
-          item.product.id === product.id ? { ...item, quantity: newQty } : item
+          (item.product?.id || item.id) === product.id ? { ...item, quantity: newQty } : item
         );
       }
       return [...prev, { product, quantity }];
@@ -311,13 +311,13 @@ export const FarmProvider = ({ children }) => {
     }
     setCart((prev) =>
       prev.map((item) =>
-        item.product.id === productId ? { ...item, quantity } : item
+        (item.product?.id || item.id) === productId ? { ...item, quantity } : item
       )
     );
   };
 
   const removeFromCart = (productId) => {
-    setCart((prev) => prev.filter((item) => item.product.id !== productId));
+    setCart((prev) => prev.filter((item) => (item.product?.id || item.id) !== productId));
     showToast('Item removed from cart', 'warning');
   };
 
@@ -325,7 +325,7 @@ export const FarmProvider = ({ children }) => {
     setCart([]);
   };
 
-  const cartSubtotal = cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  const cartSubtotal = cart.reduce((sum, item) => sum + (item.product?.price || item.price || 0) * item.quantity, 0);
   const cartDeliveryFee = cartSubtotal === 0 || cartSubtotal >= settings.freeDeliveryThreshold ? 0 : settings.deliveryFee;
   const cartTotal = cartSubtotal + cartDeliveryFee;
   const cartItemsCount = cart.reduce((count, item) => count + item.quantity, 0);
@@ -339,12 +339,15 @@ export const FarmProvider = ({ children }) => {
 
     const orderNumber = `TVF-${Math.floor(10000 + Math.random() * 90000)}`;
     const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    const orderItems = cart.map((item) => ({
-      productId: item.product.id,
-      name: item.product.name,
-      price: item.product.price,
-      quantity: item.quantity
-    }));
+    const orderItems = cart.map((item) => {
+      const prod = item.product || item;
+      return {
+        productId: prod.id,
+        name: prod.name,
+        price: prod.price,
+        quantity: item.quantity
+      };
+    });
 
     const newOrder = {
       id: orderNumber,
@@ -385,7 +388,7 @@ export const FarmProvider = ({ children }) => {
     // Deduct stock from products
     setProducts((prev) =>
       prev.map((prod) => {
-        const cartItem = cart.find((ci) => ci.product.id === prod.id);
+        const cartItem = cart.find((ci) => (ci.product?.id || ci.id) === prod.id);
         if (cartItem) {
           const newStock = Math.max(0, prod.stock - cartItem.quantity);
           return { ...prod, stock: newStock, isAvailable: newStock > 0 };

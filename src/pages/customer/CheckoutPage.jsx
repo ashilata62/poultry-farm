@@ -74,7 +74,7 @@ export const CheckoutPage = () => {
   const [onlinePaymentStep, setOnlinePaymentStep] = useState(null); // 'processing' | 'verified' | null
   const [confirmedOrder, setConfirmedOrder] = useState(null);
 
-  if (cart.length === 0) {
+  if (!confirmedOrder && cart.length === 0) {
     return (
       <div style={{ backgroundColor: 'var(--soft-cream)', minHeight: '75vh', padding: '5rem 0' }}>
         <div className="container" style={{ textAlign: 'center', maxWidth: '500px' }}>

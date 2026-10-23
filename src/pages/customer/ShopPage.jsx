@@ -7,11 +7,22 @@ import {
   Bell,
   Search,
   SlidersHorizontal,
-  Check
+  Check,
+  ArrowRight
 } from 'lucide-react';
 
 export const ShopPage = () => {
-  const { products, addToCart, setSelectedProductModal, showToast } = useFarm();
+  const {
+    products,
+    addToCart,
+    setSelectedProductModal,
+    showToast,
+    cart,
+    cartItemsCount,
+    cartTotal,
+    updateCartQuantity,
+    setIsCartDrawerOpen
+  } = useFarm();
 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Chicken');
@@ -372,6 +383,8 @@ export const ShopPage = () => {
           >
             {filteredProducts.map((product) => {
               const isAvailable = product.isAvailable && product.stock > 0;
+              const inCartItem = cart?.find((c) => (c.product?.id || c.id) === product.id);
+              const cartQty = inCartItem ? inCartItem.quantity : 0;
 
               return (
                 <div
@@ -572,7 +585,79 @@ export const ShopPage = () => {
 
                       {/* Button Section */}
                       <div>
-                        {isAvailable ? (
+                        {cartQty > 0 ? (
+                          <div
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              backgroundColor: '#D32F2F',
+                              borderRadius: '7px',
+                              overflow: 'hidden',
+                              boxShadow: '0 2px 6px rgba(211, 47, 47, 0.3)',
+                              height: '31px'
+                            }}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                updateCartQuantity(product.id, cartQty - 1);
+                              }}
+                              style={{
+                                background: 'none',
+                                border: 'none',
+                                color: '#FFFFFF',
+                                padding: '0 8px',
+                                height: '100%',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontWeight: 800,
+                                fontSize: '1rem'
+                              }}
+                              aria-label="Decrease quantity"
+                            >
+                              −
+                            </button>
+                            <span
+                              style={{
+                                color: '#FFFFFF',
+                                fontWeight: 800,
+                                fontSize: '0.8125rem',
+                                minWidth: '20px',
+                                textAlign: 'center',
+                                userSelect: 'none'
+                              }}
+                            >
+                              {cartQty}
+                            </span>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                updateCartQuantity(product.id, cartQty + 1);
+                              }}
+                              style={{
+                                background: 'none',
+                                border: 'none',
+                                color: '#FFFFFF',
+                                padding: '0 8px',
+                                height: '100%',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontWeight: 800,
+                                fontSize: '1rem'
+                              }}
+                              aria-label="Increase quantity"
+                            >
+                              +
+                            </button>
+                          </div>
+                        ) : isAvailable ? (
                           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                             <button
                               type="button"
@@ -693,6 +778,77 @@ export const ShopPage = () => {
           </p>
         </div>
       </div>
+
+      {/* 5. FLOATING BOTTOM QUICK CART BAR (Exact Modern D2C Flow) */}
+      {cartItemsCount > 0 && (
+        <div
+          style={{
+            position: 'fixed',
+            bottom: '20px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 90,
+            width: 'calc(100% - 32px)',
+            maxWidth: '560px',
+            backgroundColor: '#1E293B',
+            color: '#FFFFFF',
+            borderRadius: '14px',
+            padding: '10px 18px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            boxShadow: '0 12px 36px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.12)',
+            animation: 'slideUp 0.2s ease-out'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <div
+              style={{
+                width: '32px',
+                height: '32px',
+                borderRadius: '8px',
+                backgroundColor: '#D32F2F',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 800,
+                fontSize: '0.85rem'
+              }}
+            >
+              {cartItemsCount}
+            </div>
+            <div>
+              <div style={{ fontSize: '0.90625rem', fontWeight: 800, lineHeight: 1.15 }}>
+                ₹{cartTotal}
+              </div>
+              <div style={{ fontSize: '0.6875rem', color: '#9CA3AF' }}>
+                Delivery guaranteed in 90 mins
+              </div>
+            </div>
+          </div>
+
+          <button
+            onClick={() => setIsCartDrawerOpen(true)}
+            style={{
+              backgroundColor: '#D32F2F',
+              color: '#FFFFFF',
+              border: 'none',
+              borderRadius: '8px',
+              padding: '8px 18px',
+              fontWeight: 800,
+              fontSize: '0.84375rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              cursor: 'pointer',
+              boxShadow: '0 4px 14px rgba(211, 47, 47, 0.4)'
+            }}
+          >
+            <span>View Cart & Order</span>
+            <ArrowRight size={16} />
+          </button>
+        </div>
+      )}
 
       {/* Responsive Grid Styling */}
       <style>{`
