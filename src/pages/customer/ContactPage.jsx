@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useFarm } from '../../context/FarmContext';
-import { MapPin, Phone, Mail, Clock, MessageCircle, Send, CheckCircle2 } from 'lucide-react';
+import { OpenStreetMap } from '../../components/common/OpenStreetMap';
+import { MapPin, Phone, Mail, Clock, MessageCircle, Send, CheckCircle2, Navigation } from 'lucide-react';
 
 export const ContactPage = () => {
   const { settings, showToast } = useFarm();
@@ -41,12 +42,12 @@ export const ContactPage = () => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
             gap: '2.5rem'
           }}
         >
           {/* Farm Contact Details */}
-          <div className="card" style={{ backgroundColor: 'var(--white)', padding: '2rem' }}>
+          <div className="card" style={{ backgroundColor: 'var(--white)', padding: 'clamp(1rem, 4vw, 2rem)' }}>
             <h3 style={{ fontSize: '1.25rem', marginBottom: '1.5rem' }}>Farm & Hub Office</h3>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
@@ -163,7 +164,7 @@ export const ContactPage = () => {
           </div>
 
           {/* Contact Message Form */}
-          <div className="card" style={{ backgroundColor: 'var(--white)', padding: '2rem' }}>
+          <div className="card" style={{ backgroundColor: 'var(--white)', padding: 'clamp(1rem, 4vw, 2rem)' }}>
             <h3 style={{ fontSize: '1.25rem', marginBottom: '1.5rem' }}>Send Us a Message</h3>
 
             {submitted ? (
@@ -243,6 +244,53 @@ export const ContactPage = () => {
                 </button>
               </form>
             )}
+          </div>
+        </div>
+
+        {/* Real OpenStreetMap Farm Location Card */}
+        <div className="card" style={{ backgroundColor: 'var(--white)', padding: '1.5rem', marginTop: '2.5rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--success-green)', boxShadow: '0 0 6px var(--success-green)' }} />
+                <h3 style={{ fontSize: '1.25rem', margin: 0 }}>Farm Hub Geospatial Location</h3>
+              </div>
+              <p style={{ fontSize: '0.875rem', color: 'var(--muted-text)', margin: '4px 0 0' }}>
+                {settings.farmAddress}
+              </p>
+            </div>
+
+            <a
+              href={`https://www.openstreetmap.org/?mlat=${settings.mapCenter?.lat || 12.923}&mlon=${settings.mapCenter?.lng || 77.674}#map=16/${settings.mapCenter?.lat || 12.923}/${settings.mapCenter?.lng || 77.674}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-secondary btn-sm"
+              style={{ gap: '0.35rem' }}
+            >
+              <Navigation size={15} color="var(--amber-dark)" />
+              <span>Open in StreetMap Directions ↗</span>
+            </a>
+          </div>
+
+          <div style={{ height: '340px', borderRadius: 'var(--radius-sm)', overflow: 'hidden', border: '1px solid var(--border-beige)' }}>
+            <OpenStreetMap
+              center={[settings.mapCenter?.lat || 12.923, settings.mapCenter?.lng || 77.674]}
+              zoom={14}
+              farmLocation={{
+                lat: settings.mapCenter?.lat || 12.923,
+                lng: settings.mapCenter?.lng || 77.674,
+                name: 'The Village Farm — Pasture Sheds & Dispatch Hub'
+              }}
+              orders={[]}
+              drivers={[]}
+              showRoute={false}
+              height="100%"
+            />
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1rem', fontSize: '0.8125rem', color: 'var(--muted-text)', flexWrap: 'wrap', gap: '0.5rem' }}>
+            <span>🚚 Direct farm cold-chain delivery within <strong>{settings.deliveryRadiusKm} km</strong> of Varthur / Gunjur</span>
+            <span style={{ color: 'var(--success-green)', fontWeight: 600 }}>Fresh morning cuts dispatched daily</span>
           </div>
         </div>
       </div>

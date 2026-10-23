@@ -24,22 +24,10 @@ export const CustomersManager = () => {
     : [];
 
   return (
-    <div style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+    <div className="admin-page-container">
       {/* Top Header */}
-      <div
-        style={{
-          backgroundColor: 'var(--white)',
-          padding: '1.25rem',
-          borderRadius: 'var(--radius-md)',
-          border: '1px solid var(--border-beige)',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: '1rem'
-        }}
-      >
-        <div style={{ position: 'relative', flex: 1, minWidth: '240px' }}>
+      <div className="admin-action-header">
+        <div style={{ position: 'relative', flex: 1, minWidth: '220px', width: '100%' }}>
           <Search
             size={18}
             style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--muted-text)' }}
@@ -61,7 +49,10 @@ export const CustomersManager = () => {
 
       {/* Table */}
       <div className="table-container">
-        <table className="data-table">
+        <div className="table-scroll-hint">
+          <span>← Scroll horizontally to see all columns →</span>
+        </div>
+        <table className="data-table" style={{ minWidth: '740px' }}>
           <thead>
             <tr>
               <th>Customer ID</th>

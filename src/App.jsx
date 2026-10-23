@@ -126,7 +126,7 @@ const AppContent = () => {
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <PortalBar />
 
-      <div style={{ display: 'flex', flex: 1, position: 'relative' }}>
+      <div style={{ display: 'flex', flex: 1, position: 'relative', zIndex: isAdminMobileSidebarOpen ? 1000 : 1 }}>
         {/* Left Responsive SaaS Sidebar */}
         <AdminSidebar
           isMobileOpen={isAdminMobileSidebarOpen}

@@ -115,7 +115,7 @@ export const ShopPage = () => {
           </div>
 
           {/* Category Filter Chips */}
-          <div style={{ display: 'flex', gap: '0.5rem', overflowX: 'auto', paddingBottom: '4px' }}>
+          <div className="pill-scroll-container">
             {categories.map((cat) => (
               <button
                 key={cat}
@@ -130,6 +130,7 @@ export const ShopPage = () => {
                   border: '1px solid',
                   borderColor: selectedCategory === cat ? 'var(--charcoal-deep)' : 'var(--border-beige)',
                   whiteSpace: 'nowrap',
+                  flexShrink: 0,
                   transition: 'all 0.2s ease'
                 }}
               >
@@ -183,8 +184,8 @@ export const ShopPage = () => {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))',
-              gap: '1.75rem'
+              gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+              gap: '1.5rem'
             }}
           >
             {filteredProducts.map((product) => {
