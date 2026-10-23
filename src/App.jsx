@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { FarmProvider, useFarm } from './context/FarmContext';
 
 // Layout & UI components
-import { PortalBar } from './components/layout/PortalBar';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { AdminSidebar } from './components/layout/AdminSidebar';
@@ -80,7 +79,6 @@ const AppContent = () => {
   if (currentRole === 'delivery') {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-        <PortalBar />
         <main style={{ flex: 1 }}>
           <DeliveryDashboard />
         </main>
@@ -94,7 +92,6 @@ const AppContent = () => {
   if (currentRole === 'driver') {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-        <PortalBar />
         <main style={{ flex: 1 }}>
           <DriverPortal />
         </main>
@@ -124,8 +121,6 @@ const AppContent = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      <PortalBar />
-
       <div style={{ display: 'flex', flex: 1, position: 'relative', zIndex: isAdminMobileSidebarOpen ? 1000 : 1 }}>
         {/* Left Responsive SaaS Sidebar */}
         <AdminSidebar
