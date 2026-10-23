@@ -61,96 +61,159 @@ const VALID_ADMIN_MODULES = [
 ];
 
 export const FarmProvider = ({ children }) => {
-  // Resolve initial route from browser URL for dashboard menus (landing & login routes untouched)
-  const getInitialDashboardRoute = () => {
+  // Resolve initial route from browser URL for landing, login, storefront and dashboard menus
+  const getInitialRoute = () => {
     try {
       if (typeof window !== 'undefined') {
-        const path = window.location.pathname.toLowerCase();
+        let path = window.location.pathname.toLowerCase();
+        // Support hash-based fallback (e.g. /#shop or /#login)
+        if ((path === '/' || path === '') && window.location.hash) {
+          const hash = window.location.hash.replace('#', '').toLowerCase();
+          if (['shop', 'tracking', 'about', 'contact', 'checkout', 'login', 'admin', 'delivery', 'driver'].includes(hash)) {
+            path = '/' + hash;
+          }
+        }
+
+        // 1. Dedicated Login Route
+        if (path === '/login' || path === '/signin') {
+          return { role: 'login', customerView: 'login', adminModule: 'dashboard' };
+        }
+
+        // 2. Admin Operational Dashboard Routes
         if (path.startsWith('/admin')) {
           const parts = path.split('/').filter(Boolean);
           const module = parts[1];
           return {
             role: 'admin',
+            customerView: 'home',
             adminModule: VALID_ADMIN_MODULES.includes(module) ? module : 'dashboard'
           };
         }
+
+        // 3. Logistics & Driver Portals
         if (path === '/delivery' || path === '/dispatch') {
-          return { role: 'delivery', adminModule: 'delivery' };
+          return { role: 'delivery', customerView: 'home', adminModule: 'delivery' };
         }
         if (path === '/driver') {
-          return { role: 'driver', adminModule: 'dashboard' };
+          return { role: 'driver', customerView: 'home', adminModule: 'dashboard' };
+        }
+
+        // 4. Landing Page & Customer Storefront Views
+        if (path === '/shop' || path === '/store' || path === '/cuts' || path === '/products') {
+          return { role: 'customer', customerView: 'shop', adminModule: 'dashboard' };
+        }
+        if (path === '/tracking' || path === '/track') {
+          return { role: 'customer', customerView: 'tracking', adminModule: 'dashboard' };
+        }
+        if (path === '/about') {
+          return { role: 'customer', customerView: 'about', adminModule: 'dashboard' };
+        }
+        if (path === '/contact') {
+          return { role: 'customer', customerView: 'contact', adminModule: 'dashboard' };
+        }
+        if (path === '/checkout') {
+          return { role: 'customer', customerView: 'checkout', adminModule: 'dashboard' };
         }
       }
     } catch (e) {
-      console.warn('Error reading dashboard route:', e);
+      console.warn('Error reading initial route:', e);
     }
-    return { role: 'customer', adminModule: 'dashboard' };
+    return { role: 'customer', customerView: 'home', adminModule: 'dashboard' };
   };
 
-  const initialRoute = getInitialDashboardRoute();
+  const initialRoute = getInitialRoute();
 
   // Navigation & Subsystem Modes
   const [currentRole, setCurrentRole] = useState(initialRoute.role); // 'customer' | 'admin' | 'delivery' | 'driver' | 'login'
-  const [customerView, setCustomerView] = useState('home'); // 'home' | 'shop' | 'about' | 'contact' | 'tracking' | 'checkout' | 'cart'
+  const [customerView, setCustomerView] = useState(initialRoute.customerView || 'home'); // 'home' | 'shop' | 'about' | 'contact' | 'tracking' | 'checkout' | 'login'
   const [adminModule, setAdminModule] = useState(initialRoute.adminModule); // 'dashboard' | 'orders' | 'products' | 'inventory' | 'batches' | 'purchases' | 'expenses' | 'reports' | 'customers' | 'drivers' | 'delivery' | 'settings'
   const [activeDriverId, setActiveDriverId] = useState('drv-1');
   const [trackingOrderId, setTrackingOrderId] = useState('TVF-84920');
 
-  // Synchronize dashboard menu routes with browser URL
+  // Synchronize routes with browser URL for landing page, login page, store views, and dashboard menus
   useEffect(() => {
     try {
       if (typeof window !== 'undefined') {
-        if (currentRole === 'admin') {
-          const targetPath = `/admin/${adminModule}`;
-          if (window.location.pathname.toLowerCase() !== targetPath) {
-            window.history.pushState(null, '', targetPath);
-          }
+        let targetPath = '/';
+
+        if (currentRole === 'login' || customerView === 'login') {
+          targetPath = '/login';
+        } else if (currentRole === 'admin') {
+          targetPath = `/admin/${adminModule}`;
         } else if (currentRole === 'delivery') {
-          if (window.location.pathname.toLowerCase() !== '/delivery') {
-            window.history.pushState(null, '', '/delivery');
-          }
+          targetPath = '/delivery';
         } else if (currentRole === 'driver') {
-          if (window.location.pathname.toLowerCase() !== '/driver') {
-            window.history.pushState(null, '', '/driver');
+          targetPath = '/driver';
+        } else if (currentRole === 'customer') {
+          if (customerView === 'shop') {
+            targetPath = '/shop';
+          } else if (customerView === 'tracking') {
+            targetPath = '/tracking';
+          } else if (customerView === 'about') {
+            targetPath = '/about';
+          } else if (customerView === 'contact') {
+            targetPath = '/contact';
+          } else if (customerView === 'checkout') {
+            targetPath = '/checkout';
+          } else {
+            targetPath = '/';
           }
-        } else if (currentRole === 'customer' || currentRole === 'login') {
-          // Clear dashboard path when in customer store or login page
-          if (
-            window.location.pathname.startsWith('/admin') ||
-            window.location.pathname === '/delivery' ||
-            window.location.pathname === '/driver'
-          ) {
-            window.history.pushState(null, '', '/');
-          }
+        }
+
+        if (window.location.pathname.toLowerCase() !== targetPath) {
+          window.history.pushState(null, '', targetPath);
         }
       }
     } catch (e) {
-      console.warn('Error synchronizing dashboard route URL:', e);
+      console.warn('Error synchronizing route URL:', e);
     }
-  }, [currentRole, adminModule]);
+  }, [currentRole, customerView, adminModule]);
 
-  // Handle browser Back / Forward buttons for dashboard menus
+  // Handle browser Back / Forward buttons for landing page, login page, and dashboard menus
   useEffect(() => {
     const handlePopState = () => {
       try {
         if (typeof window !== 'undefined') {
           const path = window.location.pathname.toLowerCase();
-          if (path.startsWith('/admin')) {
+
+          if (path === '/login' || path === '/signin') {
+            setCurrentRole('login');
+            setCustomerView('login');
+          } else if (path.startsWith('/admin')) {
             const parts = path.split('/').filter(Boolean);
             const module = parts[1];
             setCurrentRole('admin');
+            setCustomerView('home');
             setAdminModule(VALID_ADMIN_MODULES.includes(module) ? module : 'dashboard');
           } else if (path === '/delivery' || path === '/dispatch') {
             setCurrentRole('delivery');
+            setCustomerView('home');
           } else if (path === '/driver') {
             setCurrentRole('driver');
-          } else if (path === '/' || path === '') {
+            setCustomerView('home');
+          } else if (path === '/shop' || path === '/store' || path === '/cuts' || path === '/products') {
+            setCurrentRole('customer');
+            setCustomerView('shop');
+          } else if (path === '/tracking' || path === '/track') {
+            setCurrentRole('customer');
+            setCustomerView('tracking');
+          } else if (path === '/about') {
+            setCurrentRole('customer');
+            setCustomerView('about');
+          } else if (path === '/contact') {
+            setCurrentRole('customer');
+            setCustomerView('contact');
+          } else if (path === '/checkout') {
+            setCurrentRole('customer');
+            setCustomerView('checkout');
+          } else {
+            // Default Landing Page / Home
             setCurrentRole('customer');
             setCustomerView('home');
           }
         }
       } catch (e) {
-        console.warn('Error handling dashboard popstate:', e);
+        console.warn('Error handling popstate:', e);
       }
     };
 
