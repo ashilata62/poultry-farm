@@ -172,7 +172,7 @@ export const CheckoutPage = () => {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
               gap: '1.5rem',
               alignItems: 'start'
             }}
@@ -216,7 +216,7 @@ export const CheckoutPage = () => {
               </div>
 
               {/* Phone & Email Row */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <div className="form-grid-2">
                 <div className="form-group">
                   <label className="form-label">Mobile Number *</label>
                   <div style={{ position: 'relative' }}>

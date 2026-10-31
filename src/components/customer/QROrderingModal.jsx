@@ -49,17 +49,17 @@ export const QROrderingModal = () => {
             {/* Top-left position pattern */}
             <rect x="2" y="2" width="7" height="7" fill="#202321"/>
             <rect x="3" y="3" width="5" height="5" fill="#FFFFFF"/>
-            <rect x="4" y="4" width="3" height="3" fill="#F28C28"/>
+            <rect x="4" y="4" width="3" height="3" fill="#D11243"/>
             
             {/* Top-right position pattern */}
             <rect x="20" y="2" width="7" height="7" fill="#202321"/>
             <rect x="21" y="3" width="5" height="5" fill="#FFFFFF"/>
-            <rect x="22" y="4" width="3" height="3" fill="#F28C28"/>
+            <rect x="22" y="4" width="3" height="3" fill="#D11243"/>
 
             {/* Bottom-left position pattern */}
             <rect x="2" y="20" width="7" height="7" fill="#202321"/>
             <rect x="3" y="21" width="5" height="5" fill="#FFFFFF"/>
-            <rect x="4" y="22" width="3" height="3" fill="#F28C28"/>
+            <rect x="4" y="22" width="3" height="3" fill="#D11243"/>
 
             {/* Timing patterns */}
             <rect x="10" y="5" width="8" height="1" fill="#202321"/>
@@ -69,31 +69,31 @@ export const QROrderingModal = () => {
             <rect x="10" y="2" width="2" height="2" fill="#202321"/>
             <rect x="14" y="2" width="2" height="2" fill="#202321"/>
             <rect x="17" y="3" width="1" height="2" fill="#202321"/>
-            <rect x="11" y="7" width="2" height="2" fill="#F28C28"/>
+            <rect x="11" y="7" width="2" height="2" fill="#D11243"/>
             <rect x="15" y="7" width="3" height="2" fill="#202321"/>
             <rect x="2" y="10" width="2" height="2" fill="#202321"/>
             <rect x="7" y="11" width="2" height="3" fill="#202321"/>
             <rect x="10" y="10" width="4" height="4" fill="#202321"/>
-            <rect x="16" y="11" width="2" height="2" fill="#F28C28"/>
+            <rect x="16" y="11" width="2" height="2" fill="#D11243"/>
             <rect x="20" y="10" width="2" height="3" fill="#202321"/>
             <rect x="24" y="11" width="3" height="2" fill="#202321"/>
             <rect x="11" y="16" width="3" height="2" fill="#202321"/>
             <rect x="16" y="15" width="2" height="3" fill="#202321"/>
-            <rect x="19" y="15" width="2" height="2" fill="#F28C28"/>
+            <rect x="19" y="15" width="2" height="2" fill="#D11243"/>
             <rect x="23" y="15" width="4" height="2" fill="#202321"/>
             <rect x="10" y="20" width="2" height="3" fill="#202321"/>
             <rect x="14" y="20" width="3" height="2" fill="#202321"/>
             <rect x="19" y="20" width="2" height="3" fill="#202321"/>
-            <rect x="23" y="21" width="3" height="3" fill="#F28C28"/>
+            <rect x="23" y="21" width="3" height="3" fill="#D11243"/>
             <rect x="11" y="24" width="3" height="2" fill="#202321"/>
             <rect x="16" y="24" width="2" height="3" fill="#202321"/>
             <rect x="20" y="25" width="4" height="2" fill="#202321"/>
 
             {/* Farm logo in center */}
             <rect x="12" y="12" width="5" height="5" rx="1" fill="#202321"/>
-            <path d="M14.5 13.2C13.8 13.2 13.5 13.7 13.5 14.5C13.5 15.3 14 15.8 14.5 15.8C15 15.8 15.5 15.3 15.5 14.5C15.5 13.7 15.2 13.2 14.5 13.2Z" fill="#F28C28"/>
+            <path d="M14.5 13.2C13.8 13.2 13.5 13.7 13.5 14.5C13.5 15.3 14 15.8 14.5 15.8C15 15.8 15.5 15.3 15.5 14.5C15.5 13.7 15.2 13.2 14.5 13.2Z" fill="#D11243"/>
           </svg>
-          <div style={{ marginTop: '0.5rem', fontSize: '0.75rem', color: 'var(--charcoal)', fontWeight: 600 }}>
+          <div style={{ marginTop: '0.5rem', fontSize: '0.75rem', color: 'var(--charcoal)', fontWeight: 600, wordBreak: 'break-all' }}>
             {orderingUrl}
           </div>
         </div>
@@ -114,7 +114,7 @@ export const QROrderingModal = () => {
         </div>
 
         {/* Action Buttons */}
-        <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
           <button onClick={handlePrint} className="btn btn-secondary btn-sm">
             <Printer size={16} />
             <span>Print Standee</span>

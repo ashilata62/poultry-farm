@@ -26,11 +26,11 @@ export const Modal = ({ isOpen, onClose, title, children, maxWidth = '560px' }) 
         onClick={(e) => e.stopPropagation()}
       >
         <div className="modal-header">
-          <h3 style={{ margin: 0, fontSize: '1.25rem', color: 'var(--charcoal)' }}>{title}</h3>
+          <h3 style={{ margin: 0, fontSize: 'clamp(1rem, 4vw, 1.25rem)', color: 'var(--charcoal)', minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', flex: 1, paddingRight: '0.5rem' }}>{title}</h3>
           <button
             onClick={onClose}
             className="btn-ghost"
-            style={{ padding: '6px', borderRadius: 'var(--radius-xs)', display: 'flex' }}
+            style={{ padding: '6px', borderRadius: 'var(--radius-xs)', display: 'flex', flexShrink: 0 }}
             aria-label="Close dialog"
           >
             <X size={20} color="var(--charcoal)" />

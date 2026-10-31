@@ -36,7 +36,7 @@ export const ExpensesManager = () => {
   return (
     <div className="admin-page-container">
       {/* Top Metric */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))', gap: '1rem' }}>
         <div className="card" style={{ padding: '1.25rem' }}>
           <div style={{ fontSize: '0.75rem', color: 'var(--muted-text)', fontWeight: 600 }}>TOTAL MONTHLY OPEX</div>
           <div style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--charcoal)', marginTop: '4px' }}>

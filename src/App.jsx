@@ -78,7 +78,7 @@ const AppContent = () => {
   // Render Delivery Dispatch Subsystem
   if (currentRole === 'delivery') {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', maxHeight: '100vh', overflow: 'hidden', backgroundColor: 'var(--soft-cream)' }}>
+      <div className="delivery-app-wrapper" style={{ display: 'flex', flexDirection: 'column', height: '100vh', maxHeight: '100vh', overflow: 'hidden', backgroundColor: 'var(--soft-cream)' }}>
         <main style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0, overflow: 'hidden' }}>
           <DeliveryDashboard />
         </main>

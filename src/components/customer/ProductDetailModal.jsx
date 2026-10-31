@@ -25,7 +25,7 @@ export const ProductDetailModal = () => {
       title={product.name}
       maxWidth="680px"
     >
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))', gap: '1.5rem' }}>
         {/* Product Image */}
         <div>
           <div

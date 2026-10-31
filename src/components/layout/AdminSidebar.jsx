@@ -230,8 +230,8 @@ export const AdminSidebar = ({ isMobileOpen, setIsMobileOpen }) => {
                         fontSize: '0.84375rem',
                         fontWeight: isActive ? 600 : 500,
                         backgroundColor: isActive ? 'var(--amber-primary)' : 'transparent',
-                        color: isActive ? 'var(--charcoal-deep)' : '#DDD6CC',
-                        boxShadow: isActive ? '0 3px 12px rgba(242, 140, 40, 0.35)' : 'none',
+                        color: isActive ? 'var(--white)' : '#DDD6CC',
+                        boxShadow: isActive ? '0 3px 12px rgba(209, 18, 67, 0.35)' : 'none',
                         transition: 'all var(--transition-fast)',
                         textAlign: 'left',
                         width: '100%',
@@ -254,7 +254,7 @@ export const AdminSidebar = ({ isMobileOpen, setIsMobileOpen }) => {
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.6875rem', minWidth: 0 }}>
                         <Icon
                           size={17}
-                          color={isActive ? 'var(--charcoal-deep)' : 'var(--amber-primary)'}
+                          color={isActive ? 'var(--white)' : 'var(--amber-primary)'}
                           style={{ flexShrink: 0 }}
                         />
                         <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
@@ -269,14 +269,9 @@ export const AdminSidebar = ({ isMobileOpen, setIsMobileOpen }) => {
                               item.badgeType === 'red'
                                 ? 'var(--error-red)'
                                 : isActive
-                                ? 'var(--charcoal-deep)'
+                                ? 'rgba(255, 255, 255, 0.25)'
                                 : 'var(--amber-primary)',
-                            color:
-                              item.badgeType === 'red'
-                                ? 'var(--white)'
-                                : isActive
-                                ? 'var(--amber-primary)'
-                                : 'var(--charcoal-deep)',
+                            color: 'var(--white)',
                             fontSize: '0.6875rem',
                             fontWeight: 700,
                             padding: '1px 7px',
@@ -355,7 +350,7 @@ export const AdminSidebar = ({ isMobileOpen, setIsMobileOpen }) => {
                 height: '32px',
                 borderRadius: '50%',
                 backgroundColor: 'var(--amber-primary)',
-                color: 'var(--charcoal-deep)',
+                color: 'var(--white)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',

@@ -103,6 +103,7 @@ export const OrderTrackingPage = () => {
             style={{
               display: 'flex',
               gap: '0.75rem',
+              flexWrap: 'wrap',
               marginTop: '1.5rem',
               backgroundColor: 'var(--white)',
               padding: '0.5rem',
@@ -111,7 +112,7 @@ export const OrderTrackingPage = () => {
               boxShadow: 'var(--shadow-sm)'
             }}
           >
-            <div style={{ position: 'relative', flex: 1 }}>
+            <div style={{ position: 'relative', flex: 1, minWidth: '180px' }}>
               <Search
                 size={18}
                 style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--muted-text)' }}
@@ -156,7 +157,7 @@ export const OrderTrackingPage = () => {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
               gap: '1.5rem',
               maxWidth: '1080px',
               margin: '0 auto'
@@ -190,8 +191,8 @@ export const OrderTrackingPage = () => {
                 {/* Interactive Stage Simulation Banner (Demo Flow) */}
                 <div
                   style={{
-                    backgroundColor: '#FFF7ED',
-                    border: '1px solid #FFEDD5',
+                    backgroundColor: '#F9FAFB',
+                    border: '1px solid #EAEAEA',
                     borderRadius: '8px',
                     padding: '8px 12px',
                     marginBottom: '1.25rem',
@@ -202,8 +203,8 @@ export const OrderTrackingPage = () => {
                     gap: '8px'
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8125rem', color: '#9A3412', fontWeight: 600 }}>
-                    <Clock size={14} color="#EA580C" />
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8125rem', color: '#111827', fontWeight: 600 }}>
+                    <Clock size={14} color="#D11243" />
                     <span>Status: <strong>{steps[currentStepIdx]?.label || activeOrder.orderStatus}</strong></span>
                   </div>
                   {currentStepIdx < steps.length - 1 ? (
@@ -216,7 +217,7 @@ export const OrderTrackingPage = () => {
                         }
                       }}
                       style={{
-                        backgroundColor: '#EA580C',
+                        backgroundColor: '#D11243',
                         color: '#FFFFFF',
                         border: 'none',
                         borderRadius: '6px',
@@ -353,7 +354,7 @@ export const OrderTrackingPage = () => {
               <div className="card" style={{ backgroundColor: 'var(--white)' }}>
                 <h4 style={{ fontSize: '1rem', marginBottom: '1rem' }}>Refrigerated Dispatch Courier</h4>
                 {activeOrder.assignedDriverId ? (
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem' }}>
                       <div
                         style={{

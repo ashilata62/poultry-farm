@@ -36,7 +36,7 @@ export const AdminDashboard = () => {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))',
           gap: '1.25rem'
         }}
       >
@@ -153,7 +153,7 @@ export const AdminDashboard = () => {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
           gap: '1.75rem'
         }}
       >
@@ -296,7 +296,9 @@ export const AdminDashboard = () => {
               borderTop: '1px solid var(--border-beige)',
               display: 'flex',
               justifyContent: 'space-between',
-              alignItems: 'center'
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '0.75rem'
             }}
           >
             <div style={{ fontSize: '0.8125rem', color: 'var(--muted-text)' }}>

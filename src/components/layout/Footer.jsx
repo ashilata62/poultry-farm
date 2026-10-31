@@ -24,7 +24,7 @@ export const Footer = () => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))',
             gap: '3rem',
             marginBottom: '3rem'
           }}
@@ -155,7 +155,7 @@ export const Footer = () => {
           <div>
             © {new Date().getFullYear()} The Village Farm. All rights reserved. Commercial Poultry & Delivery SaaS.
           </div>
-          <div style={{ display: 'flex', gap: '1.5rem' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem 1rem' }}>
             <span>Certified Food Safety</span>
             <span>•</span>
             <span>Local Pasture Raised</span>

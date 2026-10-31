@@ -121,9 +121,8 @@ export const CustomersManager = () => {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
             {/* Summary Strip */}
             <div
+              className="form-grid-2"
               style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
                 gap: '1rem',
                 padding: '1rem',
                 backgroundColor: 'var(--soft-cream)',
@@ -158,7 +157,7 @@ export const CustomersManager = () => {
                   No recent orders logged in this current session.
                 </div>
               ) : (
-                <div style={{ border: '1px solid var(--border-beige)', borderRadius: 'var(--radius-sm)', overflow: 'hidden' }}>
+                <div className="table-container" style={{ border: '1px solid var(--border-beige)', borderRadius: 'var(--radius-sm)' }}>
                   <table className="data-table" style={{ fontSize: '0.8125rem' }}>
                     <thead>
                       <tr>

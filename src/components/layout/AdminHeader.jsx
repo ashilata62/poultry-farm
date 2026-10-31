@@ -24,7 +24,7 @@ export const AdminHeader = ({ title, subtitle, onToggleMobileSidebar, extraActio
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', minWidth: 0, flex: 1 }}>
         <button
           onClick={onToggleMobileSidebar}
-          className="hide-on-desktop btn-ghost"
+          className="admin-sidebar-toggle-btn btn-ghost"
           style={{
             padding: '8px',
             borderRadius: 'var(--radius-sm)',

@@ -45,7 +45,7 @@ export const PortalBar = () => {
             <span
               style={{
                 background: currentRole === 'admin' ? 'var(--charcoal-deep)' : 'var(--amber-primary)',
-                color: currentRole === 'admin' ? 'var(--amber-primary)' : 'var(--charcoal-deep)',
+                color: currentRole === 'admin' ? 'var(--amber-primary)' : 'var(--white)',
                 padding: '1px 6px',
                 borderRadius: '10px',
                 fontSize: '0.6875rem',
@@ -68,7 +68,7 @@ export const PortalBar = () => {
             <span
               style={{
                 background: currentRole === 'delivery' ? 'var(--charcoal-deep)' : 'var(--amber-primary)',
-                color: currentRole === 'delivery' ? 'var(--amber-primary)' : 'var(--charcoal-deep)',
+                color: currentRole === 'delivery' ? 'var(--amber-primary)' : 'var(--white)',
                 padding: '1px 6px',
                 borderRadius: '10px',
                 fontSize: '0.6875rem',

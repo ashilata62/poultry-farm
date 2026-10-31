@@ -38,8 +38,6 @@ export const HomePage = () => {
 
   const CATEGORIES = [
     { id: 'Chicken', name: 'Chicken', image: '/images/categories/cat_chicken.jpg' },
-    { id: 'Mutton', name: 'Mutton', image: '/images/categories/cat_mutton.jpg' },
-    { id: 'Sea Food', name: 'Sea Food', image: '/images/categories/cat_seafood.jpg' },
     { id: 'Ready To Cook', name: 'Ready To Cook', image: '/images/categories/cat_readycook.jpg' }
   ];
 
@@ -86,17 +84,17 @@ export const HomePage = () => {
   };
 
   return (
-    <div style={{ backgroundColor: '#FAF8F5', minHeight: '100vh', paddingBottom: '3.5rem' }}>
-      {/* 1. TOP HORIZONTAL CATEGORY CAROUSEL (Exact Client Reference Design) */}
+    <div style={{ backgroundColor: '#FFFFFF', minHeight: '100vh', paddingBottom: '3.5rem' }}>
+      {/* 1. TOP HORIZONTAL CATEGORY CAROUSEL (Licious Clean White Theme) */}
       <div
         style={{
-          backgroundColor: '#FFF9F2',
-          borderBottom: '1px solid rgba(234, 223, 213, 0.85)',
+          backgroundColor: '#FFFFFF',
+          borderBottom: '1px solid #EAEAEA',
           padding: '0.75rem 0',
           position: 'sticky',
           top: 'var(--header-height, 65px)',
           zIndex: 40,
-          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.03)'
+          boxShadow: '0 1px 4px rgba(0, 0, 0, 0.03)'
         }}
       >
         <div
@@ -116,8 +114,8 @@ export const HomePage = () => {
               height: '32px',
               borderRadius: '50%',
               backgroundColor: '#FFFFFF',
-              border: '1px solid #EADFD5',
-              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08)',
+              border: '1px solid #EAEAEA',
+              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.06)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -172,10 +170,10 @@ export const HomePage = () => {
                       height: '54px',
                       borderRadius: '50%',
                       overflow: 'hidden',
-                      border: isSelected ? '2.5px solid #F28C28' : '1.5px solid #EADFD5',
+                      border: isSelected ? '2.5px solid #D11243' : '1.5px solid #EAEAEA',
                       boxShadow: isSelected
-                        ? '0 3px 10px rgba(242, 140, 40, 0.35)'
-                        : '0 2px 5px rgba(0, 0, 0, 0.05)',
+                        ? '0 2px 8px rgba(0, 0, 0, 0.08)'
+                        : '0 1px 3px rgba(0, 0, 0, 0.04)',
                       backgroundColor: '#FFFFFF',
                       display: 'flex',
                       alignItems: 'center',
@@ -200,7 +198,7 @@ export const HomePage = () => {
                       marginTop: '6px',
                       fontSize: '0.8125rem',
                       fontWeight: isSelected ? 700 : 500,
-                      color: isSelected ? '#C05621' : '#374151',
+                      color: isSelected ? '#D11243' : '#374151',
                       whiteSpace: 'nowrap',
                       letterSpacing: '-0.01em'
                     }}
@@ -208,7 +206,7 @@ export const HomePage = () => {
                     {cat.name}
                   </span>
 
-                  {/* Amber Bottom Indicator Underline */}
+                  {/* Red Bottom Indicator Underline */}
                   {isSelected && (
                     <div
                       style={{
@@ -217,7 +215,7 @@ export const HomePage = () => {
                         left: '10%',
                         right: '10%',
                         height: '2.5px',
-                        backgroundColor: '#F28C28',
+                        backgroundColor: '#D11243',
                         borderRadius: '2px'
                       }}
                     />
@@ -236,8 +234,8 @@ export const HomePage = () => {
               height: '32px',
               borderRadius: '50%',
               backgroundColor: '#FFFFFF',
-              border: '1px solid #EADFD5',
-              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08)',
+              border: '1px solid #EAEAEA',
+              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.06)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -260,7 +258,7 @@ export const HomePage = () => {
             Home
           </span>
           <span>/</span>
-          <span style={{ color: '#C05621', fontWeight: 700 }}>{selectedCategory}</span>
+          <span style={{ color: '#D11243', fontWeight: 700 }}>{selectedCategory}</span>
         </div>
       </div>
 
@@ -284,14 +282,14 @@ export const HomePage = () => {
             <button
               onClick={() => setSelectedCategory('Chicken')}
               style={{
-                backgroundColor: '#E27D16',
+                backgroundColor: '#D11243',
                 color: '#FFFFFF',
                 border: 'none',
                 padding: '0.65rem 1.5rem',
                 borderRadius: '8px',
                 fontWeight: 700,
                 cursor: 'pointer',
-                boxShadow: '0 2px 8px rgba(226, 125, 22, 0.35)'
+                boxShadow: '0 2px 8px rgba(209, 18, 67, 0.35)'
               }}
             >
               View Fresh Chicken Cuts
@@ -319,9 +317,9 @@ export const HomePage = () => {
                   style={{
                     backgroundColor: '#FFFFFF',
                     borderRadius: '12px',
-                    border: '1px solid #EBE7DF',
+                    border: '1px solid #EAEAEA',
                     overflow: 'hidden',
-                    boxShadow: '0 3px 12px rgba(0, 0, 0, 0.04)',
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
                     display: 'flex',
                     flexDirection: 'column',
                     cursor: 'pointer',
@@ -330,15 +328,15 @@ export const HomePage = () => {
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'translateY(-3px)';
-                    e.currentTarget.style.boxShadow = '0 8px 22px rgba(0, 0, 0, 0.08)';
+                    e.currentTarget.style.boxShadow = '0 6px 18px rgba(0, 0, 0, 0.07)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 3px 12px rgba(0, 0, 0, 0.04)';
+                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.04)';
                   }}
                 >
                   {/* Photo Container */}
-                  <div style={{ position: 'relative', width: '100%', height: '190px', backgroundColor: '#F3EFEA' }}>
+                  <div style={{ position: 'relative', width: '100%', height: '190px', backgroundColor: '#F8F9FA' }}>
                     <img
                       src={product.image}
                       alt={product.name}
@@ -371,49 +369,26 @@ export const HomePage = () => {
                       </div>
                     )}
 
-                    {/* Amber Trending Tag (Top Right) */}
+                    {/* Red Trending Tag (Top Right) */}
                     {product.trending && (
                       <div
                         style={{
                           position: 'absolute',
                           top: '8px',
                           right: '8px',
-                          backgroundColor: '#EA580C',
+                          backgroundColor: '#D11243',
                           color: '#FFFFFF',
                           fontSize: '0.6875rem',
                           fontWeight: 800,
                           padding: '2.5px 7px',
                           borderRadius: '5px',
                           letterSpacing: '0.02em',
-                          boxShadow: '0 2px 6px rgba(234, 88, 12, 0.35)'
+                          boxShadow: '0 2px 6px rgba(209, 18, 67, 0.35)'
                         }}
                       >
                         Trending
                       </div>
                     )}
-
-                    {/* Warm Amber Bottom Ribbon: "Antibiotic Free" */}
-                    <div
-                      style={{
-                        position: 'absolute',
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        backgroundColor: '#D97706',
-                        color: '#FFFFFF',
-                        fontSize: '0.70rem',
-                        fontWeight: 800,
-                        fontStyle: 'italic',
-                        padding: '3px 10px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '4px',
-                        letterSpacing: '0.03em',
-                        textTransform: 'uppercase'
-                      }}
-                    >
-                      <span>{product.tagText || 'Antibiotic Free'}</span>
-                    </div>
                   </div>
 
                   {/* Card Content */}
@@ -478,7 +453,7 @@ export const HomePage = () => {
                         alignItems: 'flex-end',
                         justifyContent: 'space-between',
                         paddingTop: '6px',
-                        borderTop: '1px solid #F3EFEA'
+                        borderTop: '1px solid #F3F4F6'
                       }}
                     >
                       {/* Price Section */}
@@ -516,10 +491,10 @@ export const HomePage = () => {
                             style={{
                               display: 'inline-flex',
                               alignItems: 'center',
-                              backgroundColor: '#E27D16',
+                              backgroundColor: '#D11243',
                               borderRadius: '7px',
                               overflow: 'hidden',
-                              boxShadow: '0 2px 6px rgba(242, 140, 40, 0.3)',
+                              boxShadow: '0 2px 6px rgba(209, 18, 67, 0.3)',
                               height: '32px'
                             }}
                           >
@@ -588,7 +563,7 @@ export const HomePage = () => {
                               type="button"
                               onClick={(e) => handleAddToCart(e, product)}
                               style={{
-                                backgroundColor: '#E27D16',
+                                backgroundColor: '#D11243',
                                 color: '#FFFFFF',
                                 border: 'none',
                                 borderRadius: '7px',
@@ -596,11 +571,11 @@ export const HomePage = () => {
                                 fontWeight: 800,
                                 fontSize: '0.84375rem',
                                 cursor: 'pointer',
-                                boxShadow: '0 2px 8px rgba(242, 140, 40, 0.3)',
+                                boxShadow: '0 2px 8px rgba(209, 18, 67, 0.3)',
                                 transition: 'background-color 0.15s ease'
                               }}
-                              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#C87522')}
-                              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#E27D16')}
+                              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#B70E3A')}
+                              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#D11243')}
                             >
                               Add
                             </button>
@@ -622,8 +597,8 @@ export const HomePage = () => {
                             onClick={(e) => handleNotifyMe(e, product)}
                             style={{
                               backgroundColor: '#FFFFFF',
-                              color: '#EA580C',
-                              border: '1.5px solid #EA580C',
+                              color: '#D11243',
+                              border: '1.5px solid #D11243',
                               borderRadius: '7px',
                               padding: '5px 12px',
                               fontWeight: 700,
@@ -634,10 +609,10 @@ export const HomePage = () => {
                               gap: '4px',
                               transition: 'background-color 0.15s ease'
                             }}
-                            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(234, 88, 12, 0.08)')}
+                            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(209, 18, 67, 0.08)')}
                             onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#FFFFFF')}
                           >
-                            <Bell size={12} color="#EA580C" />
+                            <Bell size={12} color="#D11243" />
                             <span>Notify me</span>
                           </button>
                         )}
@@ -655,7 +630,7 @@ export const HomePage = () => {
       <div
         className="container"
         style={{
-          borderTop: '1px solid #E5DADA',
+          borderTop: '1px solid #EAEAEA',
           paddingTop: '1.75rem',
           textAlign: 'center'
         }}
@@ -707,6 +682,7 @@ export const HomePage = () => {
       {/* 5. FLOATING QUICK-ORDER CART BAR (Shown when customer adds items) */}
       {cartItemsCount > 0 && (
         <div
+          className="floating-cart-bar"
           style={{
             position: 'fixed',
             bottom: '18px',
@@ -726,27 +702,29 @@ export const HomePage = () => {
             animation: 'slideUp 0.2s ease-out'
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0 }}>
             <div
+              className="cart-bar-badge"
               style={{
                 width: '32px',
                 height: '32px',
                 borderRadius: '8px',
-                backgroundColor: '#E27D16',
+                backgroundColor: '#D11243',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontWeight: 800,
-                fontSize: '0.85rem'
+                fontSize: '0.85rem',
+                flexShrink: 0
               }}
             >
               {cartItemsCount}
             </div>
-            <div>
-              <div style={{ fontSize: '0.90625rem', fontWeight: 800, lineHeight: 1.15 }}>
+            <div style={{ minWidth: 0 }}>
+              <div className="cart-bar-amount" style={{ fontSize: '0.90625rem', fontWeight: 800, lineHeight: 1.15 }}>
                 ₹{cartTotal}
               </div>
-              <div style={{ fontSize: '0.6875rem', color: '#9CA3AF' }}>
+              <div className="cart-bar-subtext" style={{ fontSize: '0.6875rem', color: '#9CA3AF', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 Delivery guaranteed in 90 mins
               </div>
             </div>
@@ -754,8 +732,9 @@ export const HomePage = () => {
 
           <button
             onClick={() => setIsCartDrawerOpen(true)}
+            className="cart-bar-btn"
             style={{
-              backgroundColor: '#E27D16',
+              backgroundColor: '#D11243',
               color: '#FFFFFF',
               border: 'none',
               borderRadius: '8px',
@@ -766,7 +745,8 @@ export const HomePage = () => {
               alignItems: 'center',
               gap: '6px',
               cursor: 'pointer',
-              boxShadow: '0 4px 14px rgba(226, 125, 22, 0.45)'
+              boxShadow: '0 4px 14px rgba(209, 18, 67, 0.45)',
+              flexShrink: 0
             }}
           >
             <span>View Cart & Order</span>

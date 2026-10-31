@@ -1,31 +1,31 @@
 /* ==========================================================================
-   THE VILLAGE FARM — PREMIUM AMBER & CHARCOAL DESIGN SYSTEM
+   THE VILLAGE FARM — MODERN LICIOUS CRISP WHITE & CRIMSON THEME
    ========================================================================== */
 
 :root {
-  /* Brand Palette */
-  --charcoal: #292B2A;
-  --charcoal-deep: #202321;
-  --charcoal-light: #3A3D3C;
-  --amber-primary: #F28C28;
-  --amber-dark: #C87522;
-  --amber-light: #FDE8D3;
-  --amber-soft: #FFF4E8;
-  --warm-ivory: #F7EFE3;
-  --soft-cream: #FFFCF7;
-  --border-beige: #E8DED0;
-  --border-subtle: #F0E8DE;
-  --muted-text: #77746D;
-  --primary-text: #292B2A;
+  /* Brand Palette — Clean White & Licious Crimson Red */
+  --charcoal: #1F2937;
+  --charcoal-deep: #111827;
+  --charcoal-light: #374151;
+  --amber-primary: #D11243;
+  --amber-dark: #B70E3A;
+  --amber-light: #F3F4F6;
+  --amber-soft: #F9FAFB;
+  --warm-ivory: #F9FAFB;
+  --soft-cream: #FFFFFF;
+  --border-beige: #EAEAEA;
+  --border-subtle: #F3F4F6;
+  --muted-text: #6B7280;
+  --primary-text: #111827;
   --white: #FFFFFF;
 
   /* Semantic Feedback */
-  --success-green: #287A4B;
-  --success-bg: #E8F5EE;
-  --warning-amber: #E7A12B;
-  --warning-bg: #FEF7E9;
-  --error-red: #C74440;
-  --error-bg: #FBECEC;
+  --success-green: #16A34A;
+  --success-bg: #ECFDF5;
+  --warning-amber: #F59E0B;
+  --warning-bg: #FFFBEB;
+  --error-red: #D11243;
+  --error-bg: #FEF2F2;
 
   /* Typography */
   --font-heading: 'Playfair Display', Georgia, serif;
@@ -69,7 +69,7 @@ html {
   font-size: 16px;
   line-height: 1.5;
   color: var(--primary-text);
-  background-color: var(--soft-cream);
+  background-color: var(--white);
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -79,7 +79,7 @@ body {
   margin: 0;
   min-height: 100vh;
   overflow-x: hidden;
-  background-color: var(--soft-cream);
+  background-color: var(--white);
   color: var(--primary-text);
 }
 
@@ -225,7 +225,7 @@ p {
 
 .portal-btn.active {
   background: var(--amber-primary);
-  color: var(--charcoal-deep);
+  color: var(--white);
   font-weight: 600;
 }
 
@@ -250,15 +250,15 @@ p {
 
 .btn-primary {
   background-color: var(--amber-primary);
-  color: var(--charcoal-deep);
+  color: var(--white);
   font-weight: 600;
-  box-shadow: 0 2px 4px rgba(242, 140, 40, 0.25);
+  box-shadow: 0 2px 4px rgba(209, 18, 67, 0.25);
 }
 
 .btn-primary:hover {
   background-color: var(--amber-dark);
   color: var(--white);
-  box-shadow: 0 4px 10px rgba(200, 117, 34, 0.35);
+  box-shadow: 0 4px 10px rgba(183, 14, 58, 0.35);
 }
 
 .btn-secondary {
@@ -268,8 +268,8 @@ p {
 }
 
 .btn-secondary:hover {
-  background-color: #EEE4D5;
-  border-color: #DDD2C0;
+  background-color: #F3F4F6;
+  border-color: #E5E7EB;
 }
 
 .btn-outline {
@@ -285,13 +285,13 @@ p {
 
 .btn-outline-amber {
   background: transparent;
-  color: var(--amber-dark);
+  color: var(--amber-primary);
   border: 1.5px solid var(--amber-primary);
 }
 
 .btn-outline-amber:hover {
   background: var(--amber-primary);
-  color: var(--charcoal-deep);
+  color: var(--white);
 }
 
 .btn-ghost {
@@ -405,7 +405,7 @@ p {
 .form-input:focus, .form-select:focus, .form-textarea:focus {
   outline: none;
   border-color: var(--amber-primary);
-  box-shadow: 0 0 0 3px rgba(242, 140, 40, 0.2);
+  box-shadow: 0 0 0 3px rgba(209, 18, 67, 0.2);
 }
 
 .form-input::placeholder, .form-textarea::placeholder {
@@ -622,8 +622,10 @@ p {
   flex-direction: column;
   gap: 1.5rem;
   width: 100%;
+  max-width: 100%;
   min-width: 0;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .admin-action-header {
@@ -665,11 +667,55 @@ p {
   display: none;
 }
 
+/* Admin Sidebar Toggle Button (Controls drawer on tablets & mobile <= 1024px) */
+.admin-sidebar-toggle-btn {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .admin-sidebar-toggle-btn {
+    display: flex !important;
+  }
+
+  .delivery-app-wrapper {
+    height: auto !important;
+    max-height: none !important;
+    min-height: 100vh !important;
+    overflow-y: auto !important;
+  }
+
+  .delivery-app-wrapper > main {
+    overflow: visible !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+}
+
 /* Tablet & Mobile Media Queries */
 @media (max-width: 960px) {
   .dispatch-grid-container {
     grid-template-columns: 1fr !important;
     height: auto !important;
+  }
+
+  .nav-desktop-links {
+    gap: 1rem !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .customer-nav-desktop {
+    display: none !important;
+  }
+
+  .customer-nav-mobile-toggle {
+    display: flex !important;
+  }
+}
+
+@media (min-width: 901px) {
+  .customer-nav-mobile-toggle {
+    display: none !important;
   }
 }
 
@@ -724,8 +770,185 @@ p {
   }
 }
 
+/* Floating Quick Cart Bar Mobile Adjustments */
+@media (max-width: 480px) {
+  .floating-cart-bar {
+    width: calc(100% - 20px) !important;
+    padding: 8px 12px !important;
+    bottom: 12px !important;
+  }
+
+  .floating-cart-bar .cart-bar-badge {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 0.75rem !important;
+  }
+
+  .floating-cart-bar .cart-bar-amount {
+    font-size: 0.8125rem !important;
+  }
+
+  .floating-cart-bar .cart-bar-subtext {
+    font-size: 0.625rem !important;
+  }
+
+  .floating-cart-bar .cart-bar-btn {
+    padding: 6px 12px !important;
+    font-size: 0.75rem !important;
+  }
+}
+
 @media (min-width: 769px) {
   .hide-on-desktop {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   DRIVER PARTNER MOBILE APP SHELL & PHONE FRAME
+   ========================================================================== */
+.driver-page-wrapper {
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% 25%, #242926 0%, #111413 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1rem;
+  box-sizing: border-box;
+}
+
+.driver-phone-chassis {
+  width: 100%;
+  max-width: 412px;
+  height: 860px;
+  max-height: calc(100vh - 36px);
+  background-color: #F8F9FA;
+  border-radius: 46px;
+  box-shadow: 0 25px 70px -15px rgba(0, 0, 0, 0.75), 0 0 0 10px #1E2220, 0 0 0 12px #2E3330;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.driver-device-notch {
+  width: 110px;
+  height: 24px;
+  background-color: #000000;
+  border-radius: 20px;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8px;
+}
+
+.driver-device-camera {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #111;
+  border: 1.5px solid #222;
+}
+
+.driver-status-bar {
+  height: 44px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #111827;
+  flex-shrink: 0;
+  z-index: 40;
+}
+
+.driver-app-body {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 74px; /* for bottom navigation dock */
+  position: relative;
+}
+
+.driver-bottom-nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background-color: #FFFFFF;
+  border-top: 1px solid #E5E7EB;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 45;
+  box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.04);
+}
+
+.driver-nav-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #6B7280;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  padding: 6px 12px;
+  transition: all 0.15s ease;
+}
+
+.driver-nav-tab.active {
+  color: #D11243;
+}
+
+.driver-home-indicator {
+  width: 130px;
+  height: 4px;
+  background-color: #9CA3AF;
+  border-radius: 99px;
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 46;
+  pointer-events: none;
+}
+
+/* Mobile device full-screen override */
+@media (max-width: 540px) {
+  .driver-page-wrapper {
+    padding: 0 !important;
+    background: #F8F9FA !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    max-height: 100dvh !important;
+  }
+
+  .driver-phone-chassis {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .driver-device-notch {
     display: none !important;
   }
 }

@@ -100,7 +100,7 @@ export const OpenStreetMap = ({
         <div style="
           background: #1A1C1B;
           color: #FFF;
-          border: 2.5px solid #F28C28;
+          border: 2.5px solid #D11243;
           border-radius: 50%;
           width: 36px;
           height: 36px;
@@ -121,7 +121,7 @@ export const OpenStreetMap = ({
             border-radius: 50%;
             box-shadow: 0 0 8px #22C55E;
           "></span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F28C28" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D11243" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
             <polyline points="9 22 9 12 15 12 15 22"/>
           </svg>
@@ -135,7 +135,7 @@ export const OpenStreetMap = ({
     const farmMarker = L.marker([farmLocation.lat, farmLocation.lng], { icon: farmIcon })
       .bindPopup(`
         <div style="font-family: var(--font-body, system-ui); padding: 4px; color: #292B2A;">
-          <div style="font-weight: 700; font-size: 13px; color: #F28C28; display: flex; align-items: center; gap: 4px;">
+          <div style="font-weight: 700; font-size: 13px; color: #D11243; display: flex; align-items: center; gap: 4px;">
             <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#22C55E;"></span>
             ${farmLocation.name}
           </div>
@@ -211,7 +211,7 @@ export const OpenStreetMap = ({
         className: 'osm-order-marker',
         html: `
           <div style="
-            background: ${isSelected ? '#C74440' : '#F28C28'};
+            background: ${isSelected ? '#C74440' : '#D11243'};
             color: #FFFFFF;
             border: 2px solid #FFFFFF;
             border-radius: 50%;
@@ -220,7 +220,7 @@ export const OpenStreetMap = ({
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 12px ${isSelected ? 'rgba(199, 68, 64, 0.5)' : 'rgba(242, 140, 40, 0.4)'};
+            box-shadow: 0 4px 12px ${isSelected ? 'rgba(199, 68, 64, 0.5)' : 'rgba(209, 18, 67, 0.4)'};
             transition: all 0.2s ease;
             cursor: pointer;
             transform: ${isSelected ? 'scale(1.15)' : 'scale(1)'};
@@ -242,7 +242,7 @@ export const OpenStreetMap = ({
         <div style="font-family: var(--font-body, system-ui); padding: 4px; min-width: 170px; color: #292B2A;">
           <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #EEE; padding-bottom: 4px; margin-bottom: 6px;">
             <span style="font-weight: 700; font-size: 13px; color: #1A1C1B;">${order.id}</span>
-            <span style="font-size: 10px; font-weight: 700; color: #F28C28; text-transform: uppercase;">${order.orderStatus}</span>
+            <span style="font-size: 10px; font-weight: 700; color: #D11243; text-transform: uppercase;">${order.orderStatus}</span>
           </div>
           <div style="font-weight: 600; font-size: 12px; color: #333;">${order.customerName}</div>
           <div style="font-size: 11px; color: #666; margin-top: 2px; line-height: 1.3;">${order.deliveryAddress}</div>
@@ -280,14 +280,14 @@ export const OpenStreetMap = ({
       ];
 
       const routeGlow = L.polyline(routePoints, {
-        color: '#F28C28',
+        color: '#D11243',
         weight: 6,
         opacity: 0.35,
         lineCap: 'round'
       });
 
       const routeLine = L.polyline(routePoints, {
-        color: '#F28C28',
+        color: '#D11243',
         weight: 3.5,
         opacity: 0.9,
         dashArray: '8, 8',

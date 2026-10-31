@@ -371,7 +371,7 @@ export const OrdersManager = () => {
             </div>
 
             {/* Customer Details */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', fontSize: '0.875rem' }}>
+            <div className="form-grid-2" style={{ gap: '1rem', fontSize: '0.875rem' }}>
               <div style={{ padding: '0.875rem', border: '1px solid var(--border-beige)', borderRadius: 'var(--radius-sm)' }}>
                 <div style={{ fontWeight: 600, color: 'var(--charcoal)', marginBottom: '0.35rem' }}>
                   Customer Details

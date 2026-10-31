@@ -34,7 +34,7 @@ export const Navbar = () => {
         position: 'sticky',
         top: 0,
         zIndex: 90,
-        backgroundColor: 'rgba(255, 252, 247, 0.96)',
+        backgroundColor: 'rgba(255, 255, 255, 0.98)',
         backdropFilter: 'blur(10px)',
         borderBottom: '1px solid var(--border-beige)',
         transition: 'all 0.2s ease'
@@ -58,7 +58,7 @@ export const Navbar = () => {
         </div>
 
         {/* Desktop Navigation Links */}
-        <nav className="hide-on-mobile" style={{ display: 'flex', alignItems: 'center', gap: '1.75rem' }}>
+        <nav className="customer-nav-desktop hide-on-mobile nav-desktop-links" style={{ display: 'flex', alignItems: 'center', gap: 'clamp(0.75rem, 1.6vw, 1.75rem)' }}>
           <button
             onClick={() => handleNavClick('home')}
             style={{
@@ -162,7 +162,7 @@ export const Navbar = () => {
           {/* QR Order Shortcut */}
           <button
             onClick={() => setIsQrModalOpen(true)}
-            className="btn btn-ghost btn-sm hide-on-mobile"
+            className="btn btn-ghost btn-sm customer-nav-desktop hide-on-mobile"
             title="Scan QR to order on your phone"
             style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', color: 'var(--charcoal)' }}
           >
@@ -173,7 +173,7 @@ export const Navbar = () => {
           {/* Sign In to Dashboards Button - Visible on Desktop, in Mobile Menu on Phone */}
           <button
             onClick={() => handleNavClick('login')}
-            className={`btn btn-sm ${customerView === 'login' ? 'btn-primary' : 'btn-secondary'} hide-on-mobile`}
+            className={`btn btn-sm ${customerView === 'login' ? 'btn-primary' : 'btn-secondary'} customer-nav-desktop hide-on-mobile`}
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -196,7 +196,7 @@ export const Navbar = () => {
             aria-label={`Open shopping cart with ${cartItemsCount} items`}
           >
             <ShoppingBag size={18} />
-            <span className="hide-on-mobile">Cart</span>
+            <span className="customer-nav-desktop hide-on-mobile">Cart</span>
             {cartItemsCount > 0 && (
               <span
                 style={{
@@ -217,7 +217,7 @@ export const Navbar = () => {
           {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="btn btn-ghost hide-on-desktop"
+            className="btn btn-ghost customer-nav-mobile-toggle hide-on-desktop"
             style={{ padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             aria-label="Toggle navigation menu"
           >
@@ -229,7 +229,7 @@ export const Navbar = () => {
       {/* Mobile Dropdown Menu */}
       {mobileMenuOpen && (
         <div
-          className="hide-on-desktop"
+          className="customer-nav-mobile-toggle hide-on-desktop"
           style={{
             backgroundColor: 'var(--white)',
             borderTop: '1px solid var(--border-beige)',

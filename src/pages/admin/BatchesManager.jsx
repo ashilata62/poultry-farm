@@ -67,7 +67,7 @@ export const BatchesManager = () => {
   return (
     <div className="admin-page-container">
       {/* Overview Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))', gap: '1rem' }}>
         <div className="card" style={{ padding: '1.25rem' }}>
           <div style={{ fontSize: '0.75rem', color: 'var(--muted-text)', fontWeight: 600 }}>TOTAL LIVE BIRDS</div>
           <div style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--charcoal)', marginTop: '4px' }}>
@@ -277,7 +277,7 @@ export const BatchesManager = () => {
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
+            <div className="form-grid-3">
               <div className="form-group">
                 <label className="form-label">Age in Days *</label>
                 <input

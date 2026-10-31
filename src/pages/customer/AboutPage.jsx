@@ -42,7 +42,7 @@ export const AboutPage = () => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))',
             gap: '2rem',
             marginBottom: '4rem'
           }}
@@ -77,7 +77,7 @@ export const AboutPage = () => {
           style={{
             backgroundColor: 'var(--charcoal-deep)',
             color: 'var(--warm-ivory)',
-            padding: '2.5rem',
+            padding: 'clamp(1.25rem, 4vw, 2.5rem)',
             borderRadius: 'var(--radius-lg)',
             display: 'flex',
             flexDirection: 'column',

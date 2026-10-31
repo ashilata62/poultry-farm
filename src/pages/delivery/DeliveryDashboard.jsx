@@ -237,7 +237,7 @@ export const DeliveryDashboard = () => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))',
             gap: '0.5rem',
             marginBottom: '0.5rem'
           }}
@@ -476,7 +476,7 @@ export const DeliveryDashboard = () => {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
               gap: '1rem'
             }}
           >
@@ -665,11 +665,10 @@ export const DeliveryDashboard = () => {
       {/* VIEW B: LIVE MAP & ROUTE DISPATCH QUEUE (Preserved completely) */}
       {viewMode === 'map' && (
         <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-          {/* Mobile Tab Switcher */}
+          {/* Mobile / Tablet Tab Switcher */}
           <div
-            className="hide-on-desktop"
+            className="dispatch-mobile-tabs"
             style={{
-              display: 'flex',
               backgroundColor: 'var(--white)',
               borderBottom: '1px solid var(--border-beige)',
               padding: '0.5rem 1rem',
@@ -709,7 +708,7 @@ export const DeliveryDashboard = () => {
           >
             {/* LEFT PANEL: Orders List & Filter Controls */}
             <div
-              className={`dispatch-left-panel ${mobileTab === 'map' ? 'hide-on-mobile' : ''}`}
+              className={`dispatch-left-panel ${mobileTab === 'map' ? 'dispatch-panel-hidden' : ''}`}
               style={{
                 backgroundColor: 'var(--white)',
                 borderRight: '1px solid var(--border-beige)',
@@ -846,7 +845,7 @@ export const DeliveryDashboard = () => {
 
             {/* RIGHT PANEL: Map Container & Selected Delivery Detail */}
             <div
-              className={`dispatch-right-panel ${mobileTab === 'list' ? 'hide-on-mobile' : ''}`}
+              className={`dispatch-right-panel ${mobileTab === 'list' ? 'dispatch-panel-hidden' : ''}`}
               style={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -1083,7 +1082,17 @@ export const DeliveryDashboard = () => {
 
       {/* Responsive adjustments */}
       <style>{`
+        .dispatch-mobile-tabs {
+          display: none !important;
+        }
+
         @media (max-width: 1024px) {
+          .dispatch-mobile-tabs {
+            display: flex !important;
+          }
+          .dispatch-panel-hidden {
+            display: none !important;
+          }
           .dispatch-dashboard-root {
             height: auto !important;
             max-height: none !important;
